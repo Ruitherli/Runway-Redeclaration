@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.UIController">
    <children>
       <Label layoutX="136.0" layoutY="10.0" text="Enter Obstacle Data">
@@ -15,7 +14,7 @@
             <Font name="System Bold" size="42.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="dropdownpreset" layoutX="338.0" layoutY="117.0" opacity="0.44" prefHeight="26.0" prefWidth="159.0" />
+      <ChoiceBox fx:id="obstacleDropDown" layoutX="338.0" layoutY="117.0" opacity="0.44" prefHeight="26.0" prefWidth="159.0" />
       <Label layoutX="125.0" layoutY="121.0" text="Choose From Preset Obstacles">
          <font>
             <Font size="15.0" />
@@ -32,18 +31,18 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="dropdownpreset1" accessibleText="Runway Options" layoutX="339.0" layoutY="75.0" opacity="0.44" prefHeight="26.0" prefWidth="158.0" />
+      <ChoiceBox fx:id="runwayDropDown" accessibleText="Runway Options" layoutX="339.0" layoutY="75.0" opacity="0.44" prefHeight="26.0" prefWidth="158.0" />
       <Label layoutX="138.0" layoutY="232.0" text="Distance from Threshold" />
       <Label layoutX="139.0" layoutY="266.0" text="Distance from Centerline" />
       <Label layoutX="139.0" layoutY="299.0" text="Direction of Flight" />
-      <Button fx:id="calculateButton" layoutX="236.0" layoutY="341.0" mnemonicParsing="false" onAction="#goToCalculatePage" onMouseClicked="#goToCalculatePage" onMousePressed="#goToCalculatePage" text="Calculate">
+      <Button fx:id="calculateButton" layoutX="236.0" layoutY="341.0" mnemonicParsing="false" onAction="#goToCalculatePage" text="Calculate">
          <font>
             <Font size="19.0" />
          </font>
       </Button>
-      <TextField fx:id="tBdistanceFromThreshold" layoutX="298.0" layoutY="225.0" promptText="Meters" />
-      <TextField fx:id="tBobstacleHeight" layoutX="298.0" layoutY="192.0" promptText="Meters" />
-      <TextField fx:id="tBdistanceFromCenterline" layoutX="298.0" layoutY="257.0" promptText="Meters" />
-      <ChoiceBox fx:id="dropdownpreset2" layoutX="298.0" layoutY="290.0" opacity="0.44" prefHeight="26.0" prefWidth="133.0" />
+      <TextField fx:id="thresholdText" layoutX="298.0" layoutY="225.0" promptText="Meters" />
+      <TextField fx:id="heightText" layoutX="298.0" layoutY="192.0" promptText="Meters" />
+      <TextField fx:id="centrelineText" layoutX="298.0" layoutY="257.0" promptText="Meters" />
+      <ChoiceBox fx:id="directionDropDown" layoutX="298.0" layoutY="290.0" opacity="0.44" prefHeight="26.0" prefWidth="133.0" />
    </children>
 </AnchorPane>

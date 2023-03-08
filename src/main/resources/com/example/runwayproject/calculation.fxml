@@ -49,7 +49,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="16.0" layoutY="545.0" mnemonicParsing="false" text="Main Page" />
+      <Button layoutX="16.0" layoutY="545.0" mnemonicParsing="false" onAction="#goToObstaclePage" text="Main Page" />
       <Button layoutX="518.0" layoutY="544.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Export" />
       <Button layoutX="269.0" layoutY="546.0" mnemonicParsing="false" text="Visualisation" />
    </children>

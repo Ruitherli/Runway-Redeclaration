@@ -1,8 +1,8 @@
-package com.example.runwayproject;
+package com.example.runwayproject.Model;
 
 public class Runway extends Airport{
     //class variables
-    int tora, toda, asda, lda, obstacleHeight, distanceFromThres, clearway, stopway;
+    int tora, toda, asda, lda, obstacleHeight, distanceFromThres;
     /////displace threshold = tora - lda
     String runwayName;
     boolean obstaclePresent;

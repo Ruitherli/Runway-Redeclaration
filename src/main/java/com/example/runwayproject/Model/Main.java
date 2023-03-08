@@ -1,4 +1,4 @@
-package com.example.runwayproject;
+package com.example.runwayproject.Model;
 
 public class Main {
 
