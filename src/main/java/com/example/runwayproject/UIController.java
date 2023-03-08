@@ -27,9 +27,6 @@ import java.util.logging.Logger;
 public class UIController {
 
     @FXML
-    private ChoiceBox runwayDropDown;
-    ObservableList<Integer> runwayList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9);
-    @FXML
     private TextField heightText;
     @FXML
     private TextField thresholdText;
@@ -64,7 +61,7 @@ public class UIController {
 
    @FXML
    private void initialize(){
-        runwayDropDown.setItems(runwayList);
+
    }
 
 }
