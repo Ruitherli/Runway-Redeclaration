@@ -14,4 +14,7 @@ module com.example.runwayproject {
     opens com.example.runwayproject to javafx.fxml;
     exports com.example.runwayproject;
     exports com.example.runwayproject.Model;
-    opens com.example.runwayproject.Model to javafx.fxml;}
+    opens com.example.runwayproject.Model to javafx.fxml;
+    exports com.example.runwayproject.Controller;
+    opens com.example.runwayproject.Controller to javafx.fxml;
+}

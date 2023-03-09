@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.UIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.UIController">
    <children>
       <Label layoutX="136.0" layoutY="10.0" text="Enter Obstacle Data">
          <font>
@@ -35,7 +35,7 @@
       <Label layoutX="138.0" layoutY="232.0" text="Distance from Threshold" />
       <Label layoutX="139.0" layoutY="266.0" text="Distance from Centerline" />
       <Label layoutX="139.0" layoutY="299.0" text="Direction of Flight" />
-      <Button fx:id="calculateButton" layoutX="236.0" layoutY="341.0" mnemonicParsing="false" onAction="#goToCalculatePage" text="Calculate">
+      <Button fx:id="calculateButton" layoutX="236.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToCalculation" text="Calculate">
          <font>
             <Font size="19.0" />
          </font>
