@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.UIController">
+
+
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="666.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Export " />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="643.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="663.0" prefWidth="259.0">
+                    <children>
+                        <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TitledPane animated="false" text="Declared Distances">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
+                                 <children>
+                                    <TableView layoutX="-1.0" layoutY="31.0" prefHeight="107.0" prefWidth="383.0">
+                                      <columns>
+                                        <TableColumn prefWidth="63.98401069641113" text="Runway" />
+                                        <TableColumn prefWidth="56.78083038330078" text="TORA" />
+                                          <TableColumn prefWidth="56.35845184326172" text="TODA" />
+                                          <TableColumn prefWidth="51.46009826660156" text="LDA" />
+                                          <TableColumn prefWidth="73.21914672851562" text="ADDA" />
+                                          <TableColumn prefWidth="80.28082275390625" text="Threshold" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="120.0" layoutY="145.0" text="Recalculated Distances">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView layoutY="172.0" prefHeight="107.0" prefWidth="383.0">
+                                       <columns>
+                                          <TableColumn prefWidth="63.98401069641113" text="Runway" />
+                                          <TableColumn prefWidth="56.78083038330078" text="TORA" />
+                                          <TableColumn prefWidth="56.35845184326172" text="TODA" />
+                                          <TableColumn prefWidth="51.46009826660156" text="LDA" />
+                                          <TableColumn prefWidth="73.21914672851562" text="ADDA" />
+                                          <TableColumn prefWidth="80.28082275390625" text="Threshold" />
+                                       </columns>
+                                    </TableView>
+                                 </children></AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" prefHeight="393.0" prefWidth="384.0" text="Calculation  Breakdown">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="493.0" prefWidth="382.0">
+                                 <children>
+                                    <TextField layoutX="-1.0" prefHeight="377.0" prefWidth="386.0" />
+                                 </children></AnchorPane>
+                                    </content>
+                                </TitledPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="565.0">
+                           <children>
+                              <TabPane layoutX="-4.0" prefHeight="700.0" prefWidth="771.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab text="Side View " />
+                                  <Tab text="Top Down View" />
+                                </tabs>
+                              </TabPane>
+                           </children></AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="271.0">
+                                    <children>
+                                        <VBox prefHeight="660.6666666666666" prefWidth="390.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-35.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <TitledPane animated="false" text="Runway">
+                                                    <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                    </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" text="Obstacle">
+                                                    <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                    </content>
+                                                </TitledPane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

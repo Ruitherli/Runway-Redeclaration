@@ -34,10 +34,10 @@ public class SceneController implements Initializable {
     }
 
     public void switchToCalculation (ActionEvent event) throws IOException {
-        selectScene(event, "calculation.fxml");
+        selectScene(event, "ATC page");
     }
 
     public void switchToObstacle (ActionEvent event) throws IOException {
-        selectScene(event, "obstacle.fxml");
+        selectScene(event, "ATC page.fxml");
     }
 }
