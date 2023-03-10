@@ -10,6 +10,7 @@ module com.example.runwayproject {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.logging;
+    requires java.sql;
 
     opens com.example.runwayproject to javafx.fxml;
     exports com.example.runwayproject;
