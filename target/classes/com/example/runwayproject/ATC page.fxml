@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.UIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -39,7 +39,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="643.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
+        <SplitPane fx:id="splitPlaneOne" dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="643.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
@@ -49,18 +49,15 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView layoutX="-1.0" layoutY="31.0" prefHeight="107.0" prefWidth="383.0">
+                                    <TableView fx:id="oriDistanceTable" layoutX="-1.0" layoutY="31.0" prefHeight="107.0" prefWidth="383.0">
                                       <columns>
-                                        <TableColumn prefWidth="63.98401069641113" text="Designator" />
-                                        <TableColumn prefWidth="56.78083038330078" text="TORA" />
+                                        <TableColumn prefWidth="73.0" text="Designator" />
+                                        <TableColumn prefWidth="48.0" text="TORA" />
                                           <TableColumn prefWidth="56.35845184326172" text="TODA" />
                                           <TableColumn prefWidth="51.46009826660156" text="LDA" />
                                           <TableColumn prefWidth="73.21914672851562" text="ASDA" />
                                           <TableColumn prefWidth="80.28082275390625" text="Threshold" />
                                       </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
                                     </TableView>
                                     <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
                                        <font>
@@ -72,23 +69,20 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TableView layoutY="172.0" prefHeight="107.0" prefWidth="383.0">
+                                    <TableView fx:id="recDistanceTable" layoutY="172.0" prefHeight="107.0" prefWidth="383.0">
                                        <columns>
-                                          <TableColumn prefWidth="63.98401069641113" text="Runway" />
-                                          <TableColumn prefWidth="56.78083038330078" text="TORA" />
+                                          <TableColumn prefWidth="75.0" text="Designator" />
+                                          <TableColumn prefWidth="52.0" text="TORA" />
                                           <TableColumn prefWidth="56.35845184326172" text="TODA" />
                                           <TableColumn prefWidth="51.46009826660156" text="LDA" />
                                           <TableColumn prefWidth="73.21914672851562" text="ASDA" />
                                           <TableColumn prefWidth="80.28082275390625" text="Threshold" />
                                        </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
                                     </TableView>
                                  </children></AnchorPane>
                                     </content>
                                 </TitledPane>
-                                <TitledPane animated="false" prefHeight="393.0" prefWidth="384.0" text="Calculation  Breakdown">
+                                <TitledPane animated="false" prefHeight="393.0" prefWidth="384.0" text="Calculation Breakdown">
                            <content>
                               <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
@@ -138,7 +132,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane fx:id="splitPlaneTwo" dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
