@@ -2,11 +2,12 @@ package com.example.runwayproject.Model;
 
 public class Airport {
     //class variables
-    int blastProtection, resa, stripEnd, tocs, als;
+    //int blastProtection, resa, stripEnd, tocs, als;
+    int id;
     String airportName;
 
     //getter setter
-    public int getBlastProtection() {
+    /*public int getBlastProtection() {
         return blastProtection;
     }
     public void setBlastProtection(int blastProtection) {
@@ -35,6 +36,13 @@ public class Airport {
     }
     public void setAls(int als) {
         this.als = als;
+    }*/
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     public String getAirportName() {
         return airportName;
@@ -44,18 +52,23 @@ public class Airport {
     }
 
     //constructor
-    Airport(String airportName, int blastProtection, int resa, int stripEnd, int tocs, int als){
+    /*Airport(String airportName, int blastProtection, int resa, int stripEnd, int tocs, int als){
         setAirportName(airportName);
         setBlastProtection(blastProtection);
         setResa(resa);
         setStripEnd(stripEnd);
         setTocs(tocs);
         setAls(als);
+    }*/
+
+    Airport(String airportName, int id){
+        setAirportName(airportName);
+        setId(id);
     }
 
     //method
-    int getSignificant(){
+    /*int getSignificant(){
         return Math.max(getBlastProtection(), (getResa()+getStripEnd()));
-    }
+    }*/
 
 }
