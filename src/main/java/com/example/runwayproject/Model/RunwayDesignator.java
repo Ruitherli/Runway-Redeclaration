@@ -2,7 +2,7 @@ package com.example.runwayproject.Model;
 
 public class RunwayDesignator {
     //class variables
-    private int tora, toda, asda, lda;
+    private int tora, toda, asda, lda, displacedThres;
     /////displace threshold = tora - lda
     private String runwayDesignatorName;
 
@@ -31,6 +31,15 @@ public class RunwayDesignator {
     public void setLda(int lda) {
         this.lda = lda;
     }
+
+    public int getDisplacedThres() {
+        return displacedThres;
+    }
+
+    public void setDisplacedThres(int displacedThres) {
+        this.displacedThres = displacedThres;
+    }
+
     public String getRunwayDesignatorName() {
         return runwayDesignatorName;
     }
@@ -46,12 +55,13 @@ public class RunwayDesignator {
 
 
     //constructor (no obstacle)
-    RunwayDesignator(int tora, int toda, int asda, int lda, String runwayDesignatorName){
+    RunwayDesignator(int tora, int toda, int asda, int lda, int displacedThres, String runwayDesignatorName){
         setAsda(asda);
         setRunwayDesignatorName(runwayDesignatorName);
         setLda(lda);
         setToda(toda);
         setTora(tora);
+        setDisplacedThres(displacedThres);
     }
 
 
