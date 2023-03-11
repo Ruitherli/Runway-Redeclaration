@@ -5,10 +5,10 @@ public class Main {
 
     public static void main(String[] args) {
 //int tora, int toda, int asda, int lda, String runwayName
-        RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, "09L");
-        RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, "27R");
-        RunwayDesignator l2 = new RunwayDesignator(3660, 3660, 3660, 3660, "27L");
-        RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, "09R");
+        RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
+        RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
+        RunwayDesignator l2 = new RunwayDesignator(3660, 3660, 3660, 3660, 0,"27L");
+        RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307,"09R");
 
         Obstacle o1 = new Obstacle("obs 1",12,10,10,3646,-50,0,Obstacle.Direction.Centre);
         Obstacle o2 = new Obstacle("obs 2",25,10,10,2853,500,20,Obstacle.Direction.South);
