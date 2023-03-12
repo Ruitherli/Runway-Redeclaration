@@ -3,9 +3,9 @@ package com.example.runwayproject.Model;
 public class Obstacle {
     //variables
     String obstacleName;
-    int height, length, width, distanceThresR, distanceThresL, distanceFromCenterline;
+    int height, length, width;/*, distanceThresR, distanceThresL, distanceFromCenterline;
     Direction direction;
-    enum Direction {North, South, Centre}
+    enum Direction {North, South, Centre}*/
 
     //getter setter
 
@@ -17,7 +17,7 @@ public class Obstacle {
         this.height = height;
     }
 
-    public int getDistanceThresR() {
+    /*public int getDistanceThresR() {
         return distanceThresR;
     }
 
@@ -47,7 +47,7 @@ public class Obstacle {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
-    }
+    }*/
 
     public String getObstacleName() {
         return obstacleName;
@@ -73,14 +73,14 @@ public class Obstacle {
         this.width = width;
     }
 
-    public Obstacle(String obstacleName, int height, int length, int width, int distanceThresR, int distanceThresL, int distanceFromCenterline, Direction direction) {
+    public Obstacle(String obstacleName, int height, int length, int width) {
         this.obstacleName = obstacleName;
         this.height = height;
         this.length = length;
         this.width = width;
-        this.distanceThresR = distanceThresR;
+        /*this.distanceThresR = distanceThresR;
         this.distanceThresL = distanceThresL;
         this.distanceFromCenterline = distanceFromCenterline;
-        this.direction = direction;
+        this.direction = direction;*/
     }
 }
