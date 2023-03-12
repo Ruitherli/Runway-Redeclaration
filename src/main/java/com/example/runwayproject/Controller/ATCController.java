@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ATCController extends SceneController{
+public class ATCController extends MainController {
 
     @FXML
     private Text alsText;

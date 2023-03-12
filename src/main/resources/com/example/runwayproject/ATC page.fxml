@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -60,7 +60,7 @@
                                         <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="78.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
                                       </columns>
                                     </TableView>
                                     <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
@@ -79,7 +79,7 @@
                                           <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="78.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
                                        </columns>
                                     </TableView>
                                  </children></AnchorPane>

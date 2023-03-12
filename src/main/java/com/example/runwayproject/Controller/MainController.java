@@ -6,8 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -17,7 +15,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SceneController implements Initializable {
+public class MainController implements Initializable {
 
     public Stage stage;
     public Scene scene;
@@ -45,11 +43,11 @@ public class SceneController implements Initializable {
         stage.centerOnScreen();
     }
 
-    public void switchToCalculation (ActionEvent event) throws IOException {
-        selectScene(event, "ATC page");
+    public void switchToATC (ActionEvent event) throws IOException {
+        selectScene(event, "ATC page.fxml");
     }
 
-    public void switchToObstacle (ActionEvent event) throws IOException {
-        selectScene(event, "ATC page.fxml");
+    public void switchToAM (ActionEvent event) throws IOException {
+        selectScene(event, "AM page.fxml");
     }
 }

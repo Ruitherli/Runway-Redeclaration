@@ -1,120 +1,470 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.AMPage">
-   <children>
-      <AnchorPane layoutX="-11.0" prefHeight="654.0" prefWidth="666.0">
-         <children>
-            <GridPane layoutX="173.0" layoutY="123.0" prefHeight="95.0" prefWidth="356.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="164.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="38.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="154.0" minWidth="10.0" prefWidth="154.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Runway: ">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="Runway in Use:" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label text="Obstacle:" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
-            <GridPane layoutX="103.0" layoutY="245.0" prefHeight="267.0" prefWidth="492.0">
-              <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="264.0" minWidth="10.0" prefWidth="264.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="45.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="85.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="98.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="265.0" text="Obstacle Distance from THR LEFT:" textAlignment="RIGHT">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="265.0" text="Obstacle Distance from THR RIGHT:" textAlignment="RIGHT" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="263.0" text="Obstacle Height:" textAlignment="RIGHT" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="264.0" text="Obstacle Side of C/L:" textAlignment="RIGHT" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="265.0" text="Obstacle Distance from C/L:" textAlignment="RIGHT" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label text=" m" GridPane.columnIndex="3" />
-                  <Label text=" m" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label text=" m" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Label text=" m" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Label text=" m" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="2" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
-            <Button layoutX="221.0" layoutY="533.0" mnemonicParsing="false" text="Calculate">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
-            <Label layoutX="250.0" layoutY="56.0" text="Airport Name">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Button layoutX="360.0" layoutY="533.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="115.0" text="Clear">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </children>
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="820.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Export " />
+                  <MenuItem mnemonicParsing="false" text="Import" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="797.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
+            <items>
+                <AnchorPane minHeight="663.0" minWidth="385.0" prefHeight="663.0" prefWidth="259.0">
+                    <children>
+                        <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <TitledPane animated="false" text="Declared Distances">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
+                                 <children>
+                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="370.0">
+                                      <columns>
+                                        <TableColumn text="Designator" />
+                                        <TableColumn prefWidth="73.0" text="TORA" />
+                                          <TableColumn prefWidth="82.0" text="TODA" />
+                                          <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                      </columns>
+                                    </TableView>
+                                    <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="120.0" layoutY="145.0" text="Recalculated Distances">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="370.0">
+                                       <columns>
+                                          <TableColumn text="Designator" />
+                                          <TableColumn prefWidth="73.0" text="TORA" />
+                                          <TableColumn prefWidth="82.0" text="TODA" />
+                                          <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                       </columns>
+                                    </TableView>
+                                 </children></AnchorPane>
+                                    </content>
+                                </TitledPane>
+                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Calculation Breakdown">
+                           <content>
+                              <TabPane prefHeight="341.0" prefWidth="383.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab text="TORA">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab text="TODA">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab text="LDA">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab text="ASDA">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </content>
+                                </TitledPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane minHeight="0.0" minWidth="790.0" prefHeight="661.0" prefWidth="565.0">
+                           <children>
+                              <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <tabs>
+                                  <Tab text="Side View " />
+                                  <Tab text="Top Down View" />
+                                </tabs>
+                              </TabPane>
+                           </children></AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="376.0" prefHeight="661.0" prefWidth="271.0">
+                                    <children>
+                                        <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                    <TitledPane animated="false" text="Runway">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="359.0">
+                                             <children>
+                                                <TableView fx:id="runwayTable" layoutX="14.0" layoutY="183.0" prefHeight="102.0" prefWidth="342.0">
+                                                   <columns>
+                                                      <TableColumn prefWidth="92.0" text="Designator" />
+                                                      <TableColumn prefWidth="79.0" text="Clearway" />
+                                                      <TableColumn prefWidth="82.0" text="Stopway" />
+                                                      <TableColumn prefWidth="88.0" text="Threshold" />
+                                                   </columns>
+                                                </TableView>
+                                                <GridPane layoutX="14.0" layoutY="11.0" prefHeight="160.0" prefWidth="342.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="114.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="228.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Runway">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Strip End" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Blast Protection" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ALS" GridPane.rowIndex="4">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TOCS" GridPane.rowIndex="5">
+                                                         <font>
+                                                            <Font name="System Bold" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                      <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                      <Text fx:id="blastProtectionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                      <Text fx:id="alsText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                      <Text fx:id="tocsText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="444.0" prefWidth="376.0" text="Obstacle">
+                                       <content>
+                                          <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                                            <tabs>
+                                              <Tab text="New Object">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="324.0" prefWidth="335.0">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="82.0" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" GridPane.rowIndex="6">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" GridPane.rowIndex="7">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" GridPane.rowIndex="9">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <TextField fx:id="nameTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" />
+                                                                  <TextField fx:id="heightTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <TextField fx:id="widthTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                  <TextField fx:id="lengthTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                  <TextField fx:id="thresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                  <TextField fx:id="thresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                                  <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                               </children>
+                                                            </GridPane>
+                                                            <Button fx:id="objectAddButton" layoutX="105.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="objectResetButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </Tab>
+                                              <Tab text="Preset Object">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="324.0" prefWidth="335.0">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="82.0" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Width" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" GridPane.rowIndex="6">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" GridPane.rowIndex="7">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" GridPane.rowIndex="9">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <ComboBox fx:id="presetDirectionComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <TextField fx:id="presetThresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                                  <TextField fx:id="presetThresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                                  <TextField fx:id="presetCenterlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                                  <Text fx:id="presetHeightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <Text fx:id="presetLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                  <Text fx:id="presetWidthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                                  <ComboBox fx:id="presetNameComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" />
+                                                               </children>
+                                                            </GridPane>
+                                                            <Button fx:id="presetAddButton" layoutX="105.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="presetResetButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </Tab>
+                                            </tabs>
+                                          </TabPane>
+                                       </content>
+                                    </TitledPane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>
