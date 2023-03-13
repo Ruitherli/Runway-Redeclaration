@@ -1,6 +1,7 @@
 package com.example.runwayproject.Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
@@ -60,6 +61,10 @@ public class ATCController extends MainController {
 
     @FXML
     private Text widthText;
+
+    @FXML
+    private Button ATClogout;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         formatTable(oriDistanceTable);
