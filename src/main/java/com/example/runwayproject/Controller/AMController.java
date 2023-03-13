@@ -98,6 +98,9 @@ public class AMController extends MainController {
     @FXML
     private TextField widthTextField;
 
+    @FXML
+    private Button AMlogout;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         formatTable(runwayTable);
