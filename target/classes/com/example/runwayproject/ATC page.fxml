@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -130,13 +130,9 @@
                               </TabPane>
                            </content>
                                 </TitledPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="ATClogout" layoutX="2.0" layoutY="153.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                           </children>
-                        </AnchorPane>
                             </children>
                         </VBox>
+                  <Button fx:id="ATClogout" layoutX="3.0" layoutY="848.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
@@ -212,7 +208,7 @@
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <Text fx:id="blastProtectionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />

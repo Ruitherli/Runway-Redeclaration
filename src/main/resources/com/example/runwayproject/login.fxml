@@ -10,25 +10,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
    <children>
       <SplitPane dividerPositions="0.7119483315392895" layoutX="55.0" layoutY="28.0" prefHeight="820.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane>
                <children>
-                  <ImageView fitHeight="830.0" fitWidth="1101.0" layoutX="-3.0" layoutY="-13.0" pickOnBounds="true">
+                  <ImageView fitHeight="956.0" fitWidth="1617.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
                      <image>
                         <Image url="@../../../images/background.jpg" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="274.0" layoutY="53.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
+                  <Label alignment="CENTER" layoutX="262.0" layoutY="67.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
                      <font>
                         <Font name="System Bold" size="59.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="450.0" prefHeight="157.0" prefWidth="166.0" style="-fx-background-color: white;">
+          <AnchorPane minHeight="0.0" minWidth="450.0" prefHeight="898.0" prefWidth="390.0" style="-fx-background-color: white;">
                <children>
                   <AnchorPane layoutX="-84.0" layoutY="127.0" prefHeight="399.0" prefWidth="571.0">
                      <children>

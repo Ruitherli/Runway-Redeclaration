@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -47,7 +47,7 @@
         </MenuBar>
         <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="643.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="663.0" minWidth="385.0" prefHeight="663.0" prefWidth="259.0">
+                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
                         <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -55,13 +55,13 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="370.0">
+                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="382.0">
                                       <columns>
                                         <TableColumn text="Designator" />
                                         <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="77.0" text="ASDA" />
                                       </columns>
                                     </TableView>
                                     <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
@@ -74,13 +74,13 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="370.0">
+                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="381.0">
                                        <columns>
                                           <TableColumn text="Designator" />
                                           <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="76.0" text="ASDA" />
                                        </columns>
                                     </TableView>
                                  </children></AnchorPane>
@@ -130,20 +130,16 @@
                               </TabPane>
                            </content>
                                 </TitledPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="ATClogout" layoutX="2.0" layoutY="153.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                           </children>
-                        </AnchorPane>
                             </children>
                         </VBox>
+                  <Button fx:id="ATClogout" layoutX="3.0" layoutY="848.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="790.0" prefHeight="661.0" prefWidth="565.0">
+                                <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
@@ -152,7 +148,7 @@
                                 </tabs>
                               </TabPane>
                            </children></AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="376.0" prefHeight="661.0" prefWidth="271.0">
+                                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="661.0" prefWidth="271.0">
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
@@ -212,7 +208,7 @@
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <Text fx:id="blastProtectionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />

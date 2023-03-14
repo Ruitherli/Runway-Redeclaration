@@ -84,6 +84,12 @@ public class AMController extends MainController {
     private TableView<?> runwayTable;
 
     @FXML
+    private TableView<?> runwayObjectTable;
+
+    @FXML
+    private TableView<?> objectTable;
+
+    @FXML
     private Text stripEndText;
 
     @FXML
@@ -104,7 +110,7 @@ public class AMController extends MainController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         formatTable(runwayTable);
-        formatTable(recDistanceTable);
-        formatTable(oriDistanceTable);
+        formatTable(runwayObjectTable);
+        formatTable(objectTable);
     }
 }

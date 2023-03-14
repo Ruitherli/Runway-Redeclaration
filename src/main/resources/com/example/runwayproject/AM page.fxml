@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1551.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
@@ -48,103 +47,52 @@
         </MenuBar>
         <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="797.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="663.0" minWidth="385.0" prefHeight="663.0" prefWidth="259.0">
+                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
-                        <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="-179.0" prefHeight="753.0" prefWidth="385.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <TitledPane animated="false" text="Declared Distances">
+                                <TitledPane animated="false" text="Runway w/Objects">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="370.0">
+                                    <TableView fx:id="runwayObjectTable" layoutX="11.0" layoutY="13.0" prefHeight="263.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                        <TableColumn text="Designator" />
-                                        <TableColumn prefWidth="73.0" text="TORA" />
-                                          <TableColumn prefWidth="82.0" text="TODA" />
-                                          <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                        <TableColumn prefWidth="75.0" text="Runway" />
+                                        <TableColumn prefWidth="89.0" text="Object name" />
+                                          <TableColumn prefWidth="62.0" text="Height" />
+                                          <TableColumn prefWidth="76.0" text="Weight" />
+                                          <TableColumn prefWidth="73.0" text="Length" />
                                       </columns>
-                                    </TableView>
-                                    <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="120.0" layoutY="145.0" text="Recalculated Distances">
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </Label>
-                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="370.0">
-                                       <columns>
-                                          <TableColumn text="Designator" />
-                                          <TableColumn prefWidth="73.0" text="TORA" />
-                                          <TableColumn prefWidth="82.0" text="TODA" />
-                                          <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
-                                       </columns>
                                     </TableView>
                                  </children></AnchorPane>
                                     </content>
                                 </TitledPane>
-                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Calculation Breakdown">
+                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Preset Objects">
                            <content>
-                              <TabPane prefHeight="341.0" prefWidth="383.0" tabClosingPolicy="UNAVAILABLE">
-                                <tabs>
-                                  <Tab text="TORA">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                    </content>
-                                  </Tab>
-                                    <Tab text="TODA">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
-                                    <Tab text="LDA">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
-                                    <Tab text="ASDA">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TextArea layoutX="14.0" prefHeight="338.0" prefWidth="382.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
-                                </tabs>
-                              </TabPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="objectTable" layoutX="11.0" layoutY="20.0" prefHeight="317.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="128.0" text="Name" />
+                                        <TableColumn prefWidth="78.0" text="Height" />
+                                          <TableColumn prefWidth="87.0" text="Weight" />
+                                          <TableColumn prefWidth="82.0" text="Length" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
                            </content>
                                 </TitledPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="AMlogout" layoutX="3.0" layoutY="149.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                           </children>
-                        </AnchorPane>
                             </children>
                         </VBox>
+                  <Button fx:id="AMlogout" layoutX="3.0" layoutY="847.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="790.0" prefHeight="661.0" prefWidth="565.0">
+                                <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
@@ -153,7 +101,7 @@
                                 </tabs>
                               </TabPane>
                            </children></AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="376.0" prefHeight="661.0" prefWidth="271.0">
+                                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="661.0" prefWidth="271.0">
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
@@ -213,7 +161,7 @@
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <Text fx:id="blastProtectionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -233,7 +181,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="324.0" prefWidth="335.0">
+                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
@@ -297,7 +245,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                      </font>
                                                                   </Text>
-                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -335,10 +283,11 @@
                                                                   <TextField fx:id="thresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                                   <TextField fx:id="thresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                                   <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                                  <CheckBox mnemonicParsing="false" text="Add to Preset" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="objectAddButton" layoutX="105.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="objectResetButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="objectAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="objectResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -347,7 +296,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="324.0" prefWidth="335.0">
+                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
@@ -411,7 +360,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                      </font>
                                                                   </Text>
-                                                                  <ComboBox fx:id="presetDirectionComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <ComboBox fx:id="presetDirectionComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -448,11 +397,11 @@
                                                                   <Text fx:id="presetHeightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Text fx:id="presetLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                   <Text fx:id="presetWidthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                  <ComboBox fx:id="presetNameComboBox" prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" />
+                                                                  <ComboBox fx:id="presetNameComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="presetAddButton" layoutX="105.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="presetResetButton" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="presetAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="presetResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
