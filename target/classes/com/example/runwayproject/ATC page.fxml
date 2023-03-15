@@ -47,21 +47,26 @@
         </MenuBar>
         <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="643.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="663.0" minWidth="385.0" prefHeight="663.0" prefWidth="259.0">
+                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
                         <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
+                        <Label alignment="CENTER" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Air Traffic Control access">
+                           <font>
+                              <Font name="System Italic" size="15.0" />
+                           </font>
+                        </Label>
                                 <TitledPane animated="false" text="Declared Distances">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="370.0">
+                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="31.0" prefHeight="107.0" prefWidth="382.0">
                                       <columns>
                                         <TableColumn text="Designator" />
                                         <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="77.0" text="ASDA" />
                                       </columns>
                                     </TableView>
                                     <Label layoutX="138.0" layoutY="4.0" text="Original Distances">
@@ -74,13 +79,13 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="370.0">
+                                    <TableView fx:id="recDistanceTable" layoutX="6.0" layoutY="170.0" prefHeight="107.0" prefWidth="381.0">
                                        <columns>
                                           <TableColumn text="Designator" />
                                           <TableColumn prefWidth="73.0" text="TORA" />
                                           <TableColumn prefWidth="82.0" text="TODA" />
                                           <TableColumn minWidth="0.0" prefWidth="69.0" text="LDA" />
-                                          <TableColumn minWidth="1.0" prefWidth="65.0" text="ASDA" />
+                                          <TableColumn minWidth="1.0" prefWidth="76.0" text="ASDA" />
                                        </columns>
                                     </TableView>
                                  </children></AnchorPane>
@@ -135,20 +140,42 @@
                   <Button fx:id="ATClogout" layoutX="3.0" layoutY="848.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="790.0" prefHeight="661.0" prefWidth="565.0">
+                                <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
-                                  <Tab text="Side View " />
-                                  <Tab text="Top Down View" />
+                                  <Tab text="Side View ">
+                                       <content>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content></Tab>
+                                  <Tab text="Top Down View">
+                                       <content>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content></Tab>
                                 </tabs>
                               </TabPane>
                            </children></AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="376.0" prefHeight="661.0" prefWidth="271.0">
+                                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="661.0" prefWidth="271.0">
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
@@ -311,5 +338,6 @@
                 </AnchorPane>
             </items>
         </SplitPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="395.0" />
     </children>
 </AnchorPane>
