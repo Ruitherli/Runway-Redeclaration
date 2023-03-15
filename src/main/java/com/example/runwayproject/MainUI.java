@@ -24,7 +24,6 @@ public class MainUI extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.show();
-
             primaryStage.centerOnScreen();
 
         }catch (Exception e){
