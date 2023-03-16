@@ -47,7 +47,7 @@
         </MenuBar>
         <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="23.0" prefHeight="797.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="663.0" minWidth="385.0" prefHeight="663.0" prefWidth="259.0">
+                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
                         <VBox layoutX="-179.0" prefHeight="753.0" prefWidth="385.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -60,8 +60,8 @@
                                         <TableColumn prefWidth="75.0" text="Runway" />
                                         <TableColumn prefWidth="89.0" text="Object name" />
                                           <TableColumn prefWidth="62.0" text="Height" />
-                                          <TableColumn prefWidth="65.0" text="Weight" />
-                                          <TableColumn prefWidth="71.0" text="Length" />
+                                          <TableColumn prefWidth="76.0" text="Weight" />
+                                          <TableColumn prefWidth="73.0" text="Length" />
                                       </columns>
                                     </TableView>
                                  </children></AnchorPane>
@@ -75,8 +75,8 @@
                                       <columns>
                                         <TableColumn prefWidth="128.0" text="Name" />
                                         <TableColumn prefWidth="78.0" text="Height" />
-                                          <TableColumn prefWidth="78.0" text="Weight" />
-                                          <TableColumn prefWidth="75.0" text="Length" />
+                                          <TableColumn prefWidth="87.0" text="Weight" />
+                                          <TableColumn prefWidth="82.0" text="Length" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -88,11 +88,11 @@
                   <Button fx:id="AMlogout" layoutX="3.0" layoutY="847.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="160.0" minWidth="1166.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <SplitPane dividerPositions="0.67" layoutX="373.0" layoutY="151.0" prefHeight="663.3333333333334" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="790.0" prefHeight="661.0" prefWidth="565.0">
+                                <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
@@ -101,7 +101,7 @@
                                 </tabs>
                               </TabPane>
                            </children></AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="376.0" prefHeight="661.0" prefWidth="271.0">
+                                <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="661.0" prefWidth="271.0">
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
