@@ -51,6 +51,11 @@
                     <children>
                         <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
+                        <Label alignment="CENTER" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Air Traffic Control access">
+                           <font>
+                              <Font name="System Italic" size="15.0" />
+                           </font>
+                        </Label>
                                 <TitledPane animated="false" text="Declared Distances">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
@@ -143,8 +148,30 @@
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
-                                  <Tab text="Side View " />
-                                  <Tab text="Top Down View" />
+                                  <Tab text="Side View ">
+                                       <content>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content></Tab>
+                                  <Tab text="Top Down View">
+                                       <content>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content></Tab>
                                 </tabs>
                               </TabPane>
                            </children></AnchorPane>
@@ -311,5 +338,6 @@
                 </AnchorPane>
             </items>
         </SplitPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="395.0" />
     </children>
 </AnchorPane>
