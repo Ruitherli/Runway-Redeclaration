@@ -1,4 +1,4 @@
-package com.example.runwayproject;
+package com.example.runwayproject.View;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ public class MainUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         try{
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/login.fxml")));
             primaryStage.setTitle("Runway Redeclaration Tool");
             primaryStage.setResizable(false);
             Scene scene = new Scene(root);

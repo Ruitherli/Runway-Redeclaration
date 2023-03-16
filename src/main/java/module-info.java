@@ -13,9 +13,10 @@ module com.example.runwayproject {
     requires java.sql;
 
     opens com.example.runwayproject to javafx.fxml;
-    exports com.example.runwayproject;
     exports com.example.runwayproject.Model;
     opens com.example.runwayproject.Model to javafx.fxml;
     exports com.example.runwayproject.Controller;
     opens com.example.runwayproject.Controller to javafx.fxml;
+    exports com.example.runwayproject.View;
+    opens com.example.runwayproject.View to javafx.fxml;
 }
