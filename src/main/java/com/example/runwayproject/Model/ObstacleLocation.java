@@ -2,8 +2,8 @@ package com.example.runwayproject.Model;
 
 public class ObstacleLocation {
     //variables
-    int distanceThresR, distanceThresL, distanceFromCenterline;
-    Direction direction;
+    private int distanceThresR, distanceThresL, distanceFromCenterline;
+    private Direction direction;
     enum Direction {North, South, Centre}
 
     //getter setter

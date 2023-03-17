@@ -2,8 +2,8 @@ package com.example.runwayproject.Model;
 
 public class Runway {
     //class variables
-    String runwayName;
-    RunwayDesignator left,right;
+    private String runwayName;
+    private RunwayDesignator left,right;
 
     //getter setter
     public String getRunwayName() {

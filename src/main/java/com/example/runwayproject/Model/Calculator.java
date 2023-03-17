@@ -9,6 +9,7 @@ public class Calculator {
     static int slope = 50;
     static int minRunDistance = 1000;
     static int minLandingDistance = 1000;
+    static int avarageRunwayWidth = 100;
 
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));
@@ -169,10 +170,78 @@ public class Calculator {
         }
     }
 
+    public static boolean hasError(Runway r, Obstacle obs, ObstacleLocation obsLocation){
+        return obsLocation.getDistanceThresL() + obsLocation.getDistanceThresR() > r.getLeftDesignator().getTora() ||
+                obs.getHeight() < 0 || obs.getLength()<0 || obs.getWidth()<0 || obsLocation.getDistanceFromCenterline() > (avarageRunwayWidth/2)
+                || obsLocation.getDistanceFromCenterline()<0;
+    }
+
+    public static void printError(Runway r, Obstacle obs, ObstacleLocation obsLocation){
+        if (obsLocation.getDistanceThresL() + obsLocation.getDistanceThresR() >= r.getLeftDesignator().getTora()){
+            System.out.println("Positioning Error: Obstacle Location Exceeded the Length Of Runway");
+        }else if (obs.getHeight() < 0){
+            System.out.println("Negative Error: negative value for height is detected");
+        }else if (obs.getLength() < 0){
+            System.out.println("Negative Error: negative value for length is detected");
+        }else if (obs.getWidth() <0 ){
+            System.out.println("Negative Error: negative value for width is detected");
+        }else if (obsLocation.getDistanceFromCenterline()>(avarageRunwayWidth/2)){
+            System.out.println("Positioning Error: Obstacle Exceeded The Width of Runway");
+        }else if (obsLocation.getDistanceFromCenterline()<0){
+            System.out.println("Negative Error: negative value for distance from center line is detected");
+        }else{
+            System.out.println("Error detected");
+        }
+    }
+
+
+    public static void calc(Status takeOffStatus, Status landingStatus, RunwayDesignator rd, Obstacle obs, ObstacleLocation obsLocation){
+        int newTORA = calcTORA(takeOffStatus,rd,obs,obsLocation);
+        int newLDA = calcLDA(landingStatus,rd,obs,obsLocation);
+
+        if (newTORA >= minRunDistance){
+            printTORA(takeOffStatus,rd,obs,obsLocation);
+            printTODA(takeOffStatus,rd,obs,obsLocation);
+            printASDA(takeOffStatus,rd,obs,obsLocation);
+        }else{
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR TAKE OFF AWAY");
+        }
+        //for LDA
+        if (newLDA >= minLandingDistance){
+            printLDA(landingStatus,rd,obs,obsLocation);
+        }else{
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING OVER");
+        }
+
+    }
+
+    public static void calcAll(Runway r, Obstacle obs, ObstacleLocation obsLocation){
+        if (hasError(r,obs,obsLocation)){
+            printError(r, obs, obsLocation);
+
+        }else {
+            RunwayDesignator left = r.getLeftDesignator();
+            RunwayDesignator right = r.getRightDesignator();
+
+            System.out.println("Runway designator: " + left.getRunwayDesignatorName());
+            System.out.println("----Take off away, landing over----");
+            calc(Status.away, Status.over, left, obs, obsLocation);
+            System.out.println("----Take off towards, landing towards----");
+            calc(Status.towards, Status.towards, left, obs, obsLocation);
+
+            System.out.println();
+            System.out.println("Runway designator: " + right.getRunwayDesignatorName());
+            System.out.println("----Take off away, landing over----");
+            calc(Status.away, Status.over, right, obs, obsLocation);
+            System.out.println("----Take off towards, landing towards----");
+            calc(Status.towards, Status.towards, right, obs, obsLocation);
+        }
+
+    }
 
     //first, check if TORA is > min value
     //proceed if yes
-    public static void calcAll(Runway r, Obstacle obs, ObstacleLocation obsLocation){
+    /*public static void calcAll(Runway r, Obstacle obs, ObstacleLocation obsLocation){
         RunwayDesignator left = r.getLeftDesignator();
         RunwayDesignator right = r.getRightDesignator();
 
@@ -213,7 +282,7 @@ public class Calculator {
             System.out.println(left.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING TOWARDS");
         }
 
-
+//////////////for right side
         int newTORA_R_A = calcTORA(Status.away,right,obs,obsLocation);
         int newTORA_R_T = calcTORA(Status.towards,right,obs,obsLocation);
         int newLDA_R_O = calcLDA(Status.over,right,obs,obsLocation);
@@ -250,111 +319,10 @@ public class Calculator {
             System.out.println(right.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING TOWARDS");
         }
 
-    }
-
-
-    /*public static void printDistances(RunwayDesignator left, RunwayDesignator right, Obstacle obs, ObstacleLocation obsLocation){
-
-        System.out.println(left.getRunwayDesignatorName() + " ----take off away, landing over----");
-        if (blastProtection >= (RESA+stripEnd)) {
-            System.out.println("TORA = Original TORA - Blast protection - Distance from threshold - Displaced threshold");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + left.getTora() + " - " + blastProtection + " - " + obsLocation.getDistanceThresL() + " - " + left.getDisplacedThres());
-
-            }else {
-                System.out.println(" = " + left.getTora() + " - " + blastProtection + " - " + obsLocation.getDistanceThresR() + " - " + left.getDisplacedThres());
-            }
-        }else{
-            System.out.println("TORA = Original TORA - RESA - Strip end - Distance from threshold - Displaced threshold");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + left.getTora() + " - " + RESA + " - " + stripEnd + " - " + obsLocation.getDistanceThresL() + " - " + left.getDisplacedThres());
-
-            }else {
-                System.out.println(" = " + left.getTora() + " - " + RESA + " - " + stripEnd + " - " + obsLocation.getDistanceThresR() + " - " + left.getDisplacedThres());
-
-            }
-        }
-        System.out.println(" = " + calcTORA(Calculator.Status.away,left,obs,obsLocation));
-        System.out.println("ASDA = Recalculated TORA + StopWay");
-        System.out.println(" = " + calcTORA(Calculator.Status.away,left,obs,obsLocation) + " + (" + left.getAsda() + " - " + left.getTora() + ")");
-        System.out.println(" = " + calcASDA(Calculator.Status.away,left,obs,obsLocation));
-        System.out.println("TODA = Recalculated + ClearWay");
-        System.out.println(" = " + calcTORA(Calculator.Status.away,left,obs,obsLocation) + " + (" + left.getToda() + " - " + left.getTora() + ")");
-        System.out.println(" = " + calcTODA(Calculator.Status.away,left,obs,obsLocation));
-        if ((slope*obs.getHeight()) >= RESA){
-            System.out.println("LDA = Original LDA - Slope calculation - Distance from threshold - Strip end");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + left.getLda() + " - " + slope + "*" + obs.getHeight() + " - " + obsLocation.getDistanceThresL() + " - " + stripEnd);
-            }else {
-                System.out.println(" = " + left.getLda() + " - " + slope + "*" + obs.getHeight() + " - " + obsLocation.getDistanceThresR() + " - " + stripEnd);
-            }
-        }else{
-            System.out.println("LDA = Original LDA - RESA - Distance from threshold - Strip end");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + left.getLda() + " - " + RESA + " - " + obsLocation.getDistanceThresL() + " - " + stripEnd);
-            }else {
-                System.out.println(" = " + left.getLda() + " - " + RESA + " - " + obsLocation.getDistanceThresR() + " - " + stripEnd);
-            }
-        }
-        System.out.println(" = " + calcLDA(Calculator.Status.over,left,obs,obsLocation));
-
-        System.out.println(right.getRunwayDesignatorName() + " ----take off towards, landing towards----");
-        if ((slope*obs.getHeight()) >= RESA){
-            System.out.println("TORA = Distance from threshold - Slope calculation + Displaced Threshold - Strip end");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + obsLocation.getDistanceThresR() + " - " + slope + "*" + obs.getHeight() + " + " + right.getDisplacedThres() + " - " + stripEnd);
-            }else {
-                System.out.println(" = " + obsLocation.getDistanceThresL() + " - " + slope + "*" + obs.getHeight() + " + " + right.getDisplacedThres() + " - " + stripEnd);
-            }
-        }else{
-            System.out.println("TORA = Distance from threshold - RESA + Displaced Threshold - Strip end");
-            if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-                System.out.println(" = " + obsLocation.getDistanceThresR() + " - " + RESA + " + " + right.getDisplacedThres() + " - " + stripEnd);
-            }else {
-                System.out.println(" = " + obsLocation.getDistanceThresL() + " - " + RESA + " + " + right.getDisplacedThres() + " - " + stripEnd);
-            }
-        }
-        System.out.println(" = " + calcTORA(Status.towards,right,obs,obsLocation));
-        System.out.println("ASDA = Recalculated TORA");
-        System.out.println(" = " + calcASDA(Status.towards,right,obs,obsLocation));
-        System.out.println("TODA = Recalculated TORA");
-        System.out.println(" = " + calcTODA(Status.towards,right,obs,obsLocation));
-        System.out.println("LDA = Distance from threshold - RESA - Strip end");
-        if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-            System.out.println(" = " + obsLocation.getDistanceThresR() + " - " + RESA + " - " + stripEnd);
-
-        }else {
-            System.out.println(" = " + obsLocation.getDistanceThresL() + " - " + RESA + " - " + stripEnd);
-
-        }
-        System.out.println(" = " + calcLDA(Status.towards,right,obs,obsLocation));
-        System.out.println();
     }*/
 
-    //determine the obstacle position (comparing distance threshold from left and right)
-    //shorter distance threshold : take-off away, landing over
-    //longer distance threshold : take-off towards, landing towards
-    /*public static void calcAll(RunwayDesignator left, RunwayDesignator right, Obstacle obs){
-        if (obs.getDistanceThresL() <= obs.getDistanceThresR()){
-            printDistances(left,right,obs);
 
-        }else {
-            printDistances(right, left, obs);
 
-        }
-    }*/
-
-    /*public static void calcAll(Runway runway, Obstacle obs, ObstacleLocation obsLocation){
-        printDistances(runway.getLeftDesignator(), runway.getRightDesignator(), obs, obsLocation);
-        //printDistances(runway.getRightDesignator(), runway.getLeftDesignator(), obs, obsLocation);
-        if (obsLocation.getDistanceThresL() <= obsLocation.getDistanceThresR()){
-            printDistances(runway.getLeftDesignator(), runway.getRightDesignator(), obs, obsLocation);
-
-        }else {
-            printDistances(runway.getRightDesignator(), runway.getLeftDesignator(), obs, obsLocation);
-
-        }
-    }*/
 
 
 

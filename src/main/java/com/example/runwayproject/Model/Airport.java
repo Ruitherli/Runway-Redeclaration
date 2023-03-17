@@ -3,8 +3,8 @@ package com.example.runwayproject.Model;
 public class Airport {
     //class variables
     //int blastProtection, resa, stripEnd, tocs, als;
-    int id;
-    String airportName;
+    private int id;
+    private String airportName;
 
     //getter setter
     /*public int getBlastProtection() {

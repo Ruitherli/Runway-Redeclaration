@@ -2,8 +2,8 @@ package com.example.runwayproject.Model;
 
 public class Obstacle {
     //variables
-    String obstacleName;
-    int height, length, width;/*, distanceThresR, distanceThresL, distanceFromCenterline;
+    private String obstacleName;
+    private int height, length, width;/*, distanceThresR, distanceThresL, distanceFromCenterline;
     Direction direction;
     enum Direction {North, South, Centre}*/
 
