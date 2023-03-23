@@ -83,4 +83,6 @@ public class ATCController extends MainController {
         tocsText.setText(String.valueOf(slope));
     }
 
+
+
 }

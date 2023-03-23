@@ -17,7 +17,7 @@ public class Main {
         ObstacleLocation location2 = new ObstacleLocation(2853,5000,20,ObstacleLocation.Direction.South);
 
         Obstacle o3 = new Obstacle("obs 3",15,10,10);
-        ObstacleLocation location3 = new ObstacleLocation(150,3203,600,ObstacleLocation.Direction.North);
+        ObstacleLocation location3 = new ObstacleLocation(150,3203,60,ObstacleLocation.Direction.North);
 
         Obstacle o4 = new Obstacle("obs 4",20,10,10);
         ObstacleLocation location4 = new ObstacleLocation(50,3546,-20,ObstacleLocation.Direction.North);

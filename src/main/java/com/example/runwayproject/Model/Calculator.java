@@ -16,7 +16,7 @@ public class Calculator {
     }
 
     //methods
-    enum Status {away, towards, over}
+    public enum Status {away, towards, over}
 
     public static int calcTORA (Status s, RunwayDesignator r, Obstacle obs, ObstacleLocation obsLocation){
         if (s == Status.away){
@@ -204,13 +204,13 @@ public class Calculator {
             printTODA(takeOffStatus,rd,obs,obsLocation);
             printASDA(takeOffStatus,rd,obs,obsLocation);
         }else{
-            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR TAKE OFF AWAY");
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR TAKE OFF");
         }
         //for LDA
         if (newLDA >= minLandingDistance){
             printLDA(landingStatus,rd,obs,obsLocation);
         }else{
-            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING OVER");
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING");
         }
 
     }
