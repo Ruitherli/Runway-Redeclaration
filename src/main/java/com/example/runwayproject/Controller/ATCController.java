@@ -9,6 +9,8 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.runwayproject.Model.Calculator.*;
+
 public class ATCController extends MainController {
 
     @FXML
@@ -70,6 +72,15 @@ public class ATCController extends MainController {
         formatTable(oriDistanceTable);
         formatTable(recDistanceTable);
         formatTable(runwayTable);
+        setConstants();
+    }
+
+    public void setConstants () {
+        resaText.setText(String.valueOf(RESA));
+        stripEndText.setText(String.valueOf(stripEnd));
+        blastProtectionText.setText(String.valueOf(blastProtection));
+        alsText.setText(String.valueOf(slope));
+        tocsText.setText(String.valueOf(slope));
     }
 
 }

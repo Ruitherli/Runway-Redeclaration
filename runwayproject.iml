@@ -37,5 +37,14 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:18-ea+6" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:18-ea+6" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Library/mysql-connector-java-8.0.28.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

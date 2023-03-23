@@ -3,13 +3,13 @@ package com.example.runwayproject.Model;
 public class Calculator {
     //class variables
     //constant
-    static int blastProtection = 300;
-    static int RESA = 240;
-    static int stripEnd = 60;
-    static int slope = 50;
-    static int minRunDistance = 1000;
-    static int minLandingDistance = 1000;
-    static int avarageRunwayWidth = 100;
+    public static int blastProtection = 300;
+    public static int RESA = 240;
+    public static int stripEnd = 60;
+    public static int slope = 50;
+    public static int minRunDistance = 1000;
+    public static int minLandingDistance = 1000;
+    public static int avarageRunwayWidth = 100;
 
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));

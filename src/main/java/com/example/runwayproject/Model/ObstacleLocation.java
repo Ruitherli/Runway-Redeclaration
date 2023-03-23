@@ -4,7 +4,7 @@ public class ObstacleLocation {
     //variables
     private int distanceThresR, distanceThresL, distanceFromCenterline;
     private Direction direction;
-    enum Direction {North, South, Centre}
+    public enum Direction {North, South, Center}
 
     //getter setter
 

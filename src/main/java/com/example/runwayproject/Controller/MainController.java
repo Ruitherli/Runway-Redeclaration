@@ -54,4 +54,5 @@ public class MainController implements Initializable {
     public void switchToLoginPage (ActionEvent event) throws IOException {
         selectScene(event, "login.fxml");
     }
+
 }

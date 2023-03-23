@@ -11,7 +11,7 @@ public class Main {
         RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307,"09R");
 
         Obstacle o1 = new Obstacle("obs 1",-12,10,10);
-        ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Centre);
+        ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Center);
 
         Obstacle o2 = new Obstacle("obs 2",25,10,10);
         ObstacleLocation location2 = new ObstacleLocation(2853,5000,20,ObstacleLocation.Direction.South);

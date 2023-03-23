@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -65,13 +64,13 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="runwayObjectTable" layoutX="11.0" layoutY="13.0" prefHeight="263.0" prefWidth="383.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="runwayObstacleTable" layoutX="11.0" layoutY="13.0" prefHeight="288.0" prefWidth="393.3333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Runway" />
-                                        <TableColumn prefWidth="89.0" text="Obstacle name" />
-                                          <TableColumn prefWidth="62.0" text="Height" />
-                                          <TableColumn prefWidth="76.0" text="Weight" />
-                                          <TableColumn prefWidth="73.0" text="Length" />
+                                        <TableColumn fx:id="runwayNameCol" prefWidth="68.66668856143951" text="Runway" />
+                                        <TableColumn fx:id="obsNameCol" prefWidth="95.99999237060547" text="Obstacle name" />
+                                          <TableColumn fx:id="heightCol" prefWidth="54.0" text="Height" />
+                                          <TableColumn fx:id="thresholdRCol" prefWidth="78.66668701171875" text="Threshold R" />
+                                          <TableColumn fx:id="thresholdLCol" prefWidth="75.33331298828125" text="Threshold L" />
                                       </columns>
                                     </TableView>
                                  </children></AnchorPane>
@@ -81,12 +80,12 @@
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="objectTable" layoutX="11.0" layoutY="20.0" prefHeight="317.0" prefWidth="392.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="obstacleTable" layoutX="19.6" layoutY="18.6" prefHeight="326.0" prefWidth="393.3333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                        <TableColumn prefWidth="128.0" text="Name" />
-                                        <TableColumn prefWidth="78.0" text="Height" />
-                                          <TableColumn prefWidth="87.0" text="Weight" />
-                                          <TableColumn prefWidth="82.0" text="Length" />
+                                        <TableColumn fx:id="presetNameCol" prefWidth="128.0" text="Name" />
+                                        <TableColumn fx:id="presetHeightCol" prefWidth="78.0" text="Height" />
+                                          <TableColumn fx:id="presetLengthCol" prefWidth="82.0" text="Length" />
+                                          <TableColumn fx:id="presetWidthCol" prefWidth="87.0" text="Width" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -96,6 +95,7 @@
                             </children>
                         </VBox>
                   <Button fx:id="AMlogout" layoutX="3.0" layoutY="847.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
+                  <Button fx:id="refreshButton" layoutX="64.0" layoutY="847.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
@@ -110,7 +110,7 @@
                                        <content>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
@@ -122,7 +122,7 @@
                                        <content>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                <Label fx:id="airportNameTD" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
@@ -143,10 +143,11 @@
                                              <children>
                                                 <TableView fx:id="runwayTable" layoutX="14.0" layoutY="183.0" prefHeight="102.0" prefWidth="342.0">
                                                    <columns>
-                                                      <TableColumn prefWidth="92.0" text="Designator" />
-                                                      <TableColumn prefWidth="79.0" text="Clearway" />
-                                                      <TableColumn prefWidth="82.0" text="Stopway" />
-                                                      <TableColumn prefWidth="88.0" text="Threshold" />
+                                                      <TableColumn fx:id="designatorCol" prefWidth="83.33337306976318" text="Designator" />
+                                                      <TableColumn fx:id="toraCol" prefWidth="64.6666259765625" text="TORA" />
+                                                      <TableColumn fx:id="todaCol" prefWidth="64.0" text="TODA" />
+                                                      <TableColumn fx:id="asdaCol" prefWidth="64.0" text="ASDA" />
+                                                      <TableColumn fx:id="ldaCol" prefWidth="64.0" text="LDA" />
                                                    </columns>
                                                 </TableView>
                                                 <GridPane layoutX="14.0" layoutY="11.0" prefHeight="160.0" prefWidth="342.0">
@@ -193,7 +194,7 @@
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <ComboBox fx:id="runwayComboBox" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
+                                                      <ComboBox fx:id="runwayComboBox" onAction="#loadRunwayTable" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                       <Text fx:id="blastProtectionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -315,11 +316,10 @@
                                                                   <TextField fx:id="thresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                                   <TextField fx:id="thresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                                   <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                                                  <CheckBox mnemonicParsing="false" text="Add to Preset" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="objectAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="objectResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="objectResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="objectAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -429,11 +429,11 @@
                                                                   <Text fx:id="presetHeightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Text fx:id="presetLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                   <Text fx:id="presetWidthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                  <ComboBox fx:id="presetNameComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
+                                                                  <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="25.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="presetAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="presetResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="presetAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" onAction="#addPresetObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="presetResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#resetPreset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
