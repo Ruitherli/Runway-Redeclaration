@@ -3,20 +3,20 @@ package com.example.runwayproject.Model;
 public class Calculator {
     //class variables
     //constant
-    static int blastProtection = 300;
-    static int RESA = 240;
-    static int stripEnd = 60;
-    static int slope = 50;
-    static int minRunDistance = 1000;
-    static int minLandingDistance = 1000;
-    static int avarageRunwayWidth = 100;
+    public static int blastProtection = 300;
+    public static int RESA = 240;
+    public static int stripEnd = 60;
+    public static int slope = 50;
+    public static int minRunDistance = 1000;
+    public static int minLandingDistance = 1000;
+    public static int avarageRunwayWidth = 100;
 
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));
     }
 
     //methods
-    enum Status {away, towards, over}
+    public enum Status {away, towards, over}
 
     public static int calcTORA (Status s, RunwayDesignator r, Obstacle obs, ObstacleLocation obsLocation){
         if (s == Status.away){
@@ -204,13 +204,13 @@ public class Calculator {
             printTODA(takeOffStatus,rd,obs,obsLocation);
             printASDA(takeOffStatus,rd,obs,obsLocation);
         }else{
-            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR TAKE OFF AWAY");
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR TAKE OFF");
         }
         //for LDA
         if (newLDA >= minLandingDistance){
             printLDA(landingStatus,rd,obs,obsLocation);
         }else{
-            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING OVER");
+            System.out.println(rd.getRunwayDesignatorName() + " IS NOT SUITABLE FOR LANDING");
         }
 
     }

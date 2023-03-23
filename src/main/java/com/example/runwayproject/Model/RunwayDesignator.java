@@ -55,7 +55,7 @@ public class RunwayDesignator {
 
 
     //constructor (no obstacle)
-    RunwayDesignator(int tora, int toda, int asda, int lda, int displacedThres, String runwayDesignatorName){
+    public RunwayDesignator(int tora, int toda, int asda, int lda, int displacedThres, String runwayDesignatorName){
         setAsda(asda);
         setRunwayDesignatorName(runwayDesignatorName);
         setLda(lda);
