@@ -1,13 +1,17 @@
 package com.example.runwayproject.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,4 +59,31 @@ public class MainController implements Initializable {
         selectScene(event, "login.fxml");
     }
 
+    public void playErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void playSuccessPopup (String message) {
+
+    }
+
+    public void setNumericFormat(TextField textField){
+        //Only allow numerical values to be typed into the textfield
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {{
+                try{
+                    if (!t1.matches("^\\d+(\\.\\d+)*$")) {
+                        textField.setText(t1.replaceAll("[^\\d]", ""));
+                    }
+                }catch (Exception ignored){
+
+                }
+            }
+            }
+        });
+    }
 }

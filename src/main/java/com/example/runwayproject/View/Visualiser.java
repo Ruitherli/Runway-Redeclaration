@@ -6,7 +6,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -37,7 +36,7 @@ public class Visualiser extends Application{
         RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307,"09R");
 
         Obstacle o1 = new Obstacle("obs 1",12,10,10);
-        ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Centre);
+        ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Center);
 
         Obstacle o2 = new Obstacle("obs 2",25,10,10);
         ObstacleLocation location2 = new ObstacleLocation(2853,500,20,ObstacleLocation.Direction.South);

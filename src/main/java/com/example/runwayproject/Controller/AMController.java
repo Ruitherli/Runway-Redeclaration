@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.runwayproject.Model.Calculator.*;
@@ -249,8 +250,18 @@ public class AMController extends MainController {
             loadRunwayObsTable();
             setConstants();
             setAirportName();
+            setNameFormat(nameTextField);
+            setNumericFormat(heightTextField);
+            setNumericFormat(widthTextField);
+            setNumericFormat(lengthTextField);
+            setNumericFormat(thresLTextField);
+            setNumericFormat(thresRTextField);
+            setNumericFormat(centerlineTextField);
+            setNumericFormat(presetCenterlineTextField);
+            setNumericFormat(presetThresLTextField);
+            setNumericFormat(presetThresRTextField);
         } catch (SQLException e) {
-            e.printStackTrace();
+            playErrorAlert(String.valueOf(e));
         }
     }
 
@@ -390,6 +401,9 @@ public class AMController extends MainController {
         presetCenterlineTextField.clear();
         presetDirectionComboBox.setValue(null);
         presetNameComboBox.setValue(null);
+        presetHeightText.setText("0");
+        presetWidthText.setText("0");
+        presetLengthText.setText("0");
     }
 
     private void resetPreset (){
@@ -398,6 +412,9 @@ public class AMController extends MainController {
         presetCenterlineTextField.clear();
         presetDirectionComboBox.setValue(null);
         presetNameComboBox.setValue(null);
+        presetHeightText.setText("0");
+        presetWidthText.setText("0");
+        presetLengthText.setText("0");
     }
     @FXML
     private void refreshObjectTable() {
@@ -426,7 +443,7 @@ public class AMController extends MainController {
             resultSet.close();
 
         }catch (SQLException e){
-            e.printStackTrace();
+            playErrorAlert(String.valueOf(e));
         }
     }
 
@@ -472,7 +489,7 @@ public class AMController extends MainController {
             resultSet.close();
 
         }catch (SQLException e){
-            e.printStackTrace();
+            playErrorAlert(String.valueOf(e));
         }
     }
 
@@ -517,7 +534,7 @@ public class AMController extends MainController {
             resultSet.close();
 
         }catch (SQLException e){
-            e.printStackTrace();
+            playErrorAlert(String.valueOf(e));
         }
     }
 
@@ -537,17 +554,17 @@ public class AMController extends MainController {
     public void addObstacle(ActionEvent event){
         if (nameTextField.getText().isEmpty() || heightTextField.getText().isEmpty() || lengthTextField.getText().isEmpty() || widthTextField.getText().isEmpty()
         || thresRTextField.getText().isEmpty() || thresLTextField.getText().isEmpty() || centerlineTextField.getText().isEmpty()){
-            System.out.println("Please fill out all the details");
+            playErrorAlert("Please fill out all the details");
         } else if (runwayComboBox.getValue()==null){
-            System.out.println("Please select a runway");
+            playErrorAlert("Please select a runway");
         } else if (directionComboBox.getValue()==null){
-            System.out.println("Please select obstacle direction");
+            playErrorAlert("Please select obstacle direction");
         } else {
             connection = DbConnect.getConnection();
             String query = null;
             String runway = runwayComboBox.getValue();
 
-            String obsName = nameTextField.getText();
+            String obsName = nameTextField.getText().trim().replaceAll(" +", " ");;
             int obsHeight = Integer.parseInt(heightTextField.getText());
             int obsLength = Integer.parseInt(lengthTextField.getText());
             int obsWidth = Integer.parseInt(widthTextField.getText());
@@ -559,57 +576,59 @@ public class AMController extends MainController {
             ObstacleLocation.Direction direction = ObstacleLocation.Direction.valueOf(directionComboBox.getValue());
             ObstacleLocation obstacleLocation = new ObstacleLocation(thresR,thresL,centerline,direction);
 
-            /*System.out.println(obstacle.getObstacleName());
-            System.out.println(obstacle.getHeight());
-            System.out.println(obstacle.getLength());
-            System.out.println(obstacle.getWidth());
-            System.out.println(obstacleLocation.getDistanceThresR());
-            System.out.println(obstacleLocation.getDistanceThresL());
-            System.out.println(obstacleLocation.getDistanceFromCenterline());
-            System.out.println(obstacleLocation.getDirection());*/
-            try{
-                query = "INSERT INTO obstacle (name, height, length, width) VALUES (?,?,?,?)";
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1,obsName);
-                preparedStatement.setInt(2, obsHeight);
-                preparedStatement.setInt(3, obsLength);
-                preparedStatement.setInt(4, obsWidth);
-                preparedStatement.execute();
-                System.out.println("Successfully added obstacle into preset table");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("Add this obstacle "+ obsName +" on the runway " + runway + "?");
 
-                query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
-                        "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
-                        "FROM obstacle o, runway r\n" +
-                        "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try{
+                    try{
+                        query = "INSERT INTO obstacle (name, height, length, width) VALUES (?,?,?,?)";
+                        preparedStatement = connection.prepareStatement(query);
+                        preparedStatement.setString(1,obsName);
+                        preparedStatement.setInt(2, obsHeight);
+                        preparedStatement.setInt(3, obsLength);
+                        preparedStatement.setInt(4, obsWidth);
+                        preparedStatement.execute();
+                        System.out.println("Successfully added obstacle into preset table");
+                    }catch (SQLException e){
+                        System.out.println("Obstacle name already exists in the database");
+                    }
 
-                preparedStatement = connection.prepareStatement(query);
-                preparedStatement.execute();
-                System.out.println("Successfully added the obstacle on the runway");
+                    query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
+                            "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
+                            "FROM obstacle o, runway r\n" +
+                            "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
 
-                setComboBox();
-                loadObjectTable();
-                loadRunwayObsTable();
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.execute();
+                    System.out.println("Successfully added the obstacle on the runway");
 
-                connection.close();
-                preparedStatement.close();
-                resultSet.close();
-                reset();
+                    setComboBox();
+                    loadObjectTable();
+                    loadRunwayObsTable();
 
-            }catch (Exception e){
-                e.printStackTrace();
+                    connection.close();
+                    preparedStatement.close();
+                    resultSet.close();
+                    reset();
+                }catch (SQLException e){
+                    playErrorAlert(String.valueOf(e));
+                }
             }
         }
     }
 
     public void addPresetObstacle(ActionEvent event) throws SQLException {
         if (presetThresRTextField.getText().isEmpty() || presetThresLTextField.getText().isEmpty() || presetCenterlineTextField.getText().isEmpty()){
-            System.out.println("Please fill out all the details");
-        } else if (presetNameComboBox.getValue().isEmpty()){
-            System.out.println("Please select an obstacle");
-        } else if (runwayComboBox.getValue().isEmpty()) {
-            System.out.println("Please select a runway");
-        }else if (presetDirectionComboBox.getValue().isEmpty()){
-            System.out.println("Please select a direction");
+            playErrorAlert("Please fill out all the details");
+        } else if (presetNameComboBox.getValue()==null){
+            playErrorAlert("Please select an obstacle");
+        } else if (runwayComboBox.getValue()==null) {
+            playErrorAlert("Please select a runway");
+        }else if (presetDirectionComboBox.getValue()==null){
+            playErrorAlert("Please select a direction");
         }else{
             connection = DbConnect.getConnection();
             String query = null;
@@ -627,14 +646,25 @@ public class AMController extends MainController {
             ObstacleLocation.Direction direction = ObstacleLocation.Direction.valueOf(presetDirectionComboBox.getValue());
             ObstacleLocation obstacleLocation = new ObstacleLocation(thresR,thresL,centerline,direction);
 
-            query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
-                    "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
-                    "FROM obstacle o, runway r\n" +
-                    "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("Add this obstacle "+ obsName +" on the runway " + runway + "?");
 
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.execute();
-            System.out.println("Successfully added the obstacle on the runway");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try{
+                    query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
+                            "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
+                            "FROM obstacle o, runway r\n" +
+                            "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
+
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.execute();
+                    System.out.println("Successfully added the obstacle on the runway");
+                }catch (SQLException e){
+                    playErrorAlert(String.valueOf(e));
+                }
+            }
 
             connection.close();
             preparedStatement.close();
@@ -670,5 +700,18 @@ public class AMController extends MainController {
         loadObjectTable();
         loadRunwayObsTable();
     }
+
+    public void setNameFormat(TextField textField) {
+        textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                if (!newValue.matches("^[a-zA-Z0-9\\s-]*$")) {
+                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\s-]", ""));
+                }
+            } catch (Exception ignored) {
+                // Do nothing if an exception occurs
+            }
+        });
+    }
+
 }
 
