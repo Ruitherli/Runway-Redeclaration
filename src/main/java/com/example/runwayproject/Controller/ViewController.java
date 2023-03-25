@@ -99,7 +99,6 @@ public class ViewController extends MainController implements Initializable {
             y = runway.getLayoutY() + (runway.getHeight() / 2) - (obstacle.getHeight()) - (distanceFromCenterline * runway.getHeight() / 2) + obstacle.getHeight();
         }
 
-
         obstacle.setX(x);
         obstacle.setY(y);
 

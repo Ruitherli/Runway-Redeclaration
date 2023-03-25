@@ -57,7 +57,6 @@ public class LeftTopDownController extends ViewController{
         //viewLeft(runway2,o2,location2,runwayPane);
         //viewLeft(runway2,o3,location3,runwayPane);
         //viewLeft(runway1,o4,location4,runwayPane);
-
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){

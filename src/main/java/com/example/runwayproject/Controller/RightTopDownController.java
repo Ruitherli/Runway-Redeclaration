@@ -64,7 +64,6 @@ public class RightTopDownController extends ViewController{
         //viewRight(runway2,o2,location2,runwayPane);
         //viewRight(runway2,o3,location3,runwayPane);
         //viewRight(runway1,o4,location4,runwayPane);
-
     }
 
     public void viewRight(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
