@@ -11,6 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +27,10 @@ import java.util.ResourceBundle;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class AMController extends MainController {
+
+    @FXML
+    private MenuItem opensite;
+
     @FXML
     private Text alsText;
 
@@ -713,5 +722,11 @@ public class AMController extends MainController {
         });
     }
 
+    @FXML
+    void hyperlink2(ActionEvent event) throws URISyntaxException, IOException {
+        System.out.println("opened");
+        Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
+
+    }
 }
 

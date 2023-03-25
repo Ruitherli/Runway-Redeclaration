@@ -1,17 +1,29 @@
 package com.example.runwayproject.Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 
+import java.awt.Desktop;
+import java.net.URI;
+
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class ATCController extends MainController {
+
+
+    @FXML
+    private MenuItem about;
 
     @FXML
     private Text alsText;
@@ -83,6 +95,12 @@ public class ATCController extends MainController {
         tocsText.setText(String.valueOf(slope));
     }
 
+    @FXML
+    void hyperlink(ActionEvent event) throws URISyntaxException, IOException {
+        System.out.println("opened");
+        Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
+
+    }
 
 
 }
