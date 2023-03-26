@@ -73,7 +73,7 @@ public class Calculator {
         }
     }
 
-    public static void printTORA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
+/*    public static void printTORA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
         if (s==Status.away) {
             if (blastProtection >= (RESA + stripEnd)) {
                 System.out.println("TORA = Original TORA - Blast protection - Distance from threshold - Displaced threshold");
@@ -109,9 +109,51 @@ public class Calculator {
             }
         }
         System.out.println(" = " + calcTORA(s,runwayDesignator,obs,obsLocation));
+    }*/
+
+    public static String printTORA(Status s, RunwayDesignator runwayDesignator, Obstacle obs, ObstacleLocation obsLocation) {
+        String result = "";
+
+        if (s == Status.away) {
+            if (blastProtection >= (RESA + stripEnd)) {
+                result += "TORA = Original TORA - Blast protection - Distance from threshold - Displaced threshold\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    result += " = " + runwayDesignator.getTora() + " - " + blastProtection + " - " + obsLocation.getDistanceThresL() + " - " + runwayDesignator.getDisplacedThres() + "\n";
+                } else {
+                    result += " = " + runwayDesignator.getTora() + " - " + blastProtection + " - " + obsLocation.getDistanceThresR() + " - " + runwayDesignator.getDisplacedThres() + "\n";
+                }
+            } else {
+                result += "TORA = Original TORA - RESA - Strip end - Distance from threshold - Displaced threshold\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    result += " = " + runwayDesignator.getTora() + " - " + RESA + " - " + stripEnd + " - " + obsLocation.getDistanceThresL() + " - " + runwayDesignator.getDisplacedThres() + "\n";
+                } else {
+                    result += " = " + runwayDesignator.getTora() + " - " + RESA + " - " + stripEnd + " - " + obsLocation.getDistanceThresR() + " - " + runwayDesignator.getDisplacedThres() + "\n";
+                }
+            }
+        } else if (s == Status.towards) {
+            if ((slope * obs.getHeight()) >= RESA) {
+                result += "TORA = Distance from threshold - Slope calculation + Displaced Threshold - Strip end\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    result += " = " + obsLocation.getDistanceThresL() + " - " + slope + "*" + obs.getHeight() + " + " + runwayDesignator.getDisplacedThres() + " - " + stripEnd + "\n";
+                } else {
+                    result += " = " + obsLocation.getDistanceThresR() + " - " + slope + "*" + obs.getHeight() + " + " + runwayDesignator.getDisplacedThres() + " - " + stripEnd + "\n";
+                }
+            } else {
+                result += "TORA = Distance from threshold - RESA + Displaced Threshold - Strip end\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    result += " = " + obsLocation.getDistanceThresL() + " - " + RESA + " + " + runwayDesignator.getDisplacedThres() + " - " + stripEnd + "\n";
+                } else {
+                    result += " = " + obsLocation.getDistanceThresR() + " - " + RESA + " + " + runwayDesignator.getDisplacedThres() + " - " + stripEnd + "\n";
+                }
+            }
+        }
+
+        result += " = " + calcTORA(s, runwayDesignator, obs, obsLocation) + "\n";
+        return result;
     }
 
-    public static void printTODA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
+
+/*    public static void printTODA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
         if (s==Status.away){
             System.out.println("TODA = Recalculated + ClearWay");
             System.out.println(" = " + calcTORA(Calculator.Status.away,runwayDesignator,obs,obsLocation) + " + (" + runwayDesignator.getToda() + " - " + runwayDesignator.getTora() + ")");
@@ -122,9 +164,25 @@ public class Calculator {
         }else {
             System.out.println("status error");
         }
+    }*/
+
+    public static String printTODA(Status s, RunwayDesignator runwayDesignator, Obstacle obs, ObstacleLocation obsLocation) {
+        String result = "";
+        if (s == Status.away) {
+            result += "TODA = Recalculated + ClearWay\n";
+            result += " = " + calcTORA(Calculator.Status.away, runwayDesignator, obs, obsLocation) + " + (" + runwayDesignator.getToda() + " - " + runwayDesignator.getTora() + ")\n";
+            result += " = " + calcTODA(Calculator.Status.away, runwayDesignator, obs, obsLocation) + "\n";
+        } else if (s == Status.towards) {
+            result += "TODA = Recalculated TORA\n";
+            result += " = " + calcTODA(Status.towards, runwayDesignator, obs, obsLocation) + "\n";
+        } else {
+            result += "status error"+ "\n";
+        }
+        return result;
     }
 
-    public static void printASDA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
+
+/*    public static void printASDA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
         if (s==Status.away){
             System.out.println("ASDA = Recalculated TORA + StopWay");
             System.out.println(" = " + calcTORA(Calculator.Status.away,runwayDesignator,obs,obsLocation) + " + (" + runwayDesignator.getAsda() + " - " + runwayDesignator.getTora() + ")");
@@ -135,9 +193,24 @@ public class Calculator {
         }else {
             System.out.println("status error");
         }
+    }*/
+
+    public static String printASDA(Status s, RunwayDesignator runwayDesignator, Obstacle obs, ObstacleLocation obsLocation) {
+        if (s == Status.away) {
+            return "ASDA = Recalculated TORA + StopWay" + System.lineSeparator()
+                    + " = " + calcTORA(Calculator.Status.away, runwayDesignator, obs, obsLocation)
+                    + " + (" + runwayDesignator.getAsda() + " - " + runwayDesignator.getTora() + ")" + System.lineSeparator()
+                    + " = " + calcASDA(Calculator.Status.away, runwayDesignator, obs, obsLocation)+ "\n";
+        } else if (s == Status.towards) {
+            return "ASDA = Recalculated TORA" + System.lineSeparator()
+                    + " = " + calcASDA(Status.towards, runwayDesignator, obs, obsLocation)+ "\n";
+        } else {
+            return "status error";
+        }
     }
 
-    public static void printLDA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
+
+    /*public static void printLDA(Status s, RunwayDesignator runwayDesignator,Obstacle obs, ObstacleLocation obsLocation){
         if (s==Status.over){
             if ((slope*obs.getHeight()) >= RESA){
                 System.out.println("LDA = Original LDA - Slope calculation - Distance from threshold - Strip end");
@@ -168,7 +241,43 @@ public class Calculator {
         }else {
             System.out.println("status error");
         }
+    }*/
+
+    public static String printLDA(Status s, RunwayDesignator runwayDesignator, Obstacle obs, ObstacleLocation obsLocation) {
+        String output = "";
+        if (s == Status.over) {
+            if ((slope * obs.getHeight()) >= RESA) {
+                output += "LDA = Original LDA - Slope calculation - Distance from threshold - Strip end\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    output += " = " + runwayDesignator.getLda() + " - " + slope + "*" + obs.getHeight() + " - " + obsLocation.getDistanceThresL() + " - " + stripEnd + "\n";
+                } else {
+                    output += " = " + runwayDesignator.getLda() + " - " + slope + "*" + obs.getHeight() + " - " + obsLocation.getDistanceThresR() + " - " + stripEnd + "\n";
+                }
+            } else {
+                output += "LDA = Original LDA - RESA - Distance from threshold - Strip end\n";
+                if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                    output += " = " + runwayDesignator.getLda() + " - " + RESA + " - " + obsLocation.getDistanceThresL() + " - " + stripEnd + "\n";
+                } else {
+                    output += " = " + runwayDesignator.getLda() + " - " + RESA + " - " + obsLocation.getDistanceThresR() + " - " + stripEnd + "\n";
+                }
+            }
+            output += " = " + calcLDA(Calculator.Status.over, runwayDesignator, obs, obsLocation) + "\n";
+        } else if (s == Status.towards) {
+            if (runwayDesignator.getRunwayDesignatorName().endsWith("L")) {
+                output += "LDA = Distance from threshold - RESA - Strip end\n";
+                output += " = " + obsLocation.getDistanceThresL() + " - " + RESA + " - " + stripEnd + "\n";
+                output += " = " + calcLDA(Status.towards, runwayDesignator, obs, obsLocation) + "\n";
+            } else {
+                output += "LDA = Distance from threshold - RESA - Strip end\n";
+                output += " = " + obsLocation.getDistanceThresR() + " - " + RESA + " - " + stripEnd + "\n";
+                output += " = " + calcLDA(Status.towards, runwayDesignator, obs, obsLocation) + "\n";
+            }
+        } else {
+            output += "status error\n";
+        }
+        return output;
     }
+
 
     public static boolean hasError(Runway r, Obstacle obs, ObstacleLocation obsLocation){
         return obsLocation.getDistanceThresL() + obsLocation.getDistanceThresR() > r.getLeftDesignator().getTora() ||
