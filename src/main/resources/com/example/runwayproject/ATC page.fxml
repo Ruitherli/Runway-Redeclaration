@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -40,7 +40,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#hyperlink" text="About" />
+                        <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
                     </items>
                 </Menu>
             </menus>
@@ -358,6 +358,5 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="395.0" />
     </children>
 </AnchorPane>

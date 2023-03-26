@@ -65,8 +65,8 @@ public class TopViewController extends ViewController{
         /////////  TEST  ///////////
         //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
         //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
-        //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
-        view(runway1,o4,location4,leftPane,rightPane); //scenario 4
+        view(runway2,o3,location3,leftPane,rightPane); //scenario 3
+        //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
 
     public void view(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2){
