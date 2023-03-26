@@ -40,13 +40,38 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://C:/Library/mysql-connector-java-8.0.28.jar!/" />
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
         </CLASSES>
         <JAVADOC />
+        <NATIVE>
+          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
+        </NATIVE>
         <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/build/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/demo/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/generated/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/legacy/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/main/core-api/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/main/core-impl/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/main/protocol-impl/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/main/user-api/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/main/user-impl/java" />
+          <root url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32/src/test/java" />
+        </SOURCES>
+        <jarDirectory url="file://$USER_HOME$/Downloads/mysql-connector-j-8.0.32" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0" />
