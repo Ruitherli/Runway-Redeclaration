@@ -9,9 +9,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +32,10 @@ import java.util.ResourceBundle;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class ATCController extends MainController {
+
+
+    @FXML
+    private MenuItem about;
 
     @FXML
     private Text alsText;
@@ -565,5 +577,12 @@ public class ATCController extends MainController {
     public void loadData(ActionEvent event){
         loadRunwayTable(event);
         loadRecTable(event);
+    }
+
+    @FXML
+    void hyperlink(ActionEvent event) throws URISyntaxException, IOException {
+        System.out.println("opened");
+        Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
+
     }
 }
