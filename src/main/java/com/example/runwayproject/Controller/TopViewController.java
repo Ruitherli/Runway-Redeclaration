@@ -41,6 +41,8 @@ public class TopViewController extends ViewController{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftPane.setVisible(true);
         rightPane.setVisible(false);
+        //rootPane.setScaleX(0.5);
+        //rootPane.setScaleY(0.5);
 
         RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
         RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
@@ -65,8 +67,8 @@ public class TopViewController extends ViewController{
         /////////  TEST  ///////////
         //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
         //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
-        //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
-        view(runway1,o4,location4,leftPane,rightPane); //scenario 4
+        view(runway2,o3,location3,leftPane,rightPane); //scenario 3
+        //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
 
     public void view(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2){

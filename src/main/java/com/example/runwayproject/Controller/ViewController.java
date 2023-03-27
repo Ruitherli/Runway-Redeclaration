@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewController extends MainController implements Initializable {
+public class ViewController extends AMController implements Initializable {
 
     static Rectangle obstacle;
 

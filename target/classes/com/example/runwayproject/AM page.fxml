@@ -18,6 +18,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -106,27 +109,135 @@
                            <children>
                               <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
-                                  <Tab text="Side View ">
+                                  <Tab fx:id="sideTab" text="Side View ">
                                        <content>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane fx:id="sideRootPane" prefHeight="200.0" prefWidth="200.0">
                                              <children>
                                                 <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
                                                 </Label>
+                                                 <AnchorPane fx:id="sideLeftPane" layoutX="16.0" layoutY="72.0" prefHeight="770.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                     <children>
+                                                         <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, -48.999969482421875, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
+                                                         <Rectangle fx:id="sideRunway" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="30.0" layoutX="35.0" layoutY="419.0" stroke="#606265" strokeType="INSIDE" width="750.0" />
+                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="34.0" layoutX="142.0" layoutY="372.0" stroke="#d3dce4" strokeType="INSIDE" width="524.0" />
+                                                         <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, 474.99993896484375, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
+                                                         <Label fx:id="sideLeftAwayLabel" alignment="TOP_LEFT" layoutX="32.0" layoutY="139.0" text="left away">
+                                                             <font>
+                                                                 <Font size="20.0" />
+                                                             </font>
+                                                         </Label>
+                                                         <Label fx:id="sideLeftTowardsLabel" alignment="TOP_LEFT" layoutX="34.0" layoutY="641.0" text="left towards">
+                                                             <font>
+                                                                 <Font size="20.0" />
+                                                             </font>
+                                                         </Label>
+                                                      <Button fx:id="sideViewRightButton" layoutX="704.0" layoutY="659.0" mnemonicParsing="false" onAction="#switchPane" text="View Right" />
+                                                     </children>
+                                                 </AnchorPane>
+                                                <AnchorPane fx:id="sideRightPane" layoutY="72.0" prefHeight="771.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                   <children>
+                                                      <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, -48.999969482421875, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
+                                                      <Rectangle fx:id="sideRunway1" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="30.0" layoutX="37.0" layoutY="419.0" stroke="#606265" strokeType="INSIDE" width="750.0" />
+                                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="34.0" layoutX="142.0" layoutY="372.0" stroke="#d3dce4" strokeType="INSIDE" width="524.0" />
+                                                      <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, 474.99993896484375, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
+                                                      <Label fx:id="sideRightAwayLabel" alignment="TOP_LEFT" layoutX="32.0" layoutY="139.0" text="right away">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="sideRightTowardsLabel" alignment="TOP_LEFT" layoutX="34.0" layoutY="641.0" text="right towards">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button fx:id="sideViewLeftButton" layoutX="704.0" layoutY="659.0" mnemonicParsing="false" onAction="#switchPane" text="View Left" />
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
-                                  <Tab text="Top Down View">
+                                  <Tab fx:id="topTab" text="Top Down View">
                                        <content>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane fx:id="topRootPane" prefHeight="200.0" prefWidth="200.0">
                                              <children>
                                                 <Label fx:id="airportNameTD" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
                                                 </Label>
+                                                 <AnchorPane fx:id="topLeftPane" layoutX="-24.0" layoutY="72.0" prefHeight="771.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                     <children>
+                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="275.0" layoutX="43.0" layoutY="271.0" stroke="#d3dce4" strokeType="INSIDE" width="720.0" />
+                                                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="341.0" layoutX="158.0" layoutY="235.0" stroke="#d3dce4" strokeType="INSIDE" width="495.0" />
+                                                         <Polygon fill="#d3dce4" layoutX="370.0" layoutY="266.0" points="392.99993896484375, 135.22222900390625, 282.99993896484375, 310.00006103515625, 282.99993896484375, -31.000030517578125" stroke="#d3dce4" strokeType="INSIDE" />
+                                                         <Polygon fill="#d3dce4" layoutX="-125.0" layoutY="375.0" points="168.0000457763672, 33.50006103515625, 283.00006103515625, 201.00006103515625, 283.66668701171875, -138.22225952148438" stroke="#d3dce4" strokeType="INSIDE" />
+                                                         <Rectangle fx:id="topRunway" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="121.0" layoutX="80.0" layoutY="351.0" stroke="#606265" strokeType="INSIDE" width="646.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="367.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="382.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="397.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="412.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="427.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="442.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="457.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="367.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="382.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="397.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="412.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="427.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="442.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="457.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                         <Line endX="372.99993896484375" layoutX="223.0" layoutY="412.0" startX="-25.7777099609375" startY="-3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+                                                         <Label fx:id="topLeftAwayLabel" alignment="TOP_LEFT" layoutX="80.0" layoutY="41.0" text="left away">
+                                                             <font>
+                                                                 <Font size="20.0" />
+                                                             </font>
+                                                         </Label>
+                                                         <Label fx:id="topLeftTowardsLabel" alignment="TOP_LEFT" layoutX="62.0" layoutY="692.0" text="left towards">
+                                                             <font>
+                                                                 <Font size="20.0" />
+                                                             </font>
+                                                         </Label>
+                                                      <Button fx:id="topVIewRightButton" layoutX="682.0" layoutY="695.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="View RIght" />
+                                                     </children>
+                                                 </AnchorPane>
+                                                <AnchorPane fx:id="topRightPane" layoutX="10.0" layoutY="72.0" prefHeight="771.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                   <children>
+                                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="275.0" layoutX="43.0" layoutY="271.0" stroke="#d3dce4" strokeType="INSIDE" width="720.0" />
+                                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="341.0" layoutX="158.0" layoutY="235.0" stroke="#d3dce4" strokeType="INSIDE" width="495.0" />
+                                                      <Polygon fill="#d3dce4" layoutX="370.0" layoutY="266.0" points="392.99993896484375, 135.22222900390625, 282.99993896484375, 310.00006103515625, 282.99993896484375, -31.000030517578125" stroke="#d3dce4" strokeType="INSIDE" />
+                                                      <Polygon fill="#d3dce4" layoutX="-125.0" layoutY="375.0" points="168.0000457763672, 33.50006103515625, 283.00006103515625, 201.00006103515625, 283.66668701171875, -138.22225952148438" stroke="#d3dce4" strokeType="INSIDE" />
+                                                      <Rectangle fx:id="topRunway1" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="121.0" layoutX="80.0" layoutY="351.0" stroke="#606265" strokeType="INSIDE" width="646.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="367.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="382.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="397.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="412.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="427.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="442.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="189.0" layoutY="457.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="367.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="382.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="397.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="412.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="427.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="442.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="-22.999969482421875" endY="1.52587890625E-5" layoutX="739.0" layoutY="457.0" startX="-100.0" stroke="#f6f6f6" strokeWidth="5.0" />
+                                                      <Line endX="372.99993896484375" layoutX="223.0" layoutY="412.0" startX="-25.7777099609375" startY="-3.0517578125E-5" stroke="WHITE" strokeWidth="3.0" />
+                                                      <Label fx:id="topRightAwayLabel" alignment="TOP_LEFT" layoutX="80.0" layoutY="41.0" text="right away">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="topRightTowardsLabel" alignment="TOP_LEFT" layoutX="62.0" layoutY="692.0" text="right towards">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button fx:id="topViewLeftButton" layoutX="682.0" layoutY="695.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="View Left" />
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
