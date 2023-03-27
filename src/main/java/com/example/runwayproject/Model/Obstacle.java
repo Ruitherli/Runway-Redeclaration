@@ -7,6 +7,10 @@ public class Obstacle {
     Direction direction;
     enum Direction {North, South, Centre}*/
 
+    public Obstacle() {
+
+    }
+
     //getter setter
 
     public int getHeight() {

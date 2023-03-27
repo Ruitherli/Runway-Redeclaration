@@ -699,7 +699,7 @@ public class AMController extends MainController {
                         preparedStatement.execute();
                         System.out.println("Successfully added obstacle into preset table");
                     }catch (SQLException e){
-                        System.out.println("Obstacle name already exists in the database");
+                        playErrorAlert("Obstacle name already exists in the database");
                     }
 
                     query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
@@ -787,9 +787,12 @@ public class AMController extends MainController {
         preparedStatement = connection.prepareStatement("SELECT * FROM obstacle WHERE name = " + "'" + presetNameComboBox.getValue() + "';");
         resultSet = preparedStatement.executeQuery();
 
-        Obstacle obstacle = null;
+        Obstacle obstacle = new Obstacle();
         while (resultSet.next()) {
-            obstacle = new Obstacle(resultSet.getString("name"), resultSet.getInt("height"), resultSet.getInt("length"), resultSet.getInt("width"));
+            obstacle.setObstacleName(resultSet.getString("name"));
+            obstacle.setHeight(resultSet.getInt("height"));
+            obstacle.setLength(resultSet.getInt("length"));
+            obstacle.setWidth(resultSet.getInt("width"));
         }
 
         presetHeightText.setText(String.valueOf(obstacle.getHeight()));

@@ -19,8 +19,8 @@ public class MainUI extends Application {
             Scene scene = new Scene(root);
 
             //Get css stylesheet
-            //String css = this.getClass().getResource("/design.css").toExternalForm();
-            //scene.getStylesheets().add(css);
+            String css = this.getClass().getResource("/com/example/runwayproject/design.css").toExternalForm();
+            scene.getStylesheets().add(css);
 
             primaryStage.setScene(scene);
             primaryStage.show();

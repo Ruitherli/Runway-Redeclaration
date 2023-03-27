@@ -10,7 +10,7 @@ public class Main {
         RunwayDesignator l2 = new RunwayDesignator(3660, 3660, 3660, 3660, 0,"27L");
         RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307,"09R");
 
-        Obstacle o1 = new Obstacle("obs 1",-12,10,10);
+        Obstacle o1 = new Obstacle("obs 1",12,10,10);
         ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Center);
 
         Obstacle o2 = new Obstacle("obs 2",25,10,10);
@@ -25,7 +25,7 @@ public class Main {
         Runway runway1 = new Runway("09L/27R", l1, r1);
         Runway runway2 = new Runway("27L/09R", l2, r2);
 
-        System.out.println("----scenario 1----");
+/*        System.out.println("----scenario 1----");
         //Calculator.calcAll(l1, r1, o1);
         Calculator.calcAll(runway1, o1, location1);
 
@@ -39,7 +39,9 @@ public class Main {
 
         System.out.println("----scenario 4----");
         //Calculator.calcAll(l1, r1, o4);
-        Calculator.calcAll(runway1, o4, location4);
+        Calculator.calcAll(runway1, o4, location4);*/
+
+        System.out.println(Calculator.calcTORA(Calculator.Status.away,l1,o1,location1));
 
     }
 

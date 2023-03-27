@@ -1,7 +1,5 @@
 package com.example.runwayproject.Controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -70,14 +68,14 @@ public class MainController implements Initializable {
 
     }
 
-    public void setNumericFormat(TextField textField){
+    /*public void setNumericFormat(TextField textField){
         //Only allow numerical values to be typed into the textfield
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {{
                 try{
-                    if (!t1.matches("^\\d+(\\.\\d+)*$")) {
-                        textField.setText(t1.replaceAll("[^\\d]", ""));
+                    if (!t1.matches("^-?\\d+(\\.\\d+)*$")) {
+                        textField.setText(t1.replaceAll("[^\\d\\-\\.]", ""));
                     }
                 }catch (Exception ignored){
 
@@ -85,5 +83,15 @@ public class MainController implements Initializable {
             }
             }
         });
+    }*/
+
+    public void setNumericFormat(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("-?\\d*")) {
+                textField.setText(oldValue);
+            }
+        });
     }
+
+
 }
