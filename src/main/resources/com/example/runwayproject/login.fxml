@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,56 +9,63 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
    <children>
-      <SplitPane dividerPositions="0.7119483315392895" layoutX="55.0" layoutY="28.0" prefHeight="820.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitPaneLogin" dividerPositions="0.7119483315392895" layoutX="55.0" layoutY="28.0" prefHeight="820.0" prefWidth="1551.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane>
                <children>
-                  <ImageView fitHeight="956.0" fitWidth="1617.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
+                  <ImageView fx:id="pictureLogin" fitHeight="956.0" fitWidth="1617.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
                      <image>
                         <Image url="@../../../images/background.jpg" />
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="262.0" layoutY="67.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
+                  <Label fx:id="titleLogin" alignment="CENTER" layoutX="102.0" layoutY="384.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
                      <font>
                         <Font name="System Bold" size="59.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="450.0" prefHeight="898.0" prefWidth="390.0" style="-fx-background-color: white;">
+          <AnchorPane fx:id="anchorPaneLogin" minHeight="0.0" minWidth="450.0" prefHeight="898.0" prefWidth="390.0">
                <children>
-                  <AnchorPane layoutX="-84.0" layoutY="127.0" prefHeight="399.0" prefWidth="571.0">
+                  <AnchorPane layoutX="-89.0" layoutY="276.0" prefHeight="399.0" prefWidth="571.0" stylesheets="@design.css">
                      <children>
-                        <Label layoutX="189.0" layoutY="42.0" text="User Login">
+                        <Label fx:id="userLogin" layoutX="142.0" layoutY="12.0" text="User Login">
                            <font>
-                              <Font name="System Bold" size="48.0" />
+                              <Font size="58.0" />
                            </font>
                         </Label>
-                        <Label layoutX="128.0" layoutY="144.0" text="Username">
+                        <Label fx:id="usernameLogin" layoutX="130.0" layoutY="141.0" prefHeight="26.0" prefWidth="152.0" text="Username:">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <Label layoutX="129.0" layoutY="191.0" prefHeight="28.0" prefWidth="100.0" text="Password">
+                        <Label fx:id="passwordLogin" layoutX="129.0" layoutY="191.0" prefHeight="28.0" prefWidth="140.0" text="Password:">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="304.0" layoutY="141.0" promptText="Enter your Username" />
-                        <Button fx:id="amButton" layoutX="132.0" layoutY="278.0" mnemonicParsing="false" onAction="#switchToAM" text="Sign In Manager">
+                        <TextField fx:id="usernameField" layoutX="337.0" layoutY="146.0" prefHeight="36.0" prefWidth="153.0" promptText="Enter Your Username">
+                           <font>
+                              <Font size="16.0" />
+                           </font></TextField>
+                        <Button fx:id="amButton" layoutX="130.0" layoutY="276.0" mnemonicParsing="false" onAction="#switchToAM" text="Sign In Manager">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <PasswordField layoutX="304.0" layoutY="192.0" promptText="Enter your password" />
-                        <Button fx:id="atcButton" layoutX="324.0" layoutY="278.0" mnemonicParsing="false" onAction="#switchToATC" text="Sign In ATC">
+                        <Button fx:id="atcButton" layoutX="375.0" layoutY="274.0" mnemonicParsing="false" onAction="#switchToATC" text="Sign In ATC">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Label layoutX="228.0" layoutY="345.0" text="Two buttons for testing purposes" />
+                        <Label layoutX="218.0" layoutY="346.0" text="Two buttons for testing purposes" />
+                        <TextField fx:id="passwordField" layoutX="337.0" layoutY="191.0" prefHeight="36.0" prefWidth="153.0" promptText="Enter Your Password">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </AnchorPane>
                </children>

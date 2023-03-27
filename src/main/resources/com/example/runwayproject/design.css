@@ -1,0 +1,75 @@
+/*login page design*/
+
+#anchorPaneLogin {
+  -fx-background-color: #faf0e6;
+}
+
+#userLogin{
+ -fx-font-family: Georgia, serif;
+ -fx-font-size: 70px;
+ -fx-text-fill: #e9967a;
+}
+
+#titleLogin{
+ -fx-font-family: Georgia;
+ -fx-font-size: 80px;
+ -fx-font-weight :900;
+ -fx-font-color :#00008b;
+ -fx-text-fill: #faf0e6;
+}
+
+#usernameLogin{
+ -fx-font-family: Georgia, serif;
+ -fx-font-size: 30px;
+ -fx-font-weight : 500;
+ -fx-text-fill: #e9967a;
+}
+
+#passwordLogin{
+ -fx-font-family: Georgia, serif;
+ -fx-font-size: 30px;
+ -fx-font-weight : 500;
+ -fx-text-fill: #e9967a;
+}
+
+#amButton{
+ -fx-font-family: Georgia, serif;
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #e9967a;
+ -fx-background-radius: 10px;
+ -fx-font-size: 20px;
+}
+
+#atcButton{
+ -fx-font-family: Georgia, serif;
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #e9967a;
+ -fx-background-radius: 10px;
+ -fx-font-size: 20px;
+}
+
+#usernameField{
+  -fx-color:black;
+  -fx-padding:5px;
+  -fx-background-color: #faf0e6;
+  -fx-background-radius: 10px;
+  -fx-prompt-text-fill: #e9967a;
+  -fx-prompt-text-size: 20px;
+  -fx-effect: dropshadow( two-pass-box ,#e9967a, 1.5, 10 , 1 , 1);
+}
+
+#passwordField{
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #faf0e6;
+ -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #e9967a;
+ -fx-prompt-text-size: 20px;
+ -fx-effect: dropshadow( two-pass-box ,#e9967a , 1.5, 10 , 1 , 1);
+}
+
+/*am design*/
+
+
