@@ -1,13 +1,14 @@
 /*login page design*/
-
+/*main colours used #000000 - the salmon pink ; #f8f8ff - the light pink*/
 #anchorPaneLogin {
-  -fx-background-color: #faf0e6;
+  -fx-background-color: #f8f8ff;
 }
 
 #userLogin{
  -fx-font-family: Georgia, serif;
  -fx-font-size: 70px;
- -fx-text-fill: #e9967a;
+ -fx-text-fill: #000000;
+
 }
 
 #titleLogin{
@@ -15,28 +16,28 @@
  -fx-font-size: 80px;
  -fx-font-weight :900;
  -fx-font-color :#00008b;
- -fx-text-fill: #faf0e6;
+ -fx-text-fill: #f8f8ff;
 }
 
 #usernameLogin{
  -fx-font-family: Georgia, serif;
  -fx-font-size: 30px;
  -fx-font-weight : 500;
- -fx-text-fill: #e9967a;
+ -fx-text-fill: #000000;
 }
 
 #passwordLogin{
  -fx-font-family: Georgia, serif;
  -fx-font-size: 30px;
  -fx-font-weight : 500;
- -fx-text-fill: #e9967a;
+ -fx-text-fill: #000000;
 }
 
 #amButton{
  -fx-font-family: Georgia, serif;
  -fx-color:black;
  -fx-padding:5px;
- -fx-background-color: #e9967a;
+ -fx-background-color: #000000;
  -fx-background-radius: 10px;
  -fx-font-size: 20px;
 }
@@ -45,7 +46,7 @@
  -fx-font-family: Georgia, serif;
  -fx-color:black;
  -fx-padding:5px;
- -fx-background-color: #e9967a;
+ -fx-background-color: #000000;
  -fx-background-radius: 10px;
  -fx-font-size: 20px;
 }
@@ -53,21 +54,21 @@
 #usernameField{
   -fx-color:black;
   -fx-padding:5px;
-  -fx-background-color: #faf0e6;
+  -fx-background-color: #f8f8ff;
   -fx-background-radius: 10px;
-  -fx-prompt-text-fill: #e9967a;
+  -fx-prompt-text-fill: #000000;
   -fx-prompt-text-size: 20px;
-  -fx-effect: dropshadow( two-pass-box ,#e9967a, 1.5, 10 , 1 , 1);
+  -fx-effect: dropshadow( two-pass-box ,#000000, 1.5, 10 , 1 , 1);
 }
 
 #passwordField{
  -fx-color:black;
  -fx-padding:5px;
- -fx-background-color: #faf0e6;
+ -fx-background-color: #f8f8ff;
  -fx-background-radius: 10px;
- -fx-prompt-text-fill: #e9967a;
+ -fx-prompt-text-fill: #000000;
  -fx-prompt-text-size: 20px;
- -fx-effect: dropshadow( two-pass-box ,#e9967a , 1.5, 10 , 1 , 1);
+ -fx-effect: dropshadow( two-pass-box ,#000000 , 1.5, 10 , 1 , 1);
 }
 
 /*am design*/

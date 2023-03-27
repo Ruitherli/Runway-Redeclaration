@@ -17,7 +17,7 @@
                <children>
                   <ImageView fx:id="pictureLogin" fitHeight="956.0" fitWidth="1617.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../images/background.jpg" />
+                        <Image url="@../../../images/loginPLane.jpeg" />
                      </image>
                   </ImageView>
                   <Label fx:id="titleLogin" alignment="CENTER" layoutX="102.0" layoutY="384.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
