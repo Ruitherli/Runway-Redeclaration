@@ -1,7 +1,11 @@
 package com.example.runwayproject.Model;
 
 public class User {
-    enum Roles {AM, ATC}
+    public User() {
+
+    }
+
+    public enum Roles {ADMIN, AM, ATC}
 
     //variables
     private String username;

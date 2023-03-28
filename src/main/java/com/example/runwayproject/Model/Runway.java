@@ -5,6 +5,10 @@ public class Runway {
     private String runwayName;
     private RunwayDesignator left,right;
 
+    public Runway() {
+
+    }
+
     //getter setter
     public String getRunwayName() {
         return runwayName;

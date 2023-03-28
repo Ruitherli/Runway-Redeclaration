@@ -95,6 +95,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>18-ea+6</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>18-ea+6</version>
+        </dependency>
     </dependencies>
 
     <build>

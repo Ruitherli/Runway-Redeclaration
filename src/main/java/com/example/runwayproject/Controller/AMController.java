@@ -7,6 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -16,11 +20,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
@@ -235,6 +237,9 @@ public class AMController extends MainController {
     ObservableList<RunwayObsTable> runwayObsList = FXCollections.observableArrayList();
     ObservableList<RunwayTable> runwayList = FXCollections.observableArrayList();
     ObservableList<Obstacle> obstacleList = FXCollections.observableArrayList();
+
+    Rectangle currentObstacle = new Rectangle();
+    Runway currentRunway = new Runway();
 
     public class RunwayObsTable {
         private String runwayName;
