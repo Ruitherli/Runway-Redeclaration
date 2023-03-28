@@ -29,6 +29,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -230,6 +231,10 @@ public class AMController extends MainController {
     @FXML
     private Button topViewRightButton;
 
+    ArrayList<Rectangle> temporaryRect = new ArrayList<Rectangle>();
+    ArrayList<Line> temporaryLine = new ArrayList<Line>();
+    ArrayList<Text> temporaryText = new ArrayList<Text>();
+
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -238,8 +243,9 @@ public class AMController extends MainController {
     ObservableList<RunwayTable> runwayList = FXCollections.observableArrayList();
     ObservableList<Obstacle> obstacleList = FXCollections.observableArrayList();
 
-    Rectangle currentObstacle = new Rectangle();
+    Obstacle currentObstacle = new Obstacle();
     Runway currentRunway = new Runway();
+    ObstacleLocation currentLocation = new ObstacleLocation();
 
     public class RunwayObsTable {
         private String runwayName;
@@ -360,16 +366,18 @@ public class AMController extends MainController {
             Runway runway1 = new Runway("09L/27R", l1, r1);
             Runway runway2 = new Runway("27L/09R", l2, r2);
 
+
+            //setRunway();
             /////////  TEST  ///////////
             //sideView(runway1,o1,location1,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel); //scenario 1
             //sideView(runway2,o2,location2,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel); //scenario 2
             //sideView(runway2,o3,location3,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel); //scenario 3
-            sideView(runway1,o4,location4,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel); //scenario 4
+            //sideView(runway1,o4,location4,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel); //scenario 4
 
             //topView(runway1,o1,location1,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel); //scenario 1
             //topView(runway2,o2,location2,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel); //scenario 2
             //topView(runway2,o3,location3,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel); //scenario 3
-            topView(runway1,o4,location4,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel); //scenario 4
+            //topView(runway1,o4,location4,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel); //scenario 4
 
         } catch (SQLException e) {
             playErrorAlert(String.valueOf(e));
@@ -649,10 +657,12 @@ public class AMController extends MainController {
         }
     }
 
-    public void loadRunwayTable(ActionEvent event){
+    public void loadRunwayTable(ActionEvent event) throws SQLException {
         connection = DbConnect.getConnection();
         refreshRunwayTable();
+        connection = DbConnect.getConnection();
 
+        removeObjects();
         designatorCol.setCellValueFactory(new PropertyValueFactory<>("designatorName"));
         toraCol.setCellValueFactory(new PropertyValueFactory<>("TORA"));
         todaCol.setCellValueFactory(new PropertyValueFactory<>("TODA"));
@@ -660,6 +670,115 @@ public class AMController extends MainController {
         ldaCol.setCellValueFactory(new PropertyValueFactory<>("LDA"));
 
         runwayTable.setItems(runwayList);
+
+        String runwayName = runwayComboBox.getValue();
+        preparedStatement = connection.prepareStatement("SELECT r.runway_name\n" +
+                "FROM runway r\n" +
+                "LEFT JOIN obstacle_location ol ON r.runway_id = ol.runway_id\n" +
+                "WHERE ol.runway_id IS NOT NULL AND r.runway_name = '"+ runwayName +"';");
+        resultSet = preparedStatement.executeQuery();
+
+        if(resultSet.next()){
+            //Obstacle exists on runway
+            preparedStatement = connection.prepareStatement("SELECT o.*\n" +
+                    "FROM obstacle o\n" +
+                    "INNER JOIN obstacle_location ol ON o.obstacle_id = ol.obstacle_id\n" +
+                    "INNER JOIN runway r ON ol.runway_id = r.runway_id\n" +
+                    "WHERE r.runway_name = '" + runwayName + "';");
+            resultSet = preparedStatement.executeQuery();
+
+            Obstacle obstacle = new Obstacle();
+            while(resultSet.next()){
+                obstacle.setObstacleName(resultSet.getString("name"));
+                obstacle.setHeight(resultSet.getInt("height"));
+                obstacle.setLength(resultSet.getInt("length"));
+                obstacle.setWidth(resultSet.getInt("width"));
+
+            }
+
+            //Getting the position of the obstacle on the runway
+            preparedStatement = connection.prepareStatement("SELECT ol.distance_from_threshold_R, ol.distance_from_threshold_L, ol.distance_from_centerline, ol.direction_from_centerline\n" +
+                    "FROM obstacle_location ol\n" +
+                    "JOIN runway r ON ol.runway_id = r.runway_id\n" +
+                    "JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                    "WHERE r.runway_name = '" + runwayName +"' LIMIT 1;");
+            resultSet = preparedStatement.executeQuery();
+
+            ObstacleLocation obstacleLocation = new ObstacleLocation();
+            while (resultSet.next()){
+                obstacleLocation.setDistanceThresR(resultSet.getInt("distance_from_threshold_R"));
+                obstacleLocation.setDistanceThresL(resultSet.getInt("distance_from_threshold_L"));
+                obstacleLocation.setDistanceFromCenterline(resultSet.getInt("distance_from_centerline"));
+                obstacleLocation.setDirection(ObstacleLocation.Direction.valueOf(resultSet.getString("direction_from_centerline")));
+
+            }
+
+            //Getting the runway original distances
+            preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                    "                    FROM runway r\n" +
+                    "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                    "                    WHERE r.runway_name = '" + runwayName +"';");
+            resultSet = preparedStatement.executeQuery();
+
+            ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+            while (resultSet.next()){
+                runwayDesignators.add(new RunwayDesignator(
+                        resultSet.getInt("tora"),
+                        resultSet.getInt("toda"),
+                        resultSet.getInt("asda"),
+                        resultSet.getInt("lda"),
+                        resultSet.getInt("displaced_thres"),
+                        resultSet.getString("designator_name")
+                ));
+            }
+            Runway runway = new Runway();
+            runway.setRunwayName(runwayName);
+            for ( RunwayDesignator i : runwayDesignators){
+                if (i.getRunwayDesignatorName().endsWith("L")){
+                    runway.setLeft(i);
+                }else {
+                    runway.setRight(i);
+                }
+            }
+            //with obs
+            sideView(runway, obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
+            topView(runway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+
+        }else{
+            //Obstacle does not exists on runway
+            //Getting the runway original distances
+            preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                    "                    FROM runway r\n" +
+                    "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                    "                    WHERE r.runway_name = '" + runwayName +"';");
+            resultSet = preparedStatement.executeQuery();
+
+            ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+            while (resultSet.next()){
+                runwayDesignators.add(new RunwayDesignator(
+                        resultSet.getInt("tora"),
+                        resultSet.getInt("toda"),
+                        resultSet.getInt("asda"),
+                        resultSet.getInt("lda"),
+                        resultSet.getInt("displaced_thres"),
+                        resultSet.getString("designator_name")
+                ));
+            }
+            Runway runway = new Runway();
+            runway.setRunwayName(runwayName);
+            for ( RunwayDesignator i : runwayDesignators){
+                if (i.getRunwayDesignatorName().endsWith("L")){
+                    runway.setLeft(i);
+                }else {
+                    runway.setRight(i);
+                }
+            }
+            //view (without obs)
+            setRunway(runway,sideLeftPane,sideRunway);
+            setRunway(runway,sideRightPane,sideRunway1);
+            setRunway(runway,topLeftPane,topRunway);
+            setRunway(runway,topRightPane,topRunway1);
+        }
     }
 
     public void addObstacle(ActionEvent event){
@@ -707,23 +826,63 @@ public class AMController extends MainController {
                         playErrorAlert("Obstacle name already exists in the database");
                     }
 
+                    currentObstacle.setObstacleName(obsName);
+                    currentObstacle.setHeight(obsHeight);
+                    currentObstacle.setLength(obsLength);
+                    currentObstacle.setWidth(obsWidth);
+
+                    currentLocation.setDistanceThresR(thresR);
+                    currentLocation.setDistanceThresL(thresL);
+                    currentLocation.setDistanceFromCenterline(centerline);
+                    currentLocation.setDirection(direction);
+
+                    preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                            "                    FROM runway r\n" +
+                            "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                            "                    WHERE r.runway_name = '" + runway +"';");
+                    resultSet = preparedStatement.executeQuery();
+
+                    ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+                    while(resultSet.next()){
+                        runwayDesignators.add(new RunwayDesignator(
+                                resultSet.getInt("tora"),
+                                resultSet.getInt("toda"),
+                                resultSet.getInt("asda"),
+                                resultSet.getInt("lda"),
+                                resultSet.getInt("displaced_thres"),
+                                resultSet.getString("designator_name")
+                        ));
+                    }
+
+                    for (RunwayDesignator i : runwayDesignators){
+                        if (i.getRunwayDesignatorName().endsWith("L")){
+                            currentRunway.setLeft(i);
+                        }else {
+                            currentRunway.setRight(i);
+                        }
+                    }
+                    currentRunway.setRunwayName(runway);
+
                     query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
                             "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
                             "FROM obstacle o, runway r\n" +
                             "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
-
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.execute();
                     System.out.println("Successfully added the obstacle on the runway");
 
-                    setComboBox();
-                    loadObjectTable();
-                    loadRunwayObsTable();
+                    sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
+                    topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+
 
                     connection.close();
                     preparedStatement.close();
                     resultSet.close();
                     reset();
+                    //setComboBox();
+                    loadObjectTable();
+                    loadRunwayObsTable();
+
                 }catch (SQLException e){
                     playErrorAlert(String.valueOf(e));
                 }
@@ -764,6 +923,33 @@ public class AMController extends MainController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 try{
+                    preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                            "                    FROM runway r\n" +
+                            "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                            "                    WHERE r.runway_name = '" + runway +"';");
+                    resultSet = preparedStatement.executeQuery();
+
+                    ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+                    while(resultSet.next()){
+                        runwayDesignators.add(new RunwayDesignator(
+                                resultSet.getInt("tora"),
+                                resultSet.getInt("toda"),
+                                resultSet.getInt("asda"),
+                                resultSet.getInt("lda"),
+                                resultSet.getInt("displaced_thres"),
+                                resultSet.getString("designator_name")
+                        ));
+                    }
+
+                    for (RunwayDesignator i : runwayDesignators){
+                        if (i.getRunwayDesignatorName().endsWith("L")){
+                            currentRunway.setLeft(i);
+                        }else {
+                            currentRunway.setRight(i);
+                        }
+                    }
+                    currentRunway.setRunwayName(runway);
+
                     query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
                             "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
                             "FROM obstacle o, runway r\n" +
@@ -772,10 +958,14 @@ public class AMController extends MainController {
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.execute();
                     System.out.println("Successfully added the obstacle on the runway");
+
                 }catch (SQLException e){
                     playErrorAlert(String.valueOf(e));
                 }
             }
+
+            sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
+            topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
 
             connection.close();
             preparedStatement.close();
@@ -843,8 +1033,8 @@ public class AMController extends MainController {
         setRunway(r,pane2,drawnRunway);
         setObstacle(r,ol,pane2,drawnRunway);
 
-        viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
-        viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+       // viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
+       // viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
     }
 
     public void topView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2, Rectangle drawnRunway, Label leftAwayLabel, Label leftTowardsLabel, Label rightAwayLabel, Label rightTowardsLabel){
@@ -853,8 +1043,8 @@ public class AMController extends MainController {
         setRunway(r,pane2,drawnRunway);
         setTopObstacle(r,ol,pane2,0);
 
-        viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
-        viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+        //viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
+        //viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel){
@@ -985,14 +1175,18 @@ public class AMController extends MainController {
 
         if (lineLength>0) {
             Rectangle lengthLine = new Rectangle(startX, startY - thickness/2, lineLength, thickness);
+            temporaryRect.add(lengthLine); //add to temporary list
             lengthLine.setFill(color);
             lengthLine.toFront();
 
             Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            temporaryLine.add(startMarker);
             Line endMarker = new Line(endX, startY, endX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            temporaryLine.add(endMarker);
             pane.getChildren().addAll(lengthLine,startMarker,endMarker);
 
             Text text = new Text(message);
+            temporaryText.add(text);
             text.setFont(Font.font("Arial", 10));
             text.setFill(color);
             Bounds lineBounds = lengthLine.getBoundsInParent();
@@ -1008,6 +1202,7 @@ public class AMController extends MainController {
 
     public void setObstacle(Runway r, ObstacleLocation ol, AnchorPane pane,Rectangle drawnRunway) {
         obstacle = new Rectangle(0, 0, 30, 60);
+        temporaryRect.add(obstacle);
         double startXFraction = (double) ol.getDistanceThresL()/(r.getLeftDesignator().getTora()-r.getLeftDesignator().getDisplacedThres()-r.getRightDesignator().getDisplacedThres());
         double drawnLength = drawnRunway.getWidth();
         double scaledLeftDisThres =  (double) r.getLeftDesignator().getDisplacedThres() / r.getLeftDesignator().getTora();
@@ -1029,6 +1224,7 @@ public class AMController extends MainController {
         int length = 30;
         int width = 30;
         obstacle = new Rectangle(0, 0, length, width);
+        temporaryRect.add(obstacle);
         double startXFraction = (double) ol.getDistanceThresL()/(r.getLeftDesignator().getTora()-r.getLeftDesignator().getDisplacedThres()-r.getRightDesignator().getDisplacedThres());
         double drawnLength = topRunway.getWidth();
         double scaledLeftDisThres =  (double) r.getLeftDesignator().getDisplacedThres() / r.getLeftDesignator().getTora();
@@ -1083,6 +1279,28 @@ public class AMController extends MainController {
         // Toggle visibility of pane1 and pane2
         topLeftPane.setVisible(!topLeftPane.isVisible());
         topRightPane.setVisible(!topRightPane.isVisible());
+    }
+
+    public void removeObjects(){
+        for (Rectangle r : temporaryRect){
+            sideLeftPane.getChildren().remove(r);
+            sideRightPane.getChildren().remove(r);
+            topLeftPane.getChildren().remove(r);
+            topRightPane.getChildren().remove(r);
+        }
+        for (Line l : temporaryLine){
+            sideLeftPane.getChildren().remove(l);
+            sideRightPane.getChildren().remove(l);
+            topLeftPane.getChildren().remove(l);
+            topRightPane.getChildren().remove(l);
+        }
+        for (Text l : temporaryText){
+            sideLeftPane.getChildren().remove(l);
+            sideRightPane.getChildren().remove(l);
+            topLeftPane.getChildren().remove(l);
+            topRightPane.getChildren().remove(l);
+        }
+
     }
 
 }
