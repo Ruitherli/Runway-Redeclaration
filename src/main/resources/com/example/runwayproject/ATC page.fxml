@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -60,7 +60,7 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="393.0">
                                  <children>
-                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="30.0" prefHeight="85.0" prefWidth="382.0">
+                                    <TableView fx:id="oriDistanceTable" layoutX="6.0" layoutY="30.0" prefHeight="85.0" prefWidth="382.0" stylesheets="@design.css">
                                        <columns>
                                           <TableColumn fx:id="oriDesigCol" text="Designator" />
                                           <TableColumn fx:id="oriToraCol" prefWidth="73.0" text="TORA" />

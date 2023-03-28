@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
@@ -58,37 +59,40 @@
                            <children>
                               <Label alignment="CENTER" layoutX="126.0" layoutY="14.0" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Airport Manager access" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Italic" size="15.0" />
+                                    <Font name="System Bold Italic" size="21.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                                <TitledPane animated="false" text="Runways w/Obstacle">
+                                <TitledPane fx:id="titledPane1" animated="false" stylesheets="@design.css" text="Runways w/Obstacle" textAlignment="CENTER" textFill="#fffefe">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="runwayObstacleTable" layoutX="11.0" layoutY="13.0" prefHeight="288.0" prefWidth="393.3333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="runwayObstacleTable" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="16.4" layoutY="22.4" prefHeight="274.0" prefWidth="376.0" scaleShape="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
                                       <columns>
-                                        <TableColumn fx:id="runwayNameCol" prefWidth="68.66668856143951" text="Runway" />
-                                        <TableColumn fx:id="obsNameCol" prefWidth="95.99999237060547" text="Obstacle name" />
-                                          <TableColumn fx:id="heightCol" prefWidth="54.0" text="Height" />
-                                          <TableColumn fx:id="thresholdRCol" prefWidth="78.66668701171875" text="Threshold R" />
-                                          <TableColumn fx:id="thresholdLCol" prefWidth="75.33331298828125" text="Threshold L" />
+                                        <TableColumn fx:id="runwayNameCol" prefWidth="58.999998450279236" text="Runway" />
+                                        <TableColumn fx:id="obsNameCol" prefWidth="96.50000762939453" text="Obstacle name" />
+                                          <TableColumn fx:id="heightCol" prefWidth="52.000030517578125" text="Height" />
+                                          <TableColumn fx:id="thresholdRCol" prefWidth="82.5" text="Threshold R" />
+                                          <TableColumn fx:id="thresholdLCol" prefWidth="89.0" text="Threshold L " />
                                       </columns>
+                                       <effect>
+                                          <Blend mode="SRC_ATOP" />
+                                       </effect>
                                     </TableView>
                                  </children></AnchorPane>
                                     </content>
                                 </TitledPane>
-                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Preset Obstacles">
+                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" stylesheets="@design.css" text="Preset Obstacles" textFill="#f2efef">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="obstacleTable" layoutX="19.6" layoutY="18.6" prefHeight="326.0" prefWidth="393.3333333333333" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="obstacleTable" centerShape="false" editable="true" focusTraversable="false" layoutX="25.4" layoutY="25.4" prefHeight="289.0" prefWidth="380.0" scaleShape="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
                                       <columns>
-                                        <TableColumn fx:id="presetNameCol" prefWidth="128.0" text="Name" />
-                                        <TableColumn fx:id="presetHeightCol" prefWidth="78.0" text="Height" />
-                                          <TableColumn fx:id="presetLengthCol" prefWidth="82.0" text="Length" />
-                                          <TableColumn fx:id="presetWidthCol" prefWidth="87.0" text="Width" />
+                                        <TableColumn fx:id="presetNameCol" prefWidth="109.77833592891693" text="Name" />
+                                        <TableColumn fx:id="presetHeightCol" prefWidth="81.00003814697266" text="Height" />
+                                          <TableColumn fx:id="presetLengthCol" prefWidth="87.50003051757812" text="Length" />
+                                          <TableColumn fx:id="presetWidthCol" prefWidth="95.0" text="Width" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -113,9 +117,9 @@
                                        <content>
                                           <AnchorPane fx:id="sideRootPane" prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="137.0" layoutY="26.0" prefHeight="47.0" prefWidth="506.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
-                                                      <Font size="30.0" />
+                                                      <Font name="Helvetica Neue" size="30.0" />
                                                    </font>
                                                 </Label>
                                                  <AnchorPane fx:id="sideLeftPane" layoutX="16.0" layoutY="72.0" prefHeight="770.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
@@ -163,7 +167,7 @@
                                        <content>
                                           <AnchorPane fx:id="topRootPane" prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="airportNameTD" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                <Label fx:id="airportNameTD" alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
@@ -232,7 +236,7 @@
                                                       </Label>
                                                       <Label fx:id="topRightTowardsLabel" alignment="TOP_LEFT" layoutX="62.0" layoutY="692.0" text="right towards">
                                                          <font>
-                                                            <Font size="20.0" />
+                                                            <Font name="Helvetica Neue" size="20.0" />
                                                          </font>
                                                       </Label>
                                                       <Button fx:id="topViewLeftButton" layoutX="682.0" layoutY="695.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="View Left" />
@@ -248,7 +252,7 @@
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                    <TitledPane animated="false" text="Runway">
+                                    <TitledPane animated="false" text="Runway" textFill="#ebe9e9">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="359.0">
                                              <children>
@@ -261,7 +265,7 @@
                                                       <TableColumn fx:id="ldaCol" prefWidth="64.0" text="LDA" />
                                                    </columns>
                                                 </TableView>
-                                                <GridPane layoutX="14.0" layoutY="11.0" prefHeight="160.0" prefWidth="342.0">
+                                                <GridPane layoutX="68.0" layoutY="22.0" prefHeight="160.0" prefWidth="342.0">
                                                    <columnConstraints>
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="114.0" />
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="228.0" />
@@ -317,15 +321,15 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane animated="false" prefHeight="444.0" prefWidth="376.0" text="Obstacle">
+                                    <TitledPane animated="false" prefHeight="444.0" prefWidth="376.0" text="Obstacle" textFill="#fcfcfc">
                                        <content>
                                           <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                                             <tabs>
                                               <Tab text="New Obstacle">
                                                 <content>
-                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="398.0">
                                                          <children>
-                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="295.0" prefWidth="335.0">
+                                                            <GridPane layoutX="55.0" layoutY="15.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
@@ -429,8 +433,8 @@
                                                                   <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="objectResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
-                                                            <Button fx:id="objectAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="objectResetButton" layoutX="222.0" layoutY="338.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="objectAddButton" layoutX="68.0" layoutY="339.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -439,7 +443,7 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <GridPane layoutX="24.0" layoutY="22.0" prefHeight="295.0" prefWidth="335.0">
+                                                            <GridPane layoutX="55.0" layoutY="23.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
@@ -543,8 +547,8 @@
                                                                   <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="25.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="presetAddButton" layoutX="117.0" layoutY="350.0" mnemonicParsing="false" onAction="#addPresetObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="presetResetButton" layoutX="227.0" layoutY="350.0" mnemonicParsing="false" onAction="#resetPreset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <Button fx:id="presetAddButton" layoutX="68.0" layoutY="341.0" mnemonicParsing="false" onAction="#addPresetObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="presetResetButton" layoutX="228.0" layoutY="340.0" mnemonicParsing="false" onAction="#resetPreset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
