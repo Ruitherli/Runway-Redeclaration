@@ -1,0 +1,86 @@
+/*login page design*/
+/*main colours used #000000 - the black ; ghostwhite - #f8f8ff */
+#anchorPaneLogin {
+  -fx-background-color: #f8f8ff;
+}
+#userLogin{
+ -fx-font-family: Helvetica, sans-serif;
+ -fx-font-size: 60px;
+ -fx-text-fill: #000000;
+ -fx-font-weight : 500;
+}
+#titleLogin{
+ -fx-font-family: Helvetica;
+ -fx-font-size: 80px;
+ -fx-font-weight :900;
+ -fx-font-color :#00008b;
+ -fx-text-fill: #f8f8ff;
+}
+#usernameLogin{
+ -fx-font-family: Helvetica, sans-serif;
+ -fx-font-size: 20px;
+ -fx-font-weight : 500;
+ -fx-text-fill: #000000;
+}
+#passwordLogin{
+ -fx-font-family: Helvetica, sans-serif;
+ -fx-font-size: 20px;
+ -fx-font-weight : 500;
+ -fx-text-fill: #000000;
+}
+
+#amButton{
+ -fx-font-family:Helvetica, sans-serif;
+
+ -fx-padding:5px;
+ -fx-background-color: #f8f8ff;
+ -fx-background-radius: 10px;
+ -fx-font-size: 20px;
+ -fx-font-color:black;
+ -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+}
+
+#atcButton{
+ -fx-font-family: Helvetica, serif;
+ -fx-padding:5px;
+ -fx-background-color: #f8f8ff;
+ -fx-background-radius: 10px;
+ -fx-font-size: 20px;
+ -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+
+}
+
+#usernameField{
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #dcdcdc;
+ -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #000000;
+ -fx-prompt-text-size: 20px;
+ -fx-padding: 12px 20px;
+ -fx-margin: 8px 0;
+ -fx-box-sizing: border-box;
+ -fx-padding: 5 5 5 5;
+
+}
+
+#passwordField{
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #dcdcdc;
+ -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #000000;
+ -fx-prompt-text-size: 20px;
+ -fx-padding: 12px 20px;
+ -fx-margin: 8px 0;
+ -fx-box-sizing: border-box;
+ -fx-padding: 5 5 5 5;
+}
+
+/*am design*/
+
+
+
+
+
