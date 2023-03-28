@@ -15,14 +15,14 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
+          <root url="file://$PATH_TO_FX$" />
         </CLASSES>
         <JAVADOC />
         <NATIVE>
-          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
+          <root url="file://$PATH_TO_FX$" />
         </NATIVE>
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" recursive="false" />
+        <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
@@ -69,21 +69,21 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
+          <root url="file://$PATH_TO_FX$" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" recursive="false" />
+        <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" />
+          <root url="file://$PATH_TO_FX$" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Downloads/javafx-sdk-20/lib" recursive="false" />
+        <jarDirectory url="file://$PATH_TO_FX$" recursive="false" />
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18-ea+6" level="project" />

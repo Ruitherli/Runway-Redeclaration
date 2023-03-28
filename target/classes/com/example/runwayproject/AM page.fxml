@@ -24,13 +24,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
-        <MenuBar layoutY="2.0" prefHeight="820.0" prefWidth="1551.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <MenuBar fx:id="menubar" layoutY="2.0" prefHeight="820.0" prefWidth="1551.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu fx:id="menuButton1" mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Export " />
                   <MenuItem mnemonicParsing="false" text="Import" />
@@ -52,7 +52,7 @@
             <items>
                 <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
                     <children>
-                        <VBox layoutX="-179.0" prefHeight="753.0" prefWidth="385.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="anchorPaneAm1" layoutX="-179.0" prefHeight="753.0" prefWidth="385.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                         <AnchorPane prefHeight="45.0" prefWidth="395.0">
                            <children>
