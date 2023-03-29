@@ -65,9 +65,9 @@ public class TopViewController extends ViewController{
         Runway runway2 = new Runway("27L/09R", l2, r2);
 
         /////////  TEST  ///////////
-        view(runway1,o1,location1,leftPane,rightPane); //scenario 1
+        //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
         //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
-        //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
+        view(runway2,o3,location3,leftPane,rightPane); //scenario 3
         //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
 
