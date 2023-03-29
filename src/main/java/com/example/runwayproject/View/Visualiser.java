@@ -80,9 +80,12 @@ public class Visualiser extends Application{
         Runway runway2 = new Runway("27L/09R", l2, r2);
 
         /////////  TEST  ///////////
-        //view(runway1,o1,location1,pane,pane2); //scenario 1
+        view(runway1,o1,location1,pane,pane2); //scenario 1
+        System.out.println(Calculator.printTORA(Calculator.Status.away,r1,o1,location1));
+        System.out.println(Calculator.printTORA(Calculator.Status.towards,r1,o1,location1));
+        //Calculator.printTORA(Calculator.Status.away,r1,o1,location1);
         //view(runway2,o2,location2,pane,pane2); //scenario 2
-        view(runway2,o3,location3,pane,pane2); //scenario 3
+       // view(runway2,o3,location3,pane,pane2); //scenario 3
         //view(runway1,o4,location4,pane,pane2); //scenario 4
 
         // Set the stage title and scene, and show the stage
