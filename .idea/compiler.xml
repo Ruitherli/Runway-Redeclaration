@@ -9,8 +9,5 @@
         <module name="runwayproject" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="runwayproject" target="16" />
-    </bytecodeTargetLevel>
   </component>
 </project>
