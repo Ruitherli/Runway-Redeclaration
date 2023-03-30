@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
@@ -51,7 +51,7 @@
         </MenuBar>
         <SplitPane dividerPositions="0.25" layoutX="82.0" layoutY="50.0" prefHeight="850.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0">
             <items>
-                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="663.0" prefWidth="259.0">
+                <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="784.0" prefWidth="395.0">
                     <children>
                         <VBox fx:id="anchorPaneAm1" layoutX="-179.0" prefHeight="753.0" prefWidth="385.0" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -59,7 +59,7 @@
                            <children>
                               <Label alignment="CENTER" layoutX="126.0" layoutY="14.0" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Airport Manager Access" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold" size="21.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                            </children>
@@ -101,8 +101,8 @@
                                 </TitledPane>
                             </children>
                         </VBox>
-                  <Button fx:id="AMlogout" layoutX="3.0" layoutY="847.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                  <Button fx:id="refreshButton" layoutX="64.0" layoutY="847.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh" />
+                  <Button fx:id="AMlogout" layoutX="3.0" layoutY="821.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
+                  <Button fx:id="refreshButton" layoutX="64.0" layoutY="821.0" mnemonicParsing="false" onAction="#refreshTable" text="Refresh" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
@@ -329,11 +329,11 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="398.0">
                                                          <children>
-                                                            <GridPane layoutX="55.0" layoutY="15.0" prefHeight="295.0" prefWidth="335.0">
+                                                            <GridPane layoutX="45.0" layoutY="15.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
-                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
-                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="82.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="149.43505859375" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="65.06494140625" />
                                                                </columnConstraints>
                                                                <rowConstraints>
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -368,7 +368,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                      </font>
                                                                   </Text>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
+                                                                  <Text fx:id="distancesLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
                                                                      </font>
@@ -393,7 +393,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                      </font>
                                                                   </Text>
-                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="156.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />

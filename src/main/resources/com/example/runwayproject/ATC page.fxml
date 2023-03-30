@@ -24,11 +24,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
-        <MenuBar layoutY="2.0" prefHeight="666.0" prefWidth="1105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <MenuBar layoutY="2.0" prefHeight="666.0" prefWidth="1105.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -54,12 +54,12 @@
                     <children>
                         <VBox layoutX="-179.0" prefHeight="639.0" prefWidth="451.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                        <Label alignment="CENTER" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Air Traffic Control access">
+                        <Label alignment="CENTER" prefHeight="45.333333333333336" prefWidth="395.3333333333333" stylesheets="@design.css" text="Logged in with Air Traffic Control Access">
                            <font>
-                              <Font name="System Italic" size="15.0" />
+                              <Font size="20.0" />
                            </font>
                         </Label>
-                        <TitledPane animated="false" prefHeight="437.0" prefWidth="395.0" text="Declared Distances">
+                        <TitledPane animated="false" prefHeight="437.0" prefWidth="395.0" text="Declared Distances" textFill="WHITE">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="393.0">
                                  <children>
@@ -72,14 +72,14 @@
                                           <TableColumn fx:id="oriAsdaCol" minWidth="1.0" prefWidth="77.0" text="ASDA" />
                                        </columns>
                                     </TableView>
-                                    <Label layoutX="138.0" layoutY="2.0" text="Original Distances" underline="true">
+                                    <Label fx:id="originalDistancesLabel" layoutX="138.0" layoutY="5.0" text="Original Distances" underline="true">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="120.0" layoutY="131.0" text="Recalculated Distances" underline="true">
+                                    <Label fx:id="recalculatedLabel" layoutX="126.0" layoutY="131.0" text="Recalculated Distances" underline="true">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font size="20.0" />
                                        </font>
                                     </Label>
                                     <TableView fx:id="recAwayDistanceTable" layoutX="6.0" layoutY="194.0" prefHeight="85.0" prefWidth="381.0">
@@ -100,21 +100,21 @@
                                           <TableColumn fx:id="towardAsdaCol" minWidth="1.0" prefWidth="76.0" text="ASDA" />
                                        </columns>
                                     </TableView>
-                                    <Label layoutX="99.0" layoutY="160.0" prefHeight="25.0" prefWidth="208.0" text="(Take off away, Landing over)">
+                                    <Label layoutX="104.0" layoutY="160.0" prefHeight="25.0" prefWidth="208.0" text="(Take off away, Landing over)">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font name="System Italic" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="76.0" layoutY="283.0" text="(Take off towards, Landing towards)">
+                                    <Label fx:id="takeoffLabel" layoutX="92.0" layoutY="283.0" text="(Take off towards, Landing towards)">
                                        <font>
-                                          <Font size="16.0" />
+                                          <Font name="System Italic" size="16.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </AnchorPane>
                            </content>
                         </TitledPane>
-                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Calculation Breakdown">
+                                <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" text="Calculation Breakdown" textFill="WHITE">
                            <content>
                               <TabPane prefHeight="341.0" prefWidth="383.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
@@ -160,7 +160,7 @@
                                 </TitledPane>
                             </children>
                         </VBox>
-                  <Button fx:id="ATClogout" layoutX="3.0" layoutY="848.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
+                  <Button fx:id="ATClogout" layoutX="3.0" layoutY="841.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
@@ -175,12 +175,12 @@
                                        <content>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" text="Airport Name" textAlignment="CENTER">
+                                                <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" stylesheets="@design.css" text="Airport Name" textAlignment="CENTER">
                                                    <font>
                                                       <Font size="30.0" />
                                                    </font>
                                                 </Label>
-                                                 <AnchorPane fx:id="sideLeftPane" layoutX="16.0" layoutY="72.0" prefHeight="770.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                 <AnchorPane fx:id="sideLeftPane" layoutX="16.0" layoutY="72.0" prefHeight="770.0" prefWidth="800.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                                                      <children>
                                                          <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, -48.999969482421875, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
                                                          <Rectangle fx:id="sideRunway" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="30.0" layoutX="35.0" layoutY="419.0" stroke="#606265" strokeType="INSIDE" width="750.0" />
@@ -199,7 +199,7 @@
                                                          <Button fx:id="sideViewRightButton" layoutX="704.0" layoutY="659.0" mnemonicParsing="false" onAction="#switchPane" text="View Right" />
                                                      </children>
                                                  </AnchorPane>
-                                                 <AnchorPane fx:id="sideRightPane" layoutY="72.0" prefHeight="771.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                                                 <AnchorPane fx:id="sideRightPane" layoutY="72.0" prefHeight="771.0" prefWidth="800.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                                                      <children>
                                                          <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="596.0, 94.0, -48.999969482421875, 47.00001525878906, -154.66668701171875, 94.0" stroke="#d3dce4" strokeType="INSIDE" />
                                                          <Rectangle fx:id="sideRunway1" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="30.0" layoutX="37.0" layoutY="419.0" stroke="#606265" strokeType="INSIDE" width="750.0" />
@@ -310,11 +310,11 @@
                                     <children>
                                         <VBox prefHeight="707.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                    <TitledPane animated="false" text="Runway">
+                                    <TitledPane animated="false" text="Runway" textFill="WHITE">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="359.0">
                                              <children>
-                                                <TableView fx:id="runwayTable" layoutX="14.0" layoutY="183.0" prefHeight="102.0" prefWidth="342.0">
+                                                <TableView fx:id="runwayTable" layoutX="25.0" layoutY="183.0" prefHeight="102.0" prefWidth="342.0">
                                                    <columns>
                                                       <TableColumn fx:id="runDesigCol" prefWidth="92.0" text="Designator" />
                                                       <TableColumn fx:id="clearwayCol" prefWidth="79.0" text="Clearway" />
@@ -322,7 +322,7 @@
                                                       <TableColumn fx:id="thresholdCol" prefWidth="88.0" text="Threshold" />
                                                    </columns>
                                                 </TableView>
-                                                <GridPane layoutX="14.0" layoutY="11.0" prefHeight="160.0" prefWidth="342.0">
+                                                <GridPane layoutX="80.0" layoutY="23.0" prefHeight="160.0" prefWidth="342.0">
                                                    <columnConstraints>
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="114.0" />
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="228.0" />
@@ -378,14 +378,14 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane animated="false" prefHeight="345.0" prefWidth="376.0" text="Obstacle">
+                                    <TitledPane animated="false" prefHeight="345.0" prefWidth="376.0" text="Obstacle" textFill="WHITE">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="374.0">
                                              <children>
-                                                <GridPane layoutX="15.0" layoutY="10.0" prefHeight="295.0" prefWidth="342.0">
+                                                <GridPane layoutX="102.0" layoutY="9.0" prefHeight="296.0" prefWidth="308.0">
                                                    <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="114.0" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="228.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="146.364013671875" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="201.635986328125" />
                                                    </columnConstraints>
                                                    <rowConstraints>
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -422,7 +422,7 @@
                                                       </Text>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
                                                          <font>
-                                                            <Font name="System Bold" size="12.0" />
+                                                            <Font name="System Bold" size="14.0" />
                                                          </font>
                                                       </Text>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" GridPane.rowIndex="6">
