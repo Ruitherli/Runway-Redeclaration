@@ -426,15 +426,15 @@
                                                                   </Text>
                                                                   <TextField fx:id="nameTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" />
                                                                   <TextField fx:id="heightTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                                  <TextField fx:id="widthTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                   <TextField fx:id="lengthTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                                  <TextField fx:id="widthTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                                   <TextField fx:id="thresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                                   <TextField fx:id="thresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                                   <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="objectResetButton" layoutX="222.0" layoutY="338.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                             <Button fx:id="objectAddButton" layoutX="68.0" layoutY="339.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="objectResetButton" layoutX="222.0" layoutY="338.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
