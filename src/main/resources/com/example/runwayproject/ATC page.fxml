@@ -59,7 +59,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TitledPane animated="false" prefHeight="437.0" prefWidth="395.0" text="Declared Distances" textFill="WHITE">
+                        <TitledPane animated="false" prefWidth="395.0" text="Declared Distances" textFill="WHITE">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="393.0">
                                  <children>
