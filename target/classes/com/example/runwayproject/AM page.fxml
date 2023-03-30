@@ -57,9 +57,9 @@
                             <children>
                         <AnchorPane prefHeight="45.0" prefWidth="395.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="126.0" layoutY="14.0" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Airport Manager access" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <Label alignment="CENTER" layoutX="126.0" layoutY="14.0" prefHeight="45.333333333333336" prefWidth="395.3333333333333" text="Logged in with Airport Manager Access" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
-                                    <Font name="System Bold Italic" size="21.0" />
+                                    <Font name="System Bold" size="21.0" />
                                  </font>
                               </Label>
                            </children>

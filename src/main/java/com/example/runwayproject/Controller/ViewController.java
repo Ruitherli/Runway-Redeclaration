@@ -6,17 +6,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ViewController extends AMController implements Initializable {
@@ -40,6 +43,10 @@ public class ViewController extends AMController implements Initializable {
     @FXML
     private Button viewRightButton;
 
+    ArrayList<Rectangle> temporaryRect = new ArrayList<Rectangle>();
+    ArrayList<Line> temporaryLine = new ArrayList<Line>();
+    ArrayList<Text> temporaryText = new ArrayList<Text>();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,14 +66,18 @@ public class ViewController extends AMController implements Initializable {
 
         if (lineLength>0) {
             Rectangle lengthLine = new Rectangle(startX, startY - thickness/2, lineLength, thickness);
+            temporaryRect.add(lengthLine);
             lengthLine.setFill(color);
             lengthLine.toFront();
 
             Line startMarker = new Line(startX, startY, startX, runway.getLayoutY() + runway.getHeight());
+            temporaryLine.add(startMarker);
             Line endMarker = new Line(endX, startY, endX, runway.getLayoutY() + runway.getHeight());
+            temporaryLine.add(endMarker);
             pane.getChildren().addAll(lengthLine,startMarker,endMarker);
 
             Text text = new Text(message);
+            temporaryText.add(text);
             text.setFont(Font.font("Arial", 10));
             text.setFill(color);
             Bounds lineBounds = lengthLine.getBoundsInParent();
@@ -128,6 +139,32 @@ public class ViewController extends AMController implements Initializable {
 
     }
 
+    public static Line createArrowLine(double startX, double startY, double endX, double endY, String color, String direction) {
+        Line line = new Line(startX, startY, endX, endY);
+        line.setStrokeWidth(2);
+        line.setStroke(Color.valueOf(color));
 
+        double arrowSize = 10;
+        Polygon arrow = new Polygon();
+        arrow.getPoints().addAll(new Double[]{0.0, 0.0, arrowSize, arrowSize / 2, 0.0, arrowSize});
+        arrow.setFill(Color.valueOf(color));
+
+        if (direction.equals("right")) {
+            double angle = Math.atan2((endY - startY), (endX - startX)) * 180 / Math.PI;
+            arrow.setRotate(angle - 90);
+            arrow.setTranslateX(endX - arrowSize / 2);
+            arrow.setTranslateY(endY - arrowSize);
+        } else if (direction.equals("left")) {
+            double angle = Math.atan2((endY - startY), (endX - startX)) * 180 / Math.PI;
+            arrow.setRotate(angle + 90);
+            arrow.setTranslateX(endX - arrowSize / 2);
+            arrow.setTranslateY(endY);
+        } else {
+            throw new IllegalArgumentException("Invalid direction specified.");
+        }
+
+        Group arrowGroup = new Group(line, arrow);
+        return line;
+    }
 
 }

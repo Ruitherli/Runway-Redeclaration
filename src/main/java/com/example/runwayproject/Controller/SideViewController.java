@@ -6,9 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SideViewController extends ViewController{
@@ -38,6 +41,8 @@ public class SideViewController extends ViewController{
 
 
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftPane.setVisible(true);
@@ -64,8 +69,8 @@ public class SideViewController extends ViewController{
         Runway runway2 = new Runway("27L/09R", l2, r2);
 
         /////////  TEST  ///////////
-        view(runway1,o1,location1,leftPane,rightPane); //scenario 1
-        //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
+        //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
+        view(runway2,o2,location2,leftPane,rightPane); //scenario 2
         //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
         //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
@@ -78,6 +83,14 @@ public class SideViewController extends ViewController{
 
         viewLeft(r,o,ol,pane);
         viewRight(r,o,ol,pane2);
+
+        int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
+        int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
+
+        if (rightNum < leftNum){
+            flip();
+        }
+
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
@@ -216,6 +229,22 @@ public class SideViewController extends ViewController{
         // Toggle visibility of pane1 and pane2
         leftPane.setVisible(!leftPane.isVisible());
         rightPane.setVisible(!rightPane.isVisible());
+    }
+
+    public void flip(){
+        leftPane.setScaleX(-1);
+        rightPane.setScaleX(-1);
+        leftAwayLabel.setScaleX(-1);
+        leftTowardsLabel.setScaleX(-1);
+        rightAwayLabel.setScaleX(-1);
+        rightTowardsLabel.setScaleX(-1);
+        viewLeftButton.setScaleX(-1);
+        viewRightButton.setScaleX(-1);
+
+
+        for (Text t : temporaryText){
+            t.setScaleX(-1);
+        }
     }
 
 }
