@@ -492,14 +492,22 @@ public class AMController extends MainController {
     }
     @FXML
     private void reset (ActionEvent event){
-        nameTextField.clear();
-        heightTextField.clear();
-        lengthTextField.clear();
-        widthTextField.clear();
-        thresLTextField.clear();
-        thresRTextField.clear();
-        centerlineTextField.clear();
-        directionComboBox.setValue(null);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Reset the data in the obstacle fields?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            nameTextField.clear();
+            heightTextField.clear();
+            lengthTextField.clear();
+            widthTextField.clear();
+            thresLTextField.clear();
+            thresRTextField.clear();
+            centerlineTextField.clear();
+            directionComboBox.setValue(null);
+        }
+
     }
 
     private void reset (){
@@ -515,14 +523,21 @@ public class AMController extends MainController {
 
     @FXML
     private void resetPreset (ActionEvent event){
-        presetThresLTextField.clear();
-        presetThresRTextField.clear();
-        presetCenterlineTextField.clear();
-        presetDirectionComboBox.setValue(null);
-        presetNameComboBox.setValue(null);
-        presetHeightText.setText("0");
-        presetWidthText.setText("0");
-        presetLengthText.setText("0");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Reset the data in the obstacle fields?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            presetThresLTextField.clear();
+            presetThresRTextField.clear();
+            presetCenterlineTextField.clear();
+            presetDirectionComboBox.setValue(null);
+            presetNameComboBox.setValue(null);
+            presetHeightText.setText("0");
+            presetWidthText.setText("0");
+            presetLengthText.setText("0");
+        }
     }
 
     private void resetPreset (){
@@ -823,7 +838,7 @@ public class AMController extends MainController {
                         preparedStatement.execute();
                         System.out.println("Successfully added obstacle into preset table");
                     }catch (SQLException e){
-                        playErrorAlert("Obstacle name already exists in the database");
+                        playInformationAlert("Obstacle name already exists in the database");
                     }
 
                     currentObstacle.setObstacleName(obsName);
@@ -863,17 +878,22 @@ public class AMController extends MainController {
                     }
                     currentRunway.setRunwayName(runway);
 
-                    query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
-                            "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
-                            "FROM obstacle o, runway r\n" +
-                            "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
-                    preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.execute();
-                    System.out.println("Successfully added the obstacle on the runway");
+                    try{
+                        query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
+                                "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
+                                "FROM obstacle o, runway r\n" +
+                                "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
+                        preparedStatement = connection.prepareStatement(query);
+                        preparedStatement.execute();
+                        System.out.println("Successfully added the obstacle on the runway");
 
-                    sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
-                    topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+                        sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
+                        topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
 
+
+                    }catch (SQLException e){
+                        playErrorAlert("Runway "+runway+" already has an obstacle");
+                    }
 
                     connection.close();
                     preparedStatement.close();
@@ -950,22 +970,27 @@ public class AMController extends MainController {
                     }
                     currentRunway.setRunwayName(runway);
 
-                    query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
-                            "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
-                            "FROM obstacle o, runway r\n" +
-                            "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
+                    try{
+                        query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
+                                "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
+                                "FROM obstacle o, runway r\n" +
+                                "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
 
-                    preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.execute();
-                    System.out.println("Successfully added the obstacle on the runway");
+                        preparedStatement = connection.prepareStatement(query);
+                        preparedStatement.execute();
+                        System.out.println("Successfully added the obstacle on the runway");
+
+                        sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
+                        topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+
+                    }catch (SQLException e){
+                        playErrorAlert("Runway "+runway+" already has an obstacle");
+                    }
 
                 }catch (SQLException e){
                     playErrorAlert(String.valueOf(e));
                 }
             }
-
-            sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
-            topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
 
             connection.close();
             preparedStatement.close();

@@ -64,9 +64,20 @@ public class MainController implements Initializable {
         alert.showAndWait();
     }
 
-    public void playSuccessPopup (String message) {
-
+    public void playWarningAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+
+    public void playInformationAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     /*public void setNumericFormat(TextField textField){
         //Only allow numerical values to be typed into the textfield
