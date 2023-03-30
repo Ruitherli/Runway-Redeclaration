@@ -203,7 +203,6 @@ public class ATCController extends MainController {
     @FXML
     private Button sideViewRightButton;
 
-
     @FXML
     private Label topLeftAwayLabel;
     @FXML
