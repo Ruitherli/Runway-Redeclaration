@@ -356,6 +356,35 @@ public class ATCController extends MainController {
             topLeftPane.setVisible(true);
             topRightPane.setVisible(false);
 
+            recAwayDistanceTable.setRowFactory(tv -> {
+                TableRow<RecTable> row = new TableRow<>();
+                row.itemProperty().addListener((obs, previousRec, currentRec) -> {
+                    if (currentRec != null) {
+                        if (currentRec.getRecTora() < minRunDistance || currentRec.getRecLda() < minLandingDistance) {
+                            row.setStyle("-fx-text-background-color: red;");
+                        } else {
+                            row.setStyle("");
+                        }
+                    }
+                });
+                return row;
+            });
+
+            recTowardDistanceTable.setRowFactory(tv -> {
+                TableRow<RecTable> row = new TableRow<>();
+                row.itemProperty().addListener((obs, previousRec, currentRec) -> {
+                    if (currentRec != null) {
+                        if (currentRec.getRecTora() < minRunDistance || currentRec.getRecLda() < minLandingDistance) {
+                            row.setStyle("-fx-text-background-color: red;");
+                        } else {
+                            row.setStyle("");
+                        }
+                    }
+                });
+                return row;
+            });
+
+
             setRunwayComboBox();
         } catch (SQLException e) {
             playErrorAlert(String.valueOf(e));
@@ -470,6 +499,7 @@ public class ATCController extends MainController {
         String runway = runwayComboBox.getValue();
         try{
             recAwayTableList.clear();
+            recTowardTableList.clear();
 
             //Getting the obstacle that is on the runway
             connection = DbConnect.getConnection();
@@ -656,6 +686,8 @@ public class ATCController extends MainController {
 
         recAwayDistanceTable.setItems(recAwayTableList);
         recTowardDistanceTable.setItems(recTowardTableList);
+
+
     }
 
     public void loadData(ActionEvent event){

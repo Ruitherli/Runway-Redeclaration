@@ -569,9 +569,6 @@ public class AMController extends MainController {
                 obstacleTable.setItems(obstacleList);
             }
 
-            for(Obstacle i : obstacleList){
-                System.out.println(i.getObstacleName());
-            }
             connection.close();
             preparedStatement.close();
             resultSet.close();
