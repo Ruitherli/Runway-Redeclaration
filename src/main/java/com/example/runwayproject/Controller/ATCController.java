@@ -18,9 +18,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,6 +40,7 @@ import java.util.ResourceBundle;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class ATCController extends MainController {
+
 
 
     @FXML
@@ -202,7 +205,6 @@ public class ATCController extends MainController {
     private Button sideViewLeftButton;
     @FXML
     private Button sideViewRightButton;
-
     @FXML
     private Label topLeftAwayLabel;
     @FXML
@@ -226,9 +228,44 @@ public class ATCController extends MainController {
     @FXML
     private Button topViewRightButton;
 
+    @FXML
+    private Polygon sideLeftAwayArrowhead;
+    @FXML
+    private Line sideLeftAwayArrowline;
+    @FXML
+    private Polygon sideLeftTowardsArrowhead;
+    @FXML
+    private Line sideLeftTowardsArrowline;
+    @FXML
+    private Polygon sideRightAwayArrowhead;
+    @FXML
+    private Line sideRightAwayArrowline;
+    @FXML
+    private Polygon sideRightTowardsArrowhead;
+    @FXML
+    private Line sideRightTowardsArrowline;
+    @FXML
+    private Polygon topLeftAwayArrowhead;
+    @FXML
+    private Line topLeftAwayArrowline;
+    @FXML
+    private Polygon topLeftTowardsArrowhead;
+    @FXML
+    private Line topLeftTowardsArrowline;
+    @FXML
+    private Polygon topRightAwayArrowhead;
+    @FXML
+    private Line topRightAwayArrowline;
+    @FXML
+    private Polygon topRightTowardsArrowhead;
+    @FXML
+    private Line topRightTowardsArrowline;
+
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
+    ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
+
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -356,6 +393,35 @@ public class ATCController extends MainController {
             topLeftPane.setVisible(true);
             topRightPane.setVisible(false);
 
+            recAwayDistanceTable.setRowFactory(tv -> {
+                TableRow<RecTable> row = new TableRow<>();
+                row.itemProperty().addListener((obs, previousRec, currentRec) -> {
+                    if (currentRec != null) {
+                        if (currentRec.getRecTora() < minRunDistance || currentRec.getRecLda() < minLandingDistance) {
+                            row.setStyle("-fx-text-background-color: red;");
+                        } else {
+                            row.setStyle("");
+                        }
+                    }
+                });
+                return row;
+            });
+
+            recTowardDistanceTable.setRowFactory(tv -> {
+                TableRow<RecTable> row = new TableRow<>();
+                row.itemProperty().addListener((obs, previousRec, currentRec) -> {
+                    if (currentRec != null) {
+                        if (currentRec.getRecTora() < minRunDistance || currentRec.getRecLda() < minLandingDistance) {
+                            row.setStyle("-fx-text-background-color: red;");
+                        } else {
+                            row.setStyle("");
+                        }
+                    }
+                });
+                return row;
+            });
+
+
             setRunwayComboBox();
         } catch (SQLException e) {
             playErrorAlert(String.valueOf(e));
@@ -470,6 +536,7 @@ public class ATCController extends MainController {
         String runway = runwayComboBox.getValue();
         try{
             recAwayTableList.clear();
+            recTowardTableList.clear();
 
             //Getting the obstacle that is on the runway
             connection = DbConnect.getConnection();
@@ -656,6 +723,8 @@ public class ATCController extends MainController {
 
         recAwayDistanceTable.setItems(recAwayTableList);
         recTowardDistanceTable.setItems(recTowardTableList);
+
+
     }
 
     public void loadData(ActionEvent event){
@@ -683,6 +752,15 @@ public class ATCController extends MainController {
 
          viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
          viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+
+        int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
+        int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
+
+        if (rightNum < leftNum){
+            flip();
+        }else {
+            unflip();
+        }
     }
 
     public void topView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2, Rectangle drawnRunway, Label leftAwayLabel, Label leftTowardsLabel, Label rightAwayLabel, Label rightTowardsLabel){
@@ -693,6 +771,15 @@ public class ATCController extends MainController {
 
         viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
         viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+
+        int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
+        int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
+
+        if (rightNum < leftNum){
+            flip();
+        }else {
+            unflip();
+        }
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel){
@@ -732,31 +819,53 @@ public class ATCController extends MainController {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
                 awayLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 awayLabel.setTextFill(javafx.scene.paint.Color.RED);
+                sideLeftAwayArrowhead.setVisible(false);
+                sideLeftAwayArrowline.setVisible(false);
+                topLeftAwayArrowhead.setVisible(false);
+                topLeftAwayArrowline.setVisible(false);
             }else{
                 towardsLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 towardsLabel.setTextFill(javafx.scene.paint.Color.RED);
+                sideLeftTowardsArrowhead.setVisible(false);
+                sideLeftTowardsArrowline.setVisible(false);
+                topLeftTowardsArrowhead.setVisible(false);
+                topLeftTowardsArrowline.setVisible(false);
             }
         }else {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
-                awayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER  ---------->");
+                sideLeftAwayArrowhead.setVisible(true);
+                sideLeftAwayArrowline.setVisible(true);
+                topLeftAwayArrowhead.setVisible(true);
+                topLeftAwayArrowline.setVisible(true);
+                awayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
                 drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.GREEN, awayPos,lineThickness,("TORA "+newTora),drawnRunway); //tora
                 drawLine((double) blastProtection / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.BLUE, awayPos,lineThickness,("blast\nprotection "+ blastProtection),drawnRunway); //blast protection
                 drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.RED, awayPos+20,lineThickness,("TODA "+newToda),drawnRunway); //toda
                 drawLine((double) newAsda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + stripEnd + slopeCalc) / scale, pane, javafx.scene.paint.Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
+                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
                 drawLine((double) stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeCalc) / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
             } else {
-                towardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS  ---------->");
+                sideLeftTowardsArrowhead.setVisible(true);
+                sideLeftTowardsArrowline.setVisible(true);
+                topLeftTowardsArrowhead.setVisible(true);
+                topLeftTowardsArrowline.setVisible(true);
+                towardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora),drawnRunway); //tora
                 //draw((double) rd.getDisplacedThres() / rd.getTora(), (double) 0 / rd.getTora(), pane, Color.GREEN, 50); //displaced threshold
                 drawLine((double) stripEnd / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) slopeCalc / scale, (double) (newTora + stripEnd ) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
+                drawSlope((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
                 drawLine((double) newToda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.RED, towardsPos+40,lineThickness,("TODA "+newToda),drawnRunway); //toda
                 drawLine((double) newAsda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / scale, (double) left.getDisplacedThres() / scale, pane, javafx.scene.paint.Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) stripEnd / scale, (double) (newLda+left.getDisplacedThres()) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) RESA / scale, (double) (newLda +left.getDisplacedThres()+ stripEnd) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos,lineThickness,("RESA "+ RESA),drawnRunway); //resa
+            }
+            for (Polygon p : temporaryPolygons){
+                topLeftPane.getChildren().remove(p);
+                topRightPane.getChildren().remove(p);
             }
         }
     }
@@ -784,13 +893,25 @@ public class ATCController extends MainController {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
                 awayLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 awayLabel.setTextFill(javafx.scene.paint.Color.RED);
+                sideRightAwayArrowhead.setVisible(false);
+                sideRightAwayArrowline.setVisible(false);
+                topRightAwayArrowhead.setVisible(false);
+                topRightAwayArrowline.setVisible(false);
             }else{
                 towardsLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 towardsLabel.setTextFill(javafx.scene.paint.Color.RED);
+                sideRightTowardsArrowhead.setVisible(false);
+                sideRightTowardsArrowline.setVisible(false);
+                topRightTowardsArrowhead.setVisible(false);
+                topRightTowardsArrowline.setVisible(false);
             }
         }else {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
-                awayLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
+                sideRightAwayArrowhead.setVisible(true);
+                sideRightAwayArrowline.setVisible(true);
+                topRightAwayArrowhead.setVisible(true);
+                topRightAwayArrowline.setVisible(true);
+                awayLabel.setText(right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.GREEN, awayPos,lineThickness,("TORA "+newTora),drawnRunway); //tora
                 drawLine((double) blastProtection / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.BLUE, awayPos,lineThickness,("blast\nprotection "+ blastProtection),drawnRunway); //blast protection
                 drawLine((double) newToda / scale, (double) (newTora-newToda) / scale, pane, javafx.scene.paint.Color.RED, awayPos+20,lineThickness,("TODA "+newToda),drawnRunway); //toda
@@ -798,16 +919,26 @@ public class ATCController extends MainController {
                 drawLine((double) newLda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) stripEnd / scale, (double) newLda / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) slopeCalc / scale, (double) (newLda+ stripEnd) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
+                drawSlope((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
             } else {
-                towardsLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
+                sideRightTowardsArrowhead.setVisible(true);
+                sideRightTowardsArrowline.setVisible(true);
+                topRightTowardsArrowhead.setVisible(true);
+                topRightTowardsArrowline.setVisible(true);
+                towardsLabel.setText(right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
                 drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd)/ scale, pane, javafx.scene.paint.Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora),drawnRunway); //tora
                 drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL())/ scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
+                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
                 drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd) / scale, pane, javafx.scene.paint.Color.RED, towardsPos+40,lineThickness,("TODA "+newToda),drawnRunway); //toda
                 drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd) / scale, pane, javafx.scene.paint.Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+ RESA+ stripEnd) / scale, pane, javafx.scene.paint.Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+ RESA) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) RESA / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos,lineThickness,("RESA "+ RESA),drawnRunway); //resa
+            }
+            for (Polygon p : temporaryPolygons){
+                topLeftPane.getChildren().remove(p);
+                topRightPane.getChildren().remove(p);
             }
         }
     }
@@ -948,6 +1079,104 @@ public class ATCController extends MainController {
             topLeftPane.getChildren().remove(l);
             topRightPane.getChildren().remove(l);
         }
+        for (Polygon l : temporaryPolygons){
+            sideLeftPane.getChildren().remove(l);
+            sideRightPane.getChildren().remove(l);
+        }
 
+
+    }
+
+    public void drawSlope(double lengthFraction, double startXFraction, double slopeHeight, AnchorPane pane, Color color, boolean slopeUp,  String message) {
+        double runwayLength = sideRunway.getWidth();
+        double startX = sideRunway.getLayoutX() + startXFraction * runwayLength;
+        double slopeLength = runwayLength * lengthFraction;
+        double startY = sideRunway.getLayoutY();
+        double endX = startX + slopeLength;
+        double endY = startY - slopeHeight;
+
+        javafx.scene.shape.Polygon slope = new Polygon(startX, startY, endX, startY, endX, endY);
+        if (slopeUp){
+            slope.setScaleX(-1);
+        }
+        temporaryPolygons.add(slope);
+        slope.setFill(Color.YELLOWGREEN);
+        slope.setOpacity(0.5);
+        pane.getChildren().add(slope);
+
+        Text text = new Text(message);
+        temporaryText.add(text);
+        text.setFont(Font.font("Arial", 10));
+        text.setFill(Color.BLACK);
+        Bounds lineBounds = slope.getBoundsInParent();
+        // Calculate the center point of the slope
+        double centerX = (startX + endX) / 2;
+        double centerY = (startY + endY) / 2;
+
+        // Adjust the x-coordinate of the text to be the center of the slope
+        double textX = centerX - text.getLayoutBounds().getWidth() / 2;
+        double textY = centerY - 5; // Adjust the y-coordinate of the text for better alignment
+
+        text.setX(textX);
+        text.setY(textY);
+        pane.getChildren().add(text);
+    }
+
+    public void flip(){
+        //flipping the diagrams
+        sideLeftPane.setScaleX(-1);
+        sideRightPane.setScaleX(-1);
+        topLeftPane.setScaleX(-1);
+        topRightPane.setScaleX(-1);
+
+        //flip back the components which do not require to be flipped initially
+        sideLeftAwayLabel.setScaleX(-1);
+        sideLeftTowardsLabel.setScaleX(-1);
+        sideRightAwayLabel.setScaleX(-1);
+        sideRightTowardsLabel.setScaleX(-1);
+        sideViewLeftButton.setScaleX(-1);
+        sideViewRightButton.setScaleX(-1);
+
+        topLeftAwayLabel.setScaleX(-1);
+        topLeftTowardsLabel.setScaleX(-1);
+        topRightAwayLabel.setScaleX(-1);
+        topRightTowardsLabel.setScaleX(-1);
+        topViewLeftButton.setScaleX(-1);
+        topViewRightButton.setScaleX(-1);
+
+        //unflippedGroup.setScaleX(-1);
+
+        for (Text t : temporaryText){
+            t.setScaleX(-1);
+        }
+    }
+
+    public void unflip(){
+        //flipping the diagrams
+        sideLeftPane.setScaleX(1);
+        sideRightPane.setScaleX(1);
+        topLeftPane.setScaleX(1);
+        topRightPane.setScaleX(1);
+
+        //flip back the components which do not require to be flipped initially
+        sideLeftAwayLabel.setScaleX(1);
+        sideLeftTowardsLabel.setScaleX(1);
+        sideRightAwayLabel.setScaleX(1);
+        sideRightTowardsLabel.setScaleX(1);
+        sideViewLeftButton.setScaleX(1);
+        sideViewRightButton.setScaleX(1);
+
+        topLeftAwayLabel.setScaleX(1);
+        topLeftTowardsLabel.setScaleX(1);
+        topRightAwayLabel.setScaleX(1);
+        topRightTowardsLabel.setScaleX(1);
+        topViewLeftButton.setScaleX(1);
+        topViewRightButton.setScaleX(1);
+
+        //unflippedGroup.setScaleX(-1);
+
+        for (Text t : temporaryText){
+            t.setScaleX(1);
+        }
     }
 }

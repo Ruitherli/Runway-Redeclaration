@@ -1,12 +1,9 @@
 package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Model.*;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -46,7 +42,7 @@ public class ViewController extends AMController implements Initializable {
     ArrayList<Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
-
+    ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -139,32 +135,40 @@ public class ViewController extends AMController implements Initializable {
 
     }
 
-    public static Line createArrowLine(double startX, double startY, double endX, double endY, String color, String direction) {
-        Line line = new Line(startX, startY, endX, endY);
-        line.setStrokeWidth(2);
-        line.setStroke(Color.valueOf(color));
+    public void drawSlope(double lengthFraction, double startXFraction, double slopeHeight, AnchorPane pane, Color color, boolean slopeUp,  String message) {
+        double runwayLength = runway.getWidth();
+        double startX = runway.getLayoutX() + startXFraction * runwayLength;
+        double slopeLength = runwayLength * lengthFraction;
+        double startY = runway.getLayoutY();
+        double endX = startX + slopeLength;
+        double endY = startY - slopeHeight;
 
-        double arrowSize = 10;
-        Polygon arrow = new Polygon();
-        arrow.getPoints().addAll(new Double[]{0.0, 0.0, arrowSize, arrowSize / 2, 0.0, arrowSize});
-        arrow.setFill(Color.valueOf(color));
-
-        if (direction.equals("right")) {
-            double angle = Math.atan2((endY - startY), (endX - startX)) * 180 / Math.PI;
-            arrow.setRotate(angle - 90);
-            arrow.setTranslateX(endX - arrowSize / 2);
-            arrow.setTranslateY(endY - arrowSize);
-        } else if (direction.equals("left")) {
-            double angle = Math.atan2((endY - startY), (endX - startX)) * 180 / Math.PI;
-            arrow.setRotate(angle + 90);
-            arrow.setTranslateX(endX - arrowSize / 2);
-            arrow.setTranslateY(endY);
-        } else {
-            throw new IllegalArgumentException("Invalid direction specified.");
+        Polygon slope = new Polygon(startX, startY, endX, startY, endX, endY);
+        if (slopeUp){
+            slope.setScaleX(-1);
         }
+        temporaryPolygons.add(slope);
+        slope.setFill(Color.YELLOWGREEN);
+        slope.setOpacity(0.5);
+        pane.getChildren().add(slope);
 
-        Group arrowGroup = new Group(line, arrow);
-        return line;
+        Text text = new Text(message);
+        temporaryText.add(text);
+        text.setFont(Font.font("Arial", 10));
+        text.setFill(Color.BLACK);
+        Bounds lineBounds = slope.getBoundsInParent();
+        // Calculate the center point of the slope
+        double centerX = (startX + endX) / 2;
+        double centerY = (startY + endY) / 2;
+
+        // Adjust the x-coordinate of the text to be the center of the slope
+        double textX = centerX - text.getLayoutBounds().getWidth() / 2;
+        double textY = centerY - 5; // Adjust the y-coordinate of the text for better alignment
+
+        text.setX(textX);
+        text.setY(textY);
+        pane.getChildren().add(text);
     }
+
 
 }
