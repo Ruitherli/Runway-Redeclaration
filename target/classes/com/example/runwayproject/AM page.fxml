@@ -256,7 +256,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="359.0">
                                              <children>
-                                                <TableView fx:id="runwayTable" layoutX="14.0" layoutY="183.0" prefHeight="102.0" prefWidth="342.0">
+                                                <TableView fx:id="runwayTable" layoutX="23.0" layoutY="205.0" prefHeight="72.0" prefWidth="342.0">
                                                    <columns>
                                                       <TableColumn fx:id="designatorCol" prefWidth="83.33337306976318" text="Designator" />
                                                       <TableColumn fx:id="toraCol" prefWidth="64.6666259765625" text="TORA" />
@@ -265,7 +265,7 @@
                                                       <TableColumn fx:id="ldaCol" prefWidth="64.0" text="LDA" />
                                                    </columns>
                                                 </TableView>
-                                                <GridPane layoutX="49.0" layoutY="21.0" prefHeight="166.0" prefWidth="368.0">
+                                                <GridPane layoutX="50.0" layoutY="30.0" prefHeight="166.0" prefWidth="368.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="-30.399999999999977">
                                                    <columnConstraints>
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="114.0" />
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="228.0" />
@@ -313,71 +313,36 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="398.0">
                                                          <children>
-                                                            <GridPane layoutX="45.0" layoutY="16.0" prefHeight="295.0" prefWidth="335.0">
+                                                            <Button fx:id="objectAddButton" layoutX="68.0" layoutY="330.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
+                                                            <Button fx:id="objectResetButton" layoutX="227.0" layoutY="331.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
+                                                            <GridPane layoutX="56.0" layoutY="23.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
-                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="149.43505859375" />
-                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="65.06494140625" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="137.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="82.0" />
                                                                </columnConstraints>
                                                                <rowConstraints>
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="50.5" minHeight="10.0" prefHeight="35.5" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="RIGHT" wrappingWidth="77.102783203125">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" textAlignment="RIGHT" wrappingWidth="79.8125" GridPane.rowIndex="1">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" textAlignment="RIGHT" wrappingWidth="82.171875" GridPane.rowIndex="2">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" textAlignment="RIGHT" wrappingWidth="74.478515625" GridPane.rowIndex="3">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l6" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="139.71875" GridPane.rowIndex="6">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" GridPane.rowIndex="7">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" textAlignment="RIGHT" wrappingWidth="80.0244140625" GridPane.rowIndex="9">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                     </font>
-                                                                  </Text>
-                                                                  <ComboBox fx:id="directionComboBox" prefHeight="25.0" prefWidth="156.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="40.01220703125" />
+                                                                  <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1" />
+                                                                  <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2" />
+                                                                  <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="41.34228515625" GridPane.rowIndex="3" />
+                                                                  <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" wrappingWidth="109.765625" GridPane.rowIndex="5" />
+                                                                  <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="132.3189697265625" GridPane.rowIndex="6" />
+                                                                  <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" wrappingWidth="111.21630859375" GridPane.rowIndex="7" />
+                                                                  <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8" />
+                                                                  <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" wrappingWidth="106.873779296875" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -415,10 +380,9 @@
                                                                   <TextField fx:id="thresRTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" stylesheets="@design.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                                   <TextField fx:id="thresLTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" stylesheets="@design.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                                   <TextField fx:id="centerlineTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" stylesheets="@design.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                                  <ComboBox fx:id="directionComboBox" prefHeight="22.0" prefWidth="156.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                                                </children>
                                                             </GridPane>
-                                                            <Button fx:id="objectAddButton" layoutX="68.0" layoutY="331.0" mnemonicParsing="false" onAction="#addObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
-                                                            <Button fx:id="objectResetButton" layoutX="218.0" layoutY="332.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="94.0" text="Reset" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
@@ -427,35 +391,35 @@
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <GridPane layoutX="55.0" layoutY="23.0" prefHeight="295.0" prefWidth="335.0">
+                                                            <GridPane layoutX="56.0" layoutY="23.0" prefHeight="295.0" prefWidth="335.0">
                                                                <columnConstraints>
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="122.0" />
-                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="132.0" />
+                                                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="137.0" />
                                                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="82.0" />
                                                                </columnConstraints>
                                                                <rowConstraints>
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints maxHeight="24.34686279296875" minHeight="10.0" prefHeight="17.83251953125" vgrow="SOMETIMES" />
-                                                                  <RowConstraints maxHeight="41.16748046875" minHeight="10.0" prefHeight="41.16748046875" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="32.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="50.5" minHeight="10.0" prefHeight="35.5" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                                                                  <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="40.01220703125" />
                                                                   <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1" />
                                                                   <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2" />
-                                                                  <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" GridPane.rowIndex="3" />
-                                                                  <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5" />
+                                                                  <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="41.34228515625" GridPane.rowIndex="3" />
+                                                                  <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" wrappingWidth="109.765625" GridPane.rowIndex="5" />
                                                                   <Text fx:id="l6" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="132.3189697265625" GridPane.rowIndex="6" />
                                                                   <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" wrappingWidth="111.21630859375" GridPane.rowIndex="7" />
                                                                   <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8" />
-                                                                  <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" wrappingWidth="108.873779296875" GridPane.rowIndex="9" />
-                                                                  <ComboBox fx:id="presetDirectionComboBox" prefHeight="25.0" prefWidth="166.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                                  <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" wrappingWidth="106.873779296875" GridPane.rowIndex="9" />
+                                                                  <ComboBox fx:id="presetDirectionComboBox" prefHeight="27.0" prefWidth="135.0" promptText="Select Direction" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -492,7 +456,7 @@
                                                                   <Text fx:id="presetHeightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Text fx:id="presetLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                   <Text fx:id="presetWidthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                  <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="25.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
+                                                                  <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="22.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
                                                                </children>
                                                             </GridPane>
                                                             <Button fx:id="presetAddButton" layoutX="68.0" layoutY="330.0" mnemonicParsing="false" onAction="#addPresetObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />
