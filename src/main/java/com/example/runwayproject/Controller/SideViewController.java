@@ -2,11 +2,13 @@ package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Model.*;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -38,15 +40,40 @@ public class SideViewController extends ViewController{
     private Button viewLeftButton;
     @FXML
     private Button viewRightButton;
+    @FXML
+    private Line leftAwayArrowhead1;
+    @FXML
+    private Line leftAwayArrowhead2;
+    @FXML
+    private Line leftAwayArrowline;
+    @FXML
+    private Line rightAwayArrowhead1;
+    @FXML
+    private Line rightAwayArrowhead2;
+    @FXML
+    private Line rightAwayArrowline;
+    @FXML
+    private Line leftTowardsArrowhead1;
+    @FXML
+    private Line leftTowardsArrowhead2;
+    @FXML
+    private Line leftTowardsArrowline;
+    @FXML
+    private Line rightTowardsArrowhead1;
+    @FXML
+    private Line rightTowardsArrowhead2;
+    @FXML
+    private Line rightTowardsArrowline;
 
-
-
+    //Group unflippedGroup = new Group();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         leftPane.setVisible(true);
         rightPane.setVisible(false);
+
+        //unflippedGroup.getChildren().addAll(leftPane,rightPane,viewLeftButton,viewRightButton);
 
         RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
         RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
@@ -62,17 +89,17 @@ public class SideViewController extends ViewController{
         Obstacle o3 = new Obstacle("obs 3",15,10,10);
         ObstacleLocation location3 = new ObstacleLocation(150,3203,60,ObstacleLocation.Direction.North);
 
-        Obstacle o4 = new Obstacle("obs 4",20,10,10);
-        ObstacleLocation location4 = new ObstacleLocation(50,3546,20,ObstacleLocation.Direction.North);
+        Obstacle o4 = new Obstacle("obs 4",12,10,10);
+        ObstacleLocation location4 = new ObstacleLocation(1500,1500,20,ObstacleLocation.Direction.North);
 
         Runway runway1 = new Runway("09L/27R", l1, r1);
         Runway runway2 = new Runway("27L/09R", l2, r2);
 
         /////////  TEST  ///////////
         //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
-        view(runway2,o2,location2,leftPane,rightPane); //scenario 2
+        //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
         //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
-        //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
+        view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
 
     public void view(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, AnchorPane pane2){
@@ -128,13 +155,22 @@ public class SideViewController extends ViewController{
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 leftAwayLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 leftAwayLabel.setTextFill(Color.RED);
+                leftAwayArrowline.setVisible(false);
+                leftAwayArrowhead1.setVisible(false);
+                leftAwayArrowhead2.setVisible(false);
             }else{
                 leftTowardsLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 leftTowardsLabel.setTextFill(Color.RED);
+                leftTowardsArrowline.setVisible(false);
+                leftTowardsArrowhead1.setVisible(false);
+                leftTowardsArrowhead2.setVisible(false);
             }
         }else {
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
-                leftAwayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER  ---------->");
+                leftAwayArrowline.setVisible(true);
+                leftAwayArrowhead1.setVisible(true);
+                leftAwayArrowhead2.setVisible(true);
+                leftAwayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
                 drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.GREEN, 110,lineThickness,("TORA "+newTora)); //tora
                 drawLine((double) Calculator.blastProtection / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.BLUE, 110,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
                 drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.RED, 130,lineThickness,("TODA "+newToda)); //toda
@@ -142,12 +178,18 @@ public class SideViewController extends ViewController{
                 drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.stripEnd + slopeCalc) / scale, pane, Color.PURPLE, 170,lineThickness,("LDA "+newLda)); //lda
                 drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.MEDIUMORCHID, 170,lineThickness,("slope "+slopeCalc)); //slope
                 drawLine((double) Calculator.stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeCalc) / scale, pane, Color.STEELBLUE, 170,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
+
             } else {
-                leftTowardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS  ---------->");
+                leftTowardsArrowline.setVisible(true);
+                leftTowardsArrowhead1.setVisible(true);
+                leftTowardsArrowhead2.setVisible(true);
+                leftTowardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, 450,lineThickness,("TORA "+newTora)); //tora
                 //draw((double) rd.getDisplacedThres() / rd.getTora(), (double) 0 / rd.getTora(), pane, Color.GREEN, 50); //displaced threshold
                 drawLine((double) Calculator.stripEnd / scale, (double) newTora / scale, pane, Color.STEELBLUE, 450,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
                 drawLine((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, pane, Color.MEDIUMORCHID, 450,lineThickness,("slope "+slopeCalc)); //slope
+                drawSlope((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
                 drawLine((double) newToda / scale, (double) 0 / scale, pane, Color.RED, 430,lineThickness,("TODA "+newToda)); //toda
                 drawLine((double) newAsda / scale, (double) 0 / scale, pane, Color.ORANGE, 410,lineThickness,("ASDA "+newAsda)); //asda
                 drawLine((double) newLda / scale, (double) left.getDisplacedThres() / scale, pane, Color.PURPLE, 390,lineThickness,("LDA "+newLda)); //lda
@@ -178,13 +220,22 @@ public class SideViewController extends ViewController{
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 rightAwayLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 rightAwayLabel.setTextFill(Color.RED);
+                rightAwayArrowline.setVisible(false);
+                rightAwayArrowhead1.setVisible(false);
+                rightAwayArrowhead2.setVisible(false);
             }else{
                 rightTowardsLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 rightTowardsLabel.setTextFill(Color.RED);
+                rightTowardsArrowline.setVisible(false);
+                rightTowardsArrowhead1.setVisible(false);
+                rightTowardsArrowhead2.setVisible(false);
             }
         }else {
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
-                rightAwayLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
+                rightAwayArrowline.setVisible(true);
+                rightAwayArrowhead1.setVisible(true);
+                rightAwayArrowhead2.setVisible(true);
+                rightAwayLabel.setText(right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, 110,lineThickness,("TORA "+newTora)); //tora
                 drawLine((double) Calculator.blastProtection / scale, (double) newTora / scale, pane, Color.BLUE, 110,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
                 drawLine((double) newToda / scale, (double) (newTora-newToda) / scale, pane, Color.RED, 130,lineThickness,("TODA "+newToda)); //toda
@@ -192,11 +243,17 @@ public class SideViewController extends ViewController{
                 drawLine((double) newLda / scale, (double) 0 / scale, pane, Color.PURPLE, 170,lineThickness,("LDA "+newLda)); //lda
                 drawLine((double) Calculator.stripEnd / scale, (double) newLda / scale, pane, Color.STEELBLUE, 170,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
                 drawLine((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, pane, Color.MEDIUMORCHID, 170,lineThickness,("slope "+slopeCalc)); //slope
+                drawSlope((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
+
             } else {
-                rightTowardsLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
+                rightTowardsArrowline.setVisible(true);
+                rightTowardsArrowhead1.setVisible(true);
+                rightTowardsArrowhead2.setVisible(true);
+                rightTowardsLabel.setText(right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
                 drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd)/ scale, pane, Color.GREEN, 450,lineThickness,("TORA "+newTora)); //tora
                 drawLine((double) Calculator.stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc) / scale, pane, Color.STEELBLUE, 450,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
                 drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL())/ scale, pane, Color.MEDIUMORCHID, 450,lineThickness,("slope "+slopeCalc)); //slope
+                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
                 drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.RED, 430,lineThickness,("TODA "+newToda)); //toda
                 drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.ORANGE, 410,lineThickness,("ASDA "+newAsda)); //asda
                 drawLine((double) newLda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+Calculator.RESA+Calculator.stripEnd) / scale, pane, Color.PURPLE, 390,lineThickness,("LDA "+newLda)); //lda
@@ -241,10 +298,24 @@ public class SideViewController extends ViewController{
         viewLeftButton.setScaleX(-1);
         viewRightButton.setScaleX(-1);
 
+        //unflippedGroup.setScaleX(-1);
 
         for (Text t : temporaryText){
             t.setScaleX(-1);
         }
+    }
+
+    public void createSlope(double baseLength, double height, double startX, double startY) {
+        // Create a new polygon
+        Polygon slope = new Polygon();
+
+        // Define the points of the polygon based on the dimensions provided
+        slope.getPoints().addAll(
+                startX, startY, // start point
+                startX + baseLength / 2, startY + height, // middle point
+                startX + baseLength, startY // end point
+        );
+
     }
 
 }
