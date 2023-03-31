@@ -338,34 +338,18 @@
                                                    <children>
                                                       <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Runway">
                                                          <font>
-                                                            <Font name="System Bold" size="12.0" />
+                                                            <Font size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" GridPane.rowIndex="1">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Strip End" GridPane.rowIndex="2">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
+                                                      <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" GridPane.rowIndex="1" />
+                                                      <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Strip End" GridPane.rowIndex="2" />
                                                       <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Blast Protection" GridPane.rowIndex="3">
                                                          <font>
-                                                            <Font name="System Bold" size="12.0" />
+                                                            <Font size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="ALS" GridPane.rowIndex="4">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="TOCS" GridPane.rowIndex="5">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
+                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="ALS" GridPane.rowIndex="4" />
+                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="TOCS" GridPane.rowIndex="5" />
                                                       <ComboBox fx:id="runwayComboBox" onAction="#loadData" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -382,14 +366,15 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="398.0">
                                              <children>
-                                                <GridPane layoutX="129.0" layoutY="9.0" prefHeight="296.0" prefWidth="308.0">
+                                                <GridPane layoutX="60.0" layoutY="9.0" prefHeight="296.0" prefWidth="308.0">
                                                    <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="146.364013671875" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="201.635986328125" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.0" minWidth="10.0" prefWidth="154.5" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="111.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="69.0" />
                                                    </columnConstraints>
                                                    <rowConstraints>
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="29.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="26.0" minHeight="9.0" prefHeight="10.0" vgrow="SOMETIMES" />
@@ -400,51 +385,15 @@
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="88.34228515625" GridPane.rowIndex="3">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5">
-                                                         <font>
-                                                            <Font name="System Bold" size="14.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l6" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="125.5390625" GridPane.rowIndex="6">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" GridPane.rowIndex="7">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" GridPane.rowIndex="9">
-                                                         <font>
-                                                            <Font name="System Bold" size="12.0" />
-                                                         </font>
-                                                      </Text>
+                                                      <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                                                      <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1" />
+                                                      <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2" />
+                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="88.34228515625" GridPane.rowIndex="3" />
+                                                      <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" GridPane.rowIndex="5" />
+                                                      <Text fx:id="l6" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="125.5390625" GridPane.rowIndex="6" />
+                                                      <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" GridPane.rowIndex="7" />
+                                                      <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8" />
+                                                      <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" GridPane.rowIndex="9" />
                                                       <Text fx:id="nameText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" />
                                                       <Text fx:id="heightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="lengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -453,6 +402,13 @@
                                                       <Text fx:id="thresholdLText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                       <Text fx:id="centerlineText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                                       <Text fx:id="directionText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                                      <Label text="m" GridPane.columnIndex="2" GridPane.rowIndex="9" />
                                                    </children>
                                                 </GridPane>
                                              </children>
