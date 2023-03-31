@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -61,11 +62,11 @@
                            </font>
                         </Button>
                         <Label layoutX="218.0" layoutY="346.0" text="Two buttons for testing purposes" />
-                        <TextField fx:id="passwordField" alignment="CENTER" layoutX="316.0" layoutY="191.0" prefHeight="36.0" prefWidth="180.0" promptText="Enter Your Password">
+                        <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="316.0" layoutY="191.0" prefHeight="35.0" prefWidth="177.0" promptText="Enter Your Password">
                            <font>
                               <Font size="16.0" />
                            </font>
-                        </TextField>
+                        </PasswordField>
                      </children>
                   </AnchorPane>
                </children>

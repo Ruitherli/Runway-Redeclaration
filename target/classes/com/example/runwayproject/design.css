@@ -9,11 +9,6 @@
  -fx-text-fill: #000000;
  -fx-font-weight : 500;
 }
-originalDistancesLabel{
--fx-font-family: Helvetica, sans-serif;
- -fx-font-size: 50px;
-
-}
 
 #titleLogin{
  -fx-font-family: Helvetica;
@@ -79,6 +74,7 @@ originalDistancesLabel{
  -fx-box-sizing: border-box;
  -fx-padding: 5 5 5 5;
 }
+/*works fine*/
 
 .button{
  -fx-font-family: Helvetica, serif;
@@ -104,7 +100,7 @@ originalDistancesLabel{
 .titled-pane > .title > .arrow-button .arrow{
  -fx-background-color: black;
 }
-
+/* ------------------------------------------------------*/
 /*table design*/
 .table-view {
  -fx-background-color: transparent;
@@ -133,6 +129,27 @@ originalDistancesLabel{
  -fx-pref-height: 0;
  -fx-max-height: 0;
 }
+/* ------------------------------------------------------*/
+
+.tab-label {
+ -fx-text-fill: black;
+ -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
+
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+ -fx-border-width: 1, 1;
+ -fx-border-color: black;
+ -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
+ -fx-border-radius: 2, 1;
+}
+/* ------------------------------------------------------*/
+
+.gridPane{
+ -fx-font-family: Helvetica, sans-serif;
+ -fx-font-size: 20px;
+}
+
 
 /* menu design*/
 .menu .label{
@@ -160,6 +177,8 @@ originalDistancesLabel{
  -fx-background-color: black;
  -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
 }
+/* ------------------------------------------------------*/
+
 
 /*tab pane design*/
 .tab-pane > .tab-header-area > .tab-header-background {
@@ -179,17 +198,77 @@ originalDistancesLabel{
  -fx-border-radius: 2, 1;
 }
 
-* {
- -fx-font-family: Helvetica;
-}
- -fx-font-family: Helvetica, sans-serif;
- -fx-font-size: 20px;
- -fx-font-weight : 500;
- -fx-text-fill: #000000;
+.text-field{
+ -fx-color:black;
+ -fx-padding:5px;
+ -fx-background-color: #dcdcdc;
+ -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #000000;
+ -fx-prompt-text-size: 20px;
+ -fx-padding: 12px 20px;
+ -fx-margin: 8px 0;
+ -fx-box-sizing: border-box;
+ -fx-padding: 5 5 5 5;
 }
 
-.gridPane{
- -fx-font-family: Helvetica, sans-serif;
- -fx-font-size: 20px;
+#l1{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l2{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l3{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+ }
+#l4{
+ -fx-font-size: 15px;
+  -fx-font-family: Helvetica;
+}
+#l5{
+ -fx-font-size: 25px;
+ -fx-font-family: Helvetica;
+}
+#l6{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l7{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l8{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l9{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#lR1{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l2R{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l3R{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l4R{
+-fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#l5R{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#L6R{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
 
 }
