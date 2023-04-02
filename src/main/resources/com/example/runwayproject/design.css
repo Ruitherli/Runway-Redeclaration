@@ -29,10 +29,8 @@
  -fx-font-weight : 500;
  -fx-text-fill: #000000;
 }
-
 #amButton{
  -fx-font-family:Helvetica, sans-serif;
-
  -fx-padding:5px;
  -fx-background-color: #f8f8ff;
  -fx-background-radius: 10px;
@@ -40,7 +38,6 @@
  -fx-font-color:black;
  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
-
 #atcButton{
  -fx-font-family: Helvetica, serif;
  -fx-padding:5px;
@@ -49,7 +46,6 @@
  -fx-font-size: 20px;
  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
-
 #usernameField{
  -fx-color:black;
  -fx-padding:5px;
@@ -74,8 +70,6 @@
  -fx-box-sizing: border-box;
  -fx-padding: 5 5 5 5;
 }
-/*works fine*/
-
 .button{
  -fx-font-family: Helvetica, serif;
  -fx-padding:5px;
@@ -84,7 +78,6 @@
  -fx-font-size: 15px;
  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
  }
-
 .titled-pane .title{
  -fx-font-size: 20px;
  -fx-font-family: Helvetica;
@@ -92,7 +85,6 @@
  -fx-text-fill:#f8f8ff;
  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
  }
-
 .titled-pane .label{
  -fx-font-size: 12px;
  -fx-font-family: Helvetica;
@@ -100,27 +92,22 @@
 .titled-pane > .title > .arrow-button .arrow{
  -fx-background-color: black;
 }
-/* ------------------------------------------------------*/
 /*table design*/
 .table-view {
  -fx-background-color: transparent;
 }
-
 .table-view .table-cell{
  -fx-border-color: transparent;
  -fx-padding: 2 0 2 10px;
  -fx-alignment: CENTER;
 }
-
 .table-view .label{
  -fx-font-family: Helvetica, sans-serif;
  -fx-font-size: 13px;
  -fx-font-weight : 900;
  -fx-effect: dropshadow(three-pass-box, black, 20, 0, 0, 0);
  -fx-text-fill: #000000;
-
 }
-
 .table-view .scroll-bar * {
  -fx-min-width: 0;
  -fx-pref-width: 0;
@@ -129,28 +116,26 @@
  -fx-pref-height: 0;
  -fx-max-height: 0;
 }
-/* ------------------------------------------------------*/
-
 .tab-label {
  -fx-text-fill: black;
  -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
-
 }
-
 .tab-pane > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
  -fx-border-width: 1, 1;
  -fx-border-color: black;
  -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
  -fx-border-radius: 2, 1;
 }
-/* ------------------------------------------------------*/
-
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
 .gridPane{
  -fx-font-family: Helvetica, sans-serif;
  -fx-font-size: 20px;
 }
-
-
 /* menu design*/
 .menu .label{
  -fx-font-family: Helvetica;
@@ -158,46 +143,34 @@
 }
 .menu-item {
  -fx-background-color: black;
-
 }
 .menu-item .label {
  -fx-text-fill: white;
-
 }
-
 .menu-item:focused {
  -fx-background-color: darkgray;
 }
-
 .menu-item:focused .label {
  -fx-text-fill: white;
 }
-
 .menu{
  -fx-background-color: black;
  -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
 }
-/* ------------------------------------------------------*/
-
-
 /*tab pane design*/
 .tab-pane > .tab-header-area > .tab-header-background {
  -fx-background-color:white;
 }
-
 .tab-label {
  -fx-text-fill: black;
  -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
-
 }
-
 .tab-pane > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
  -fx-border-width: 1, 1;
  -fx-border-color: black;
  -fx-border-insets: -4 -4 -6 -5, -2 -2 -5 -3;
  -fx-border-radius: 2, 1;
 }
-
 .text-field{
  -fx-color:black;
  -fx-padding:5px;
@@ -210,7 +183,6 @@
  -fx-box-sizing: border-box;
  -fx-padding: 5 5 5 5;
 }
-
 #l1{
  -fx-font-size: 15px;
  -fx-font-family: Helvetica;
@@ -270,5 +242,41 @@
 #L6R{
  -fx-font-size: 15px;
  -fx-font-family: Helvetica;
+}
+#originalDistancesLabel{
+ -fx-font-size: 20px;
+ -fx-font-family: Helvetica;
+ -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
+}
+#recalculatedLabel{
+ -fx-font-size: 20px;
+ -fx-font-family: Helvetica;
+ -fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 0);
+}
+#tablelabel1{
+ -fx-font-size: 12px;
+ -fx-font-family: Verdana;
+ -fx-font-style: italic;
+}
+#takeoffLabel{
+ -fx-font-size: 12px;
+ -fx-font-family: Verdana;
+ -fx-font-style: italic;
+}
+#toraTextArea{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#todaTextArea{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
 
+#ldaTextArea{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}
+#asdaTextArea{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
 }

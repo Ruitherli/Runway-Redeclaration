@@ -46,11 +46,19 @@ public class MainController implements Initializable {
     }
 
     public void switchToATC (ActionEvent event) throws IOException {
-        selectScene(event, "ATC page.fxml");
+        try {
+            selectScene(event, "ATC page.fxml");
+        }catch (Exception e){
+            //Do nothing
+        }
     }
 
     public void switchToAM (ActionEvent event) throws IOException {
-        selectScene(event, "AM page.fxml");
+        try {
+            selectScene(event, "AM page.fxml");
+        }catch (Exception e){
+            //Do nothing
+        }
     }
 
     public void switchToLoginPage (ActionEvent event) throws IOException {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 02:23 PM
+-- Generation Time: Apr 02, 2023 at 12:57 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -38,6 +38,27 @@ CREATE TABLE `airport` (
 
 INSERT INTO `airport` (`airport_id`, `airport_name`) VALUES
 (1, 'Heathrow Airport');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `constant`
+--
+
+CREATE TABLE `constant` (
+  `RESA` int(11) NOT NULL,
+  `strip_end` int(11) NOT NULL,
+  `blast_protection` int(11) NOT NULL,
+  `ALS` int(11) NOT NULL,
+  `TOCS` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `constant`
+--
+
+INSERT INTO `constant` (`RESA`, `strip_end`, `blast_protection`, `ALS`, `TOCS`) VALUES
+(240, 60, 300, 50, 50);
 
 -- --------------------------------------------------------
 
@@ -84,7 +105,7 @@ CREATE TABLE `obstacle_location` (
 --
 
 INSERT INTO `obstacle_location` (`location_id`, `obstacle_id`, `runway_id`, `distance_from_threshold_R`, `distance_from_threshold_L`, `distance_from_centerline`, `direction_from_centerline`) VALUES
-(1, 1, 1, 3646, -50, 0, 'CENTER');
+(1, 1, 2, 3646, -50, 0, 'Center');
 
 -- --------------------------------------------------------
 
@@ -140,7 +161,6 @@ INSERT INTO `runway_designator` (`designator_id`, `designator_name`, `TORA`, `TO
 --
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
   `user_name` varchar(12) NOT NULL,
   `password` text NOT NULL,
   `role` enum('ADMIN','AM','ATC') NOT NULL
@@ -150,8 +170,10 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `password`, `role`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN');
+INSERT INTO `user` (`user_name`, `password`, `role`) VALUES
+('admin', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN'),
+('controller1', '14fc2c61398c3508084ed61e615e695e', 'ATC'),
+('manager1', 'c240642ddef994358c96da82c0361a58', 'AM');
 
 --
 -- Indexes for dumped tables
@@ -199,7 +221,7 @@ ALTER TABLE `runway_designator`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -215,13 +237,13 @@ ALTER TABLE `airport`
 -- AUTO_INCREMENT for table `obstacle`
 --
 ALTER TABLE `obstacle`
-  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `obstacle_location`
 --
 ALTER TABLE `obstacle_location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `runway`
@@ -234,12 +256,6 @@ ALTER TABLE `runway`
 --
 ALTER TABLE `runway_designator`
   MODIFY `designator_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
