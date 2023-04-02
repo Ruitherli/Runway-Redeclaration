@@ -442,9 +442,13 @@ public class AMController extends MainController {
             }
         });
         runwayComboBox.getItems().clear();
-        connection = DbConnect.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT runway_name FROM runway");
-        resultSet = preparedStatement.executeQuery();
+        try{
+            connection = DbConnect.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT runway_name FROM runway");
+            resultSet = preparedStatement.executeQuery();
+        }catch (Exception e){
+            //Do nothing
+        }
 
 
         while (resultSet.next()){

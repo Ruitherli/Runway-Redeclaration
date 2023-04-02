@@ -17,24 +17,16 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LoginController extends MainController{
-    @FXML
-    private Button amButton;
 
     @FXML
-    private Button atcButton;
+    private PasswordField passwordField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
-    private TextField passwordTextField;
-
-    @FXML
-    private TextField usernameTextField;
+    private TextField usernameField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //setUsernameFormat(usernameTextField);
+
     }
 
     @FXML
@@ -44,7 +36,7 @@ public class LoginController extends MainController{
         try{
             //Checks if the entered username and password is registered into the database
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM user WHERE user_name = '"+usernameTextField.getText()+"' AND password = MD5('"+passwordTextField.getText()+"');";
+            String query = "SELECT * FROM user WHERE user_name = '"+usernameField.getText()+"' AND password = MD5('"+passwordField.getText()+"');";
             ResultSet resultSet = statement.executeQuery(query);
 
             //If it exists, it will check for admin privileges and logs in to the system
@@ -70,27 +62,17 @@ public class LoginController extends MainController{
 
             }else {
                 playErrorAlert("Invalid username or password");
-                usernameTextField.clear();
-                passwordTextField.clear();
+                usernameField.clear();
+                passwordField.clear();
             }
         }catch (SQLException | IOException e){
             playErrorAlert(String.valueOf(e));
         }
     }
 
-    public void setUsernameFormat(TextField textField) {
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^[a-zA-Z0-9_-]{3,20}$")) {
-                textField.setText(oldValue);
-            }
-        });
+    @FXML
+    public void exit (ActionEvent event){
+        System.exit(1);
     }
 
-    /*public void setPasswordFormat(TextField textField) {
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^(?=.[A-Za-z])(?=.\\d)[A-Za-z\\d]{8,}$")) {
-                textField.setText(oldValue);
-            }
-        });
-    }*/
 }
