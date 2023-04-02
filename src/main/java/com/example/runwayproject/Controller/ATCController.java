@@ -202,9 +202,7 @@ public class ATCController extends MainController {
     @FXML
     private javafx.scene.shape.Rectangle sideRunway1;
     @FXML
-    private Button sideViewLeftButton;
-    @FXML
-    private Button sideViewRightButton;
+    private Button sideSwitchSideButton;
     @FXML
     private Label topLeftAwayLabel;
     @FXML
@@ -224,9 +222,7 @@ public class ATCController extends MainController {
     @FXML
     private javafx.scene.shape.Rectangle topRunway1;
     @FXML
-    private Button topViewLeftButton;
-    @FXML
-    private Button topViewRightButton;
+    private Button topSwitchSideButton;
 
     @FXML
     private Polygon sideLeftAwayArrowhead;
@@ -265,6 +261,7 @@ public class ATCController extends MainController {
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
     ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
+    ArrayList<Text> polygonText = new ArrayList<Text>();
 
 
     Connection connection = null;
@@ -863,10 +860,8 @@ public class ATCController extends MainController {
                 drawLine((double) stripEnd / scale, (double) (newLda+left.getDisplacedThres()) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) RESA / scale, (double) (newLda +left.getDisplacedThres()+ stripEnd) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos,lineThickness,("RESA "+ RESA),drawnRunway); //resa
             }
-            for (Polygon p : temporaryPolygons){
-                topLeftPane.getChildren().remove(p);
-                topRightPane.getChildren().remove(p);
-            }
+            //removing the slope for top down view
+            removeSlope();
         }
     }
 
@@ -936,10 +931,8 @@ public class ATCController extends MainController {
                 drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+ RESA) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) RESA / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos,lineThickness,("RESA "+ RESA),drawnRunway); //resa
             }
-            for (Polygon p : temporaryPolygons){
-                topLeftPane.getChildren().remove(p);
-                topRightPane.getChildren().remove(p);
-            }
+            //removing the slope for top down view
+            removeSlope();
         }
     }
 
@@ -1030,6 +1023,10 @@ public class ATCController extends MainController {
     public void setRunway(Runway r, AnchorPane pane, Rectangle drawnRunway){
         double lineThickness = drawnRunway.getHeight();
 
+        //get the name of the designators
+        String leftDesig = r.getLeftDesignator().getRunwayDesignatorName();
+        String rightDesig = r.getRightDesignator().getRunwayDesignatorName();
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
@@ -1106,6 +1103,7 @@ public class ATCController extends MainController {
 
         Text text = new Text(message);
         temporaryText.add(text);
+        polygonText.add(text);
         text.setFont(Font.font("Arial", 10));
         text.setFill(Color.BLACK);
         Bounds lineBounds = slope.getBoundsInParent();
@@ -1122,6 +1120,17 @@ public class ATCController extends MainController {
         pane.getChildren().add(text);
     }
 
+    public void removeSlope(){
+        for (Polygon p : temporaryPolygons){
+            topLeftPane.getChildren().remove(p);
+            topRightPane.getChildren().remove(p);
+        }
+        for (Text t : polygonText){
+            topLeftPane.getChildren().remove(t);
+            topRightPane.getChildren().remove(t);
+        }
+    }
+
     public void flip(){
         //flipping the diagrams
         sideLeftPane.setScaleX(-1);
@@ -1134,17 +1143,11 @@ public class ATCController extends MainController {
         sideLeftTowardsLabel.setScaleX(-1);
         sideRightAwayLabel.setScaleX(-1);
         sideRightTowardsLabel.setScaleX(-1);
-        sideViewLeftButton.setScaleX(-1);
-        sideViewRightButton.setScaleX(-1);
 
         topLeftAwayLabel.setScaleX(-1);
         topLeftTowardsLabel.setScaleX(-1);
         topRightAwayLabel.setScaleX(-1);
         topRightTowardsLabel.setScaleX(-1);
-        topViewLeftButton.setScaleX(-1);
-        topViewRightButton.setScaleX(-1);
-
-        //unflippedGroup.setScaleX(-1);
 
         for (Text t : temporaryText){
             t.setScaleX(-1);
@@ -1163,17 +1166,11 @@ public class ATCController extends MainController {
         sideLeftTowardsLabel.setScaleX(1);
         sideRightAwayLabel.setScaleX(1);
         sideRightTowardsLabel.setScaleX(1);
-        sideViewLeftButton.setScaleX(1);
-        sideViewRightButton.setScaleX(1);
 
         topLeftAwayLabel.setScaleX(1);
         topLeftTowardsLabel.setScaleX(1);
         topRightAwayLabel.setScaleX(1);
         topRightTowardsLabel.setScaleX(1);
-        topViewLeftButton.setScaleX(1);
-        topViewRightButton.setScaleX(1);
-
-        //unflippedGroup.setScaleX(-1);
 
         for (Text t : temporaryText){
             t.setScaleX(1);

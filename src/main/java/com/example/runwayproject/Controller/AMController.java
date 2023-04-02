@@ -189,47 +189,34 @@ public class AMController extends MainController {
     @FXML
     private AnchorPane sideLeftPane;
     @FXML
-    private Label sideLeftTowardsLabel;
-    @FXML
-    private Label sideRightAwayLabel;
-    @FXML
-    private AnchorPane sideRightPane;
-    @FXML
-    private Label sideRightTowardsLabel;
-    @FXML
     private AnchorPane sideRootPane;
     @FXML
     private Rectangle sideRunway;
     @FXML
-    private Rectangle sideRunway1;
+    private Text sideLeftDesignator;
     @FXML
-    private Button sideViewLeftButton;
+    private Text sideLeftLabel;
     @FXML
-    private Button sideViewRightButton;
+    private Text sideRightDesignator;
+    @FXML
+    private Text sideRightLabel;
 
 
-    @FXML
-    private Label topLeftAwayLabel;
     @FXML
     private AnchorPane topLeftPane;
-    @FXML
-    private Label topLeftTowardsLabel;
-    @FXML
-    private Label topRightAwayLabel;
-    @FXML
-    private AnchorPane topRightPane;
-    @FXML
-    private Label topRightTowardsLabel;
     @FXML
     private AnchorPane topRootPane;
     @FXML
     private Rectangle topRunway;
     @FXML
-    private Rectangle topRunway1;
+    private Text topLeftDesignator;
     @FXML
-    private Button topViewLeftButton;
+    private Text topLeftLabel;
     @FXML
-    private Button topViewRightButton;
+    private Text topRightDesignator;
+    @FXML
+    private Text topRightLabel;
+
 
     ArrayList<Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
@@ -341,10 +328,10 @@ public class AMController extends MainController {
             setNumericFormat(presetThresRTextField);
 
 
-            sideLeftPane.setVisible(true);
+            /*sideLeftPane.setVisible(true);
             sideRightPane.setVisible(false);
             topLeftPane.setVisible(true);
-            topRightPane.setVisible(false);
+            topRightPane.setVisible(false);*/
 
             RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
             RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
@@ -753,8 +740,8 @@ public class AMController extends MainController {
                 }
             }
             //with obs
-            sideView(runway, obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
-            topView(runway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+            sideView(runway, obstacle,obstacleLocation,sideLeftPane,sideRunway);
+            topView(runway,obstacle,obstacleLocation,topLeftPane,topRunway);
 
         }else{
             //Obstacle does not exists on runway
@@ -787,9 +774,7 @@ public class AMController extends MainController {
             }
             //view (without obs)
             setRunway(runway,sideLeftPane,sideRunway);
-            setRunway(runway,sideRightPane,sideRunway1);
             setRunway(runway,topLeftPane,topRunway);
-            setRunway(runway,topRightPane,topRunway1);
         }
     }
 
@@ -884,8 +869,8 @@ public class AMController extends MainController {
                         preparedStatement.execute();
                         System.out.println("Successfully added the obstacle on the runway");
 
-                        sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
-                        topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+                        sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRunway);
+                        topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRunway);
 
 
                     }catch (SQLException e){
@@ -977,8 +962,8 @@ public class AMController extends MainController {
                         preparedStatement.execute();
                         System.out.println("Successfully added the obstacle on the runway");
 
-                        sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRightPane,sideRunway,sideLeftAwayLabel,sideLeftTowardsLabel,sideRightAwayLabel,sideRightTowardsLabel);
-                        topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRightPane,topRunway,topLeftAwayLabel,topLeftTowardsLabel,topRightAwayLabel,topRightTowardsLabel);
+                        sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRunway);
+                        topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);
 
                     }catch (SQLException e){
                         playErrorAlert("Runway "+runway+" already has an obstacle");
@@ -1049,24 +1034,48 @@ public class AMController extends MainController {
 
 
     ////side visualisation
-    public void sideView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2, Rectangle drawnRunway, Label leftAwayLabel, Label leftTowardsLabel, Label rightAwayLabel, Label rightTowardsLabel){
+    public void sideView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway){
         setRunway(r,pane,drawnRunway);
         setObstacle(r,ol,pane,drawnRunway);
-        setRunway(r,pane2,drawnRunway);
-        setObstacle(r,ol,pane2,drawnRunway);
+        /*setRunway(r,pane2,drawnRunway);
+        setObstacle(r,ol,pane2,drawnRunway);*/
 
        // viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
        // viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+
+        sideLeftDesignator.setVisible(true);
+        sideRightDesignator.setVisible(true);
+
+        int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
+        int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
+
+        if (rightNum < leftNum){
+            flip();
+        }else {
+            unflip();
+        }
     }
 
-    public void topView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2, Rectangle drawnRunway, Label leftAwayLabel, Label leftTowardsLabel, Label rightAwayLabel, Label rightTowardsLabel){
+    public void topView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway){
         setRunway(r,pane,drawnRunway);
         setTopObstacle(r,ol,pane,0);
-        setRunway(r,pane2,drawnRunway);
-        setTopObstacle(r,ol,pane2,0);
+        /*setRunway(r,pane2,drawnRunway);
+        setTopObstacle(r,ol,pane2,0);*/
 
         //viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
         //viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+
+        topLeftDesignator.setVisible(true);
+        topRightDesignator.setVisible(true);
+
+        int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
+        int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
+
+        if (rightNum < leftNum){
+            flip();
+        }else {
+            unflip();
+        }
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel){
@@ -1273,6 +1282,14 @@ public class AMController extends MainController {
     public void setRunway(Runway r, AnchorPane pane, Rectangle drawnRunway){
         double lineThickness = drawnRunway.getHeight();
 
+        //get the name of the designators
+        String leftDesig = r.getLeftDesignator().getRunwayDesignatorName().substring(0,2);
+        String rightDesig = r.getRightDesignator().getRunwayDesignatorName().substring(0,2);
+        sideLeftDesignator.setText(leftDesig);
+        topLeftDesignator.setText(leftDesig);
+        sideRightDesignator.setText(rightDesig);
+        topRightDesignator.setText(rightDesig);
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
@@ -1294,36 +1311,68 @@ public class AMController extends MainController {
     public void switchPane() {
         // Toggle visibility of pane1 and pane2
         sideLeftPane.setVisible(!sideLeftPane.isVisible());
-        sideRightPane.setVisible(!sideRightPane.isVisible());
     }
 
     public void switchTopViewPane() {
         // Toggle visibility of pane1 and pane2
         topLeftPane.setVisible(!topLeftPane.isVisible());
-        topRightPane.setVisible(!topRightPane.isVisible());
     }
 
     public void removeObjects(){
         for (Rectangle r : temporaryRect){
             sideLeftPane.getChildren().remove(r);
-            sideRightPane.getChildren().remove(r);
             topLeftPane.getChildren().remove(r);
-            topRightPane.getChildren().remove(r);
         }
         for (Line l : temporaryLine){
             sideLeftPane.getChildren().remove(l);
-            sideRightPane.getChildren().remove(l);
             topLeftPane.getChildren().remove(l);
-            topRightPane.getChildren().remove(l);
         }
         for (Text l : temporaryText){
             sideLeftPane.getChildren().remove(l);
-            sideRightPane.getChildren().remove(l);
             topLeftPane.getChildren().remove(l);
-            topRightPane.getChildren().remove(l);
         }
 
     }
+
+    public void flip(){
+        sideLeftPane.setScaleX(-1);
+        topLeftPane.setScaleX(-1);
+
+        sideLeftLabel.setScaleX(-1);
+        sideRightLabel.setScaleX(-1);
+        sideLeftDesignator.setScaleX(-1);
+        sideRightDesignator.setScaleX(-1);
+
+        topLeftLabel.setScaleX(-1);
+        topRightLabel.setScaleX(-1);
+        topLeftDesignator.setScaleX(-1);
+        topRightDesignator.setScaleX(-1);
+
+        for (Text t : temporaryText){
+            t.setScaleX(-1);
+        }
+    }
+
+    public void unflip(){
+        sideLeftPane.setScaleX(1);
+        topLeftPane.setScaleX(1);
+
+        sideLeftLabel.setScaleX(1);
+        sideRightLabel.setScaleX(1);
+        sideLeftDesignator.setScaleX(1);
+        sideRightDesignator.setScaleX(1);
+
+        topLeftLabel.setScaleX(1);
+        topRightLabel.setScaleX(1);
+        topLeftDesignator.setScaleX(1);
+        topRightDesignator.setScaleX(1);
+
+        for (Text t : temporaryText){
+            t.setScaleX(1);
+        }
+    }
+
+
 
 }
 
