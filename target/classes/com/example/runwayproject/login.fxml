@@ -14,14 +14,14 @@
    <children>
       <SplitPane fx:id="splitPaneLogin" dividerPositions="0.7119483315392895" layoutX="55.0" layoutY="28.0" prefHeight="820.0" prefWidth="1551.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane>
+          <AnchorPane prefHeight="1008.0" prefWidth="1219.0">
                <children>
-                  <ImageView fx:id="pictureLogin" fitHeight="956.0" fitWidth="1617.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
+                  <ImageView fx:id="pictureLogin" fitHeight="954.0" fitWidth="1609.0" layoutX="-475.0" layoutY="-55.0" pickOnBounds="true">
                      <image>
                         <Image url="@../../../images/loginPLane.jpeg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="titleLogin" alignment="CENTER" layoutX="170.0" layoutY="384.0" text="Airport Control Centre" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
+                  <Label fx:id="titleLogin" alignment="CENTER" layoutX="56.0" layoutY="370.0" text="Runway Redeclaration Tool" textAlignment="CENTER" textFill="#d9caca" wrapText="true">
                      <font>
                         <Font name="System Bold" size="59.0" />
                      </font>
@@ -30,43 +30,53 @@
             </AnchorPane>
           <AnchorPane fx:id="anchorPaneLogin" minHeight="0.0" minWidth="450.0" prefHeight="898.0" prefWidth="390.0">
                <children>
-                  <AnchorPane layoutX="-98.0" layoutY="271.0" prefHeight="399.0" prefWidth="571.0" stylesheets="@design.css">
+                  <AnchorPane layoutX="-98.0" layoutY="271.0" prefHeight="898.0" prefWidth="457.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="userLogin" layoutX="176.0" layoutY="54.0" text="User Login">
+                        <Label fx:id="userLogin" layoutX="83.0" layoutY="283.0" text="User Login">
                            <font>
                               <Font size="58.0" />
                            </font>
                         </Label>
-                        <Label fx:id="usernameLogin" layoutX="151.0" layoutY="152.0" prefHeight="26.0" prefWidth="152.0" text="Username:">
+                        <Label fx:id="usernameLogin" layoutX="58.0" layoutY="392.0" prefHeight="26.0" prefWidth="152.0" text="Username:">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <Label fx:id="passwordLogin" layoutX="151.0" layoutY="191.0" prefHeight="35.0" prefWidth="148.0" text="Password:">
+                        <Label fx:id="passwordLogin" layoutX="58.0" layoutY="431.0" prefHeight="35.0" prefWidth="148.0" text="Password:">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" alignment="CENTER" layoutX="316.0" layoutY="146.0" prefHeight="36.0" prefWidth="177.0" promptText="Enter Your Username">
+                        <TextField fx:id="usernameField" alignment="CENTER" layoutX="189.0" layoutY="389.0" prefHeight="36.0" prefWidth="177.0" promptText="Enter Your Username">
                            <font>
                               <Font size="16.0" />
                            </font></TextField>
-                        <Button fx:id="amButton" layoutX="151.0" layoutY="276.0" mnemonicParsing="false" onAction="#switchToAM" prefHeight="36.0" prefWidth="157.0" text="Sign In Manager">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="atcButton" layoutX="332.0" layoutY="275.0" mnemonicParsing="false" onAction="#switchToATC" prefHeight="36.0" prefWidth="160.0" text="Sign In ATC">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Button>
-                        <Label layoutX="218.0" layoutY="346.0" text="Two buttons for testing purposes" />
-                        <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="316.0" layoutY="191.0" prefHeight="35.0" prefWidth="177.0" promptText="Enter Your Password">
+                        <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="189.0" layoutY="432.0" prefHeight="35.0" prefWidth="177.0" promptText="Enter Your Password">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </PasswordField>
+                        <Button fx:id="loginButton" layoutX="88.0" layoutY="489.0" mnemonicParsing="false" onAction="#logIn" prefHeight="40.0" prefWidth="271.0" text="SIGN IN">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="exitButton" layoutX="88.0" layoutY="544.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="271.0" text="EXIT">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="amButton" layoutX="56.0" layoutY="817.0" mnemonicParsing="false" onAction="#switchToAM" prefHeight="36.0" prefWidth="157.0" text="Sign In Manager">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="atcButton" layoutX="232.0" layoutY="817.0" mnemonicParsing="false" onAction="#switchToATC" prefHeight="36.0" prefWidth="160.0" text="Sign In ATC">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="135.0" layoutY="787.0" text="Two buttons for testing purposes" />
                      </children>
                   </AnchorPane>
                </children>
