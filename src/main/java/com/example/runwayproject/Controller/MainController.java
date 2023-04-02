@@ -112,5 +112,12 @@ public class MainController implements Initializable {
         });
     }
 
+    public void setIntegerFormat(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textField.setText(oldValue);
+            }
+        });
+    }
 
 }

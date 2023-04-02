@@ -62,15 +62,6 @@ public class AMController extends MainController {
     private TextField nameTextField;
 
     @FXML
-    private Button objectAddButton;
-
-    @FXML
-    private Button objectResetButton;
-
-    @FXML
-    private Button presetAddButton;
-
-    @FXML
     private TextField presetCenterlineTextField;
 
     @FXML
@@ -312,14 +303,14 @@ public class AMController extends MainController {
             formatTable(runwayTable);
             formatTable(runwayObstacleTable);
             formatTable(obstacleTable);
-            loadObjectTable();
+            loadObstacleTable();
             loadRunwayObsTable();
             setConstants();
             setAirportName();
             setNameFormat(nameTextField);
-            setNumericFormat(heightTextField);
-            setNumericFormat(widthTextField);
-            setNumericFormat(lengthTextField);
+            setIntegerFormat(heightTextField);
+            setIntegerFormat(widthTextField);
+            setIntegerFormat(lengthTextField);
             setNumericFormat(thresLTextField);
             setNumericFormat(thresRTextField);
             setNumericFormat(centerlineTextField);
@@ -542,7 +533,7 @@ public class AMController extends MainController {
         presetLengthText.setText("0");
     }
     @FXML
-    private void refreshObjectTable() {
+    private void refreshObstacleTable() {
         try{
             obstacleList.clear();
 
@@ -569,9 +560,9 @@ public class AMController extends MainController {
         }
     }
 
-    private void loadObjectTable(){
+    private void loadObstacleTable(){
         connection = DbConnect.getConnection();
-        refreshObjectTable();
+        refreshObstacleTable();
 
         presetNameCol.setCellValueFactory(new PropertyValueFactory<>("obstacleName"));
         presetHeightCol.setCellValueFactory(new PropertyValueFactory<>("height"));
@@ -878,7 +869,7 @@ public class AMController extends MainController {
 
 
                     }catch (SQLException e){
-                        playErrorAlert("Runway "+runway+" already has an obstacle");
+                        playErrorAlert("Runway "+runway+" already has an obstacle. Please remove the current obstacle on the runway "+runway+" before adding a new obstacle");
                     }
 
                     connection.close();
@@ -886,7 +877,7 @@ public class AMController extends MainController {
                     resultSet.close();
                     reset();
                     //setComboBox();
-                    loadObjectTable();
+                    loadObstacleTable();
                     loadRunwayObsTable();
 
                 }catch (SQLException e){
@@ -970,7 +961,7 @@ public class AMController extends MainController {
                         topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);
 
                     }catch (SQLException e){
-                        playErrorAlert("Runway "+runway+" already has an obstacle");
+                        playErrorAlert("Runway "+runway+" already has an obstacle. Please remove the current obstacle on the runway "+runway+" before adding a new obstacle");
                     }
 
                 }catch (SQLException e){
@@ -983,7 +974,7 @@ public class AMController extends MainController {
             resultSet.close();
 
             resetPreset();
-            loadObjectTable();
+            loadObstacleTable();
             loadRunwayObsTable();
         }
     }
@@ -1012,15 +1003,15 @@ public class AMController extends MainController {
     }
 
     public void refreshTable(ActionEvent event){
-        loadObjectTable();
+        loadObstacleTable();
         loadRunwayObsTable();
     }
 
     public void setNameFormat(TextField textField) {
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                if (!newValue.matches("^[a-zA-Z0-9\\s-]*$")) {
-                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\s-]", ""));
+                if (!newValue.matches("^[a-zA-Z0-9\\s-.]*$")) {
+                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\s-.]", ""));
                 }
             } catch (Exception ignored) {
                 // Do nothing if an exception occurs

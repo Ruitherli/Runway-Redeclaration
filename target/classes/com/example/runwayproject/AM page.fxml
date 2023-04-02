@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
@@ -420,7 +420,7 @@
                                                                   <Text fx:id="presetHeightText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                   <Text fx:id="presetLengthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                                   <Text fx:id="presetWidthText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                                  <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="22.0" prefWidth="166.0" promptText="Select Object" GridPane.columnIndex="1" />
+                                                                  <ComboBox fx:id="presetNameComboBox" onAction="#setPresetObstacleValues" prefHeight="22.0" prefWidth="166.0" promptText="Select Obstacle" GridPane.columnIndex="1" />
                                                                </children>
                                                             </GridPane>
                                                             <Button fx:id="presetAddButton" layoutX="68.0" layoutY="330.0" mnemonicParsing="false" onAction="#addPresetObstacle" prefHeight="25.0" prefWidth="94.0" text="Add" />

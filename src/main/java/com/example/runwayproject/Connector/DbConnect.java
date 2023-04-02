@@ -20,7 +20,7 @@ public class DbConnect {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Please make sure the database is running ");
+            alert.setContentText("Error: Could not connect to database. The database may be offline or unavailable at this time. Please check your network connection and try again later.");
             alert.showAndWait();
         }
 

@@ -378,6 +378,7 @@ public class ATCController extends MainController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            setRunwayComboBox();
             formatTable(oriDistanceTable);
             formatTable(recAwayDistanceTable);
             formatTable(runwayTable);
@@ -419,7 +420,7 @@ public class ATCController extends MainController {
             });
 
 
-            setRunwayComboBox();
+
         } catch (SQLException e) {
             playErrorAlert(String.valueOf(e));
         }
