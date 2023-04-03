@@ -47,7 +47,6 @@
  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 #usernameField{
- -fx-color:black;
  -fx-padding:5px;
  -fx-background-color: #dcdcdc;
  -fx-background-radius: 10px;
@@ -60,10 +59,10 @@
 
 }
 #passwordField{
- -fx-color:black;
  -fx-padding:5px;
  -fx-background-color: #dcdcdc;
  -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #000000;
  -fx-prompt-text-fill: #C0C0C0;
  -fx-prompt-text-size: 20px;
  -fx-padding: 12px 20px;

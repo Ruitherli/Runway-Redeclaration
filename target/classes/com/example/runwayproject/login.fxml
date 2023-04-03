@@ -53,7 +53,7 @@
                            </font></TextField>
                         <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="189.0" layoutY="432.0" prefHeight="35.0" prefWidth="177.0" promptText="Enter Your Password">
                            <font>
-                              <Font size="19.0" />
+                              <Font size="16.0" />
                            </font>
                         </PasswordField>
                         <Button fx:id="loginButton" layoutX="88.0" layoutY="489.0" mnemonicParsing="false" onAction="#logIn" prefHeight="40.0" prefWidth="271.0" text="SIGN IN">
