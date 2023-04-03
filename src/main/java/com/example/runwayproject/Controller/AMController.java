@@ -1023,7 +1023,7 @@ public class AMController extends MainController {
     void hyperlink2(ActionEvent event) throws URISyntaxException, IOException {
         System.out.println("opened");
         //Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
-        File file = new File("src/main/resources/test.pdf");
+        File file = new File("UserManualAM.pdf");
         Desktop.getDesktop().open(file);
     }
 

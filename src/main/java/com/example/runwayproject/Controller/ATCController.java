@@ -25,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -737,8 +738,9 @@ public class ATCController extends MainController {
     @FXML
     void hyperlink(ActionEvent event) throws URISyntaxException, IOException {
         System.out.println("opened");
-        Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
-
+        //Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
+        File file = new File("UserManualATC.pdf");
+        Desktop.getDesktop().open(file);
     }
 
     ////side visualisation
