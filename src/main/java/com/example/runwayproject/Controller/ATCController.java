@@ -739,7 +739,7 @@ public class ATCController extends MainController {
     void hyperlink(ActionEvent event) throws URISyntaxException, IOException {
         System.out.println("opened");
         //Desktop.getDesktop().browse(new URI("https://drive.google.com/file/d/1A0YGkIcy6O6BGTx-QHKhXmDhOp5zt4D3/view?usp=sharing"));
-        File file = new File("UserManualATC.pdf");
+        File file = new File("src/main/resources/UserManualATC.pdf");
         Desktop.getDesktop().open(file);
     }
 
@@ -1095,7 +1095,7 @@ public class ATCController extends MainController {
         double endX = startX + slopeLength;
         double endY = startY - slopeHeight;
 
-        javafx.scene.shape.Polygon slope = new Polygon(startX, startY, endX, startY, endX, endY);
+        Polygon slope = new Polygon(startX, startY, endX, startY, endX, endY);
         if (slopeUp){
             slope.setScaleX(-1);
         }
