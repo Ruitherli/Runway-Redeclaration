@@ -22,6 +22,12 @@ import java.util.ResourceBundle;
 public class LoginController extends MainController{
 
     @FXML
+    private Button atcButton;
+
+    @FXML
+    private Button amButton;
+
+    @FXML
     private PasswordField passwordField;
 
     @FXML
@@ -31,6 +37,8 @@ public class LoginController extends MainController{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUsernameFormat(usernameField);
         setUsernameFormat(passwordField);
+        atcButton.setVisible(false);
+        amButton.setVisible(false);
     }
 
     @FXML
@@ -97,5 +105,4 @@ public class LoginController extends MainController{
             }
         });
     }
-
 }

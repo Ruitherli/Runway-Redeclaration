@@ -1,9 +1,22 @@
 package com.example.runwayproject.Connector;
 
 import javafx.scene.control.Alert;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbConnect {
     private static String HOST = "127.0.0.1";
@@ -25,5 +38,42 @@ public class DbConnect {
         }
 
         return connection;
+    }
+
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
+        importDatabase();
+    }
+
+    public static void exportDatabase (){
+        String dbName = DB_NAME;
+        String username = USERNAME;
+        String password = PASSWORD;
+        String dumpPath = "runway_redeclaration_tool.xml";
+
+        ProcessBuilder builder = new ProcessBuilder(
+                "mysqldump",
+                "--user=" + username,
+                "--password=" + password,
+                "--xml", // add the --xml option to dump in XML format
+                dbName
+        );
+
+        builder.redirectOutput(ProcessBuilder.Redirect.to(new File(dumpPath))); // redirect the output to the specified file
+
+        try {
+            Process process = builder.start();
+            int exitCode = process.waitFor();
+            if (exitCode == 0) {
+                System.out.println("Backup successful.");
+            } else {
+                System.err.println("Backup failed. Exit code: " + exitCode);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void importDatabase () {
+
     }
 }

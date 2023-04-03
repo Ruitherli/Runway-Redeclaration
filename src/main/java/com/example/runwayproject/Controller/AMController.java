@@ -1367,7 +1367,5 @@ public class AMController extends MainController {
         }
     }
 
-
-
 }
 
