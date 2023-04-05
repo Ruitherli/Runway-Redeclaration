@@ -24,19 +24,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.attribute.FileTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import static com.example.runwayproject.Model.Calculator.*;
 
@@ -103,6 +111,9 @@ public class ATCController extends MainController {
 
     @FXML
     private Button ATClogout;
+
+    @FXML
+    private Button ATCprintTXT;
 
     @FXML
     private Label airportNameSV;
@@ -704,6 +715,7 @@ public class ATCController extends MainController {
         }
     }
 
+
     public void loadRecTable (ActionEvent event){
         connection = DbConnect.getConnection();
         refreshRecTable();
@@ -723,7 +735,6 @@ public class ATCController extends MainController {
         recAwayDistanceTable.setItems(recAwayTableList);
         recTowardDistanceTable.setItems(recTowardTableList);
 
-
     }
 
     public void loadData(ActionEvent event){
@@ -733,6 +744,32 @@ public class ATCController extends MainController {
         todaTextArea.positionCaret(0);
         asdaTextArea.positionCaret(0);
         ldaTextArea.positionCaret(0);
+        ATCprintTXT.setVisible(true);
+    }
+
+    //add option to choose the file location and file name
+    public void printToTXT(ActionEvent event) {
+        refreshRecTable();
+
+//        JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+//        int r = j.showSaveDialog(null);
+    try {
+       // FileWriter myWriter = new FileWriter(j.getSelectedFile().getAbsolutePath());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
+        Date date = new Date();
+       FileWriter myWriter = new FileWriter("/Users/yasink/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
+        myWriter.write("Date and Time of save: " +dateFormat.format(date)+ "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
+                + "\n ------------------TODA Calculations----------------\n\n" + todaTextArea.getText()
+                + "\n ------------------ASDA Calculations----------------\n\n" + asdaTextArea.getText()
+                + "\n ------------------LDA Calculations----------------\n\n" + ldaTextArea.getText());
+        myWriter.close();
+        System.out.println("Successfully wrote to the file.");
+        ATCprintTXT.setText("Successfully saved");
+
+    } catch (IOException e) {
+        playErrorAlert(String.valueOf(e));
+
+        }
     }
 
     @FXML
