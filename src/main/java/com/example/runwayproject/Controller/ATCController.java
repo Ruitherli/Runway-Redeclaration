@@ -815,7 +815,7 @@ public class ATCController extends MainController {
         AnchorPane.setLeftAnchor(towardsLabel,10.0);
         AnchorPane.setBottomAnchor(towardsLabel,10.0);
 
-        if (newTora < minRunDistance){
+        if (newTora < minRunDistance || newLda < minLandingDistance){
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
                 awayLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 awayLabel.setTextFill(javafx.scene.paint.Color.RED);
@@ -887,7 +887,7 @@ public class ATCController extends MainController {
         AnchorPane.setRightAnchor(towardsLabel,10.0);
         AnchorPane.setBottomAnchor(towardsLabel,10.0);
 
-        if (newTora < minRunDistance){
+        if (newTora < minRunDistance || newLda < minLandingDistance){
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
                 awayLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
                 awayLabel.setTextFill(javafx.scene.paint.Color.RED);

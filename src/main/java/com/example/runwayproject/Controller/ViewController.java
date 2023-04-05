@@ -117,6 +117,10 @@ public class ViewController extends AMController implements Initializable {
     public void setRunway(Runway r, AnchorPane pane){
         double lineThickness = runway.getHeight();
 
+        //get the number of right designator to configure the compass
+        int rotationDegree = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2))*10;
+
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
