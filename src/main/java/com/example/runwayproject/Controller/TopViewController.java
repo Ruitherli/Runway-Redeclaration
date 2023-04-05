@@ -1,14 +1,27 @@
 package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Model.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TopViewController extends ViewController{
@@ -36,11 +49,27 @@ public class TopViewController extends ViewController{
     @FXML
     private Button viewRightButton;
 
+    @FXML
+    private Circle compassCircle;
+    @FXML
+    private Polygon northPointer;
+    @FXML
+    private Polygon southPointer;
+    @FXML
+    private Slider rotationSlider;
+    @FXML
+    private AnchorPane compass;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         leftPane.setVisible(true);
+        leftAwayLabel.setVisible(true);
+        leftTowardsLabel.setVisible(true);
+
         rightPane.setVisible(false);
+        rightAwayLabel.setVisible(false);
+        rightTowardsLabel.setVisible(false);
         //rootPane.setScaleX(0.5);
         //rootPane.setScaleY(0.5);
 
@@ -67,8 +96,8 @@ public class TopViewController extends ViewController{
         /////////  TEST  ///////////
         //view(runway1,o1,location1,leftPane,rightPane); //scenario 1
         //view(runway2,o2,location2,leftPane,rightPane); //scenario 2
-        view(runway2,o3,location3,leftPane,rightPane); //scenario 3
-        //view(runway1,o4,location4,leftPane,rightPane); //scenario 4
+        //view(runway2,o3,location3,leftPane,rightPane); //scenario 3
+        view(runway1,o4,location4,leftPane,rightPane); //scenario 4
     }
 
     public void view(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2){
@@ -82,6 +111,7 @@ public class TopViewController extends ViewController{
     }
 
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
+        //isViewLeft=true;
         setRunway(r,pane);
         setObstacle(r,ol,pane,0);
         drawLeft(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane);
@@ -89,6 +119,7 @@ public class TopViewController extends ViewController{
     }
 
     public void viewRight(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
+        //isViewLeft=false;
         setRunway(r,pane);
         setObstacle(r,ol,pane,0);
         drawRight(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane);
@@ -112,6 +143,9 @@ public class TopViewController extends ViewController{
         AnchorPane.setLeftAnchor(leftTowardsLabel,10.0);
         AnchorPane.setBottomAnchor(leftTowardsLabel,10.0);
 
+        int awayPos = 50;
+        int towardsPos = 350;
+
         if (newTora < Calculator.minRunDistance){
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 leftAwayLabel.setText(left.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
@@ -123,24 +157,24 @@ public class TopViewController extends ViewController{
         }else {
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 leftAwayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER  ---------->");
-                drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.GREEN, 110,lineThickness,("TORA "+newTora)); //tora
-                drawLine((double) Calculator.blastProtection / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.BLUE, 110,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
-                drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.RED, 130,lineThickness,("TODA "+newToda)); //toda
-                drawLine((double) newAsda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.ORANGE, 150,lineThickness,("ASDA "+newAsda)); //asda
-                drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.stripEnd + slopeCalc) / scale, pane, Color.PURPLE, 170,lineThickness,("LDA "+newLda)); //lda
-                drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.MEDIUMORCHID, 170,lineThickness,("slope "+slopeCalc)); //slope
-                drawLine((double) Calculator.stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeCalc) / scale, pane, Color.STEELBLUE, 170,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.GREEN, awayPos,lineThickness,("TORA "+newTora)); //tora
+                drawLine((double) Calculator.blastProtection / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.BLUE, awayPos,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
+                drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.RED, awayPos+20,lineThickness,("TODA "+newToda)); //toda
+                drawLine((double) newAsda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.blastProtection) / scale, pane, Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda)); //asda
+                drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + Calculator.stripEnd + slopeCalc) / scale, pane, Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda)); //lda
+                drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc)); //slope
+                drawLine((double) Calculator.stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeCalc) / scale, pane, Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
             } else {
                 leftTowardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS  ---------->");
-                drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, 510,lineThickness,("TORA "+newTora)); //tora
+                drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora)); //tora
                 //draw((double) rd.getDisplacedThres() / rd.getTora(), (double) 0 / rd.getTora(), pane, Color.GREEN, 50); //displaced threshold
-                drawLine((double) Calculator.stripEnd / scale, (double) newTora / scale, pane, Color.STEELBLUE, 510,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
-                drawLine((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, pane, Color.MEDIUMORCHID, 510,lineThickness,("slope "+slopeCalc)); //slope
-                drawLine((double) newToda / scale, (double) 0 / scale, pane, Color.RED, 490,lineThickness,("TODA "+newToda)); //toda
-                drawLine((double) newAsda / scale, (double) 0 / scale, pane, Color.ORANGE, 470,lineThickness,("ASDA "+newAsda)); //asda
-                drawLine((double) newLda / scale, (double) left.getDisplacedThres() / scale, pane, Color.PURPLE, 450,lineThickness,("LDA "+newLda)); //lda
-                drawLine((double) Calculator.stripEnd / scale, (double) (newLda+left.getDisplacedThres()) / scale, pane, Color.STEELBLUE, 450,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
-                drawLine((double) Calculator.RESA / scale, (double) (newLda +left.getDisplacedThres()+ Calculator.stripEnd) / scale, pane, Color.MAGENTA, 450,lineThickness,("RESA "+Calculator.RESA)); //resa
+                drawLine((double) Calculator.stripEnd / scale, (double) newTora / scale, pane, Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, pane, Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc)); //slope
+                drawLine((double) newToda / scale, (double) 0 / scale, pane, Color.RED, towardsPos+40,lineThickness,("TODA "+newToda)); //toda
+                drawLine((double) newAsda / scale, (double) 0 / scale, pane, Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda)); //asda
+                drawLine((double) newLda / scale, (double) left.getDisplacedThres() / scale, pane, Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda)); //lda
+                drawLine((double) Calculator.stripEnd / scale, (double) (newLda+left.getDisplacedThres()) / scale, pane, Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) Calculator.RESA / scale, (double) (newLda +left.getDisplacedThres()+ Calculator.stripEnd) / scale, pane, Color.MAGENTA, towardsPos,lineThickness,("RESA "+Calculator.RESA)); //resa
             }
         }
     }
@@ -162,6 +196,9 @@ public class TopViewController extends ViewController{
         AnchorPane.setRightAnchor(rightTowardsLabel,10.0);
         AnchorPane.setBottomAnchor(rightTowardsLabel,10.0);
 
+        int awayPos = 50;
+        int towardsPos = 350;
+
         if (newTora < Calculator.minRunDistance){
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 rightAwayLabel.setText(right.getRunwayDesignatorName() + " Not suitable for Take off " +takeOffStatus + " / Landing " + landingStatus);
@@ -173,30 +210,81 @@ public class TopViewController extends ViewController{
         }else {
             if (takeOffStatus == Calculator.Status.away && landingStatus == Calculator.Status.over) {
                 rightAwayLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
-                drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, 110,lineThickness,("TORA "+newTora)); //tora
-                drawLine((double) Calculator.blastProtection / scale, (double) newTora / scale, pane, Color.BLUE, 110,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
-                drawLine((double) newToda / scale, (double) (newTora-newToda) / scale, pane, Color.RED, 130,lineThickness,("TODA "+newToda)); //toda
-                drawLine((double) newAsda / scale, (double) (newTora-newAsda) / scale, pane, Color.ORANGE, 150,lineThickness,("ASDA "+newAsda)); //asda
-                drawLine((double) newLda / scale, (double) 0 / scale, pane, Color.PURPLE, 170,lineThickness,("LDA "+newLda)); //lda
-                drawLine((double) Calculator.stripEnd / scale, (double) newLda / scale, pane, Color.STEELBLUE, 170,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
-                drawLine((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, pane, Color.MEDIUMORCHID, 170,lineThickness,("slope "+slopeCalc)); //slope
+                drawLine((double) newTora / scale, (double) 0 / scale, pane, Color.GREEN, awayPos,lineThickness,("TORA "+newTora)); //tora
+                drawLine((double) Calculator.blastProtection / scale, (double) newTora / scale, pane, Color.BLUE, awayPos,lineThickness,("blast\nprotection "+Calculator.blastProtection)); //blast protection
+                drawLine((double) newToda / scale, (double) (newTora-newToda) / scale, pane, Color.RED, awayPos+20,lineThickness,("TODA "+newToda)); //toda
+                drawLine((double) newAsda / scale, (double) (newTora-newAsda) / scale, pane, Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda)); //asda
+                drawLine((double) newLda / scale, (double) 0 / scale, pane, Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda)); //lda
+                drawLine((double) Calculator.stripEnd / scale, (double) newLda / scale, pane, Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, pane, Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc)); //slope
             } else {
                 rightTowardsLabel.setText("<----------  " + right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
-                drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd)/ scale, pane, Color.GREEN, 510,lineThickness,("TORA "+newTora)); //tora
-                drawLine((double) Calculator.stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc) / scale, pane, Color.STEELBLUE, 510,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
-                drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL())/ scale, pane, Color.MEDIUMORCHID, 510,lineThickness,("slope "+slopeCalc)); //slope
-                drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.RED, 490,lineThickness,("TODA "+newToda)); //toda
-                drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.ORANGE, 470,lineThickness,("ASDA "+newAsda)); //asda
-                drawLine((double) newLda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+Calculator.RESA+Calculator.stripEnd) / scale, pane, Color.PURPLE, 450,lineThickness,("LDA "+newLda)); //lda
-                drawLine((double) Calculator.stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+Calculator.RESA) / scale, pane, Color.STEELBLUE, 450,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
-                drawLine((double) Calculator.RESA / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.MAGENTA, 450,lineThickness,("RESA "+Calculator.RESA)); //resa
+                drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd)/ scale, pane, Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora)); //tora
+                drawLine((double) Calculator.stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc) / scale, pane, Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL())/ scale, pane, Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc)); //slope
+                drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.RED, towardsPos+40,lineThickness,("TODA "+newToda)); //toda
+                drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+Calculator.stripEnd) / scale, pane, Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda)); //asda
+                drawLine((double) newLda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+Calculator.RESA+Calculator.stripEnd) / scale, pane, Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda)); //lda
+                drawLine((double) Calculator.stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+Calculator.RESA) / scale, pane, Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+Calculator.stripEnd)); //strip end
+                drawLine((double) Calculator.RESA / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, Color.MAGENTA, towardsPos,lineThickness,("RESA "+Calculator.RESA)); //resa
             }
+        }
+    }
+
+    public void setRunway(Runway r, AnchorPane pane){
+        double lineThickness = runway.getHeight();
+
+        //get the number of right designator to configure the compass
+        int rotationDegree = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2))*10;
+        compass.setRotate(rotationDegree);
+
+        rotationSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            leftPane.setRotate(newValue.doubleValue());
+            rightPane.setRotate(newValue.doubleValue());
+            compass.setRotate(newValue.doubleValue()+rotationDegree);
+        });
+
+        //get clearway (toda - tora)
+        int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
+        int rightClearway = r.getLeftDesignator().getClearway();
+        //get stopway (asda - tora)
+        int leftStopway = r.getRightDesignator().getStopway();  //get from right desig. because the length is measured from right desig.
+        int rightStopway = r.getLeftDesignator().getStopway();
+
+        drawLine((double) r.getLeftDesignator().getDisplacedThres() / r.getLeftDesignator().getTora(), (double) 0, pane, Color.SLATEGRAY, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("displaced\nthreshold "+r.getLeftDesignator().getDisplacedThres())); // right disp thres
+        drawLine((double) r.getRightDesignator().getDisplacedThres() / r.getLeftDesignator().getTora(), (1-(double)r.getRightDesignator().getDisplacedThres() / r.getLeftDesignator().getTora()), pane, Color.SLATEGRAY, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("displaced\nthreshold "+r.getRightDesignator().getDisplacedThres())); // right disp thres
+
+        drawLine((double) leftClearway / r.getLeftDesignator().getTora(), (double) -leftClearway / r.getRightDesignator().getTora(), pane, Color.CYAN, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("Clearway "+leftClearway)); // left clearway
+        drawLine((double) rightClearway / r.getLeftDesignator().getTora(), (double) r.getLeftDesignator().getTora() / r.getLeftDesignator().getTora(), pane, Color.CYAN, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("Clearway "+rightClearway)); // right clearway
+
+        drawLine((double) leftStopway / r.getLeftDesignator().getTora(), (double) -leftStopway / r.getRightDesignator().getTora(), pane, Color.LAVENDER, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("Stopway "+leftStopway)); // left stopway
+        drawLine((double) rightStopway / r.getLeftDesignator().getTora(), (double) r.getLeftDesignator().getTora() / r.getRightDesignator().getTora(), pane, Color.LAVENDER, (int) ((int) runway.getLayoutY()+lineThickness/2), (int) lineThickness,("Stopway "+rightStopway)); // right clearway
+
+    }
+
+    public void removeObjects(){
+        for (Rectangle r : temporaryRect){
+            rightPane.getChildren().remove(r);
+        }
+        for (Line l : temporaryLine){
+            rightPane.getChildren().remove(l);
+        }
+        for (Text l : temporaryText){
+           rightPane.getChildren().remove(l);
         }
     }
 
     public void switchPane() {
         // Toggle visibility of pane1 and pane2
         leftPane.setVisible(!leftPane.isVisible());
+        leftAwayLabel.setVisible(!leftAwayLabel.isVisible());
+        leftTowardsLabel.setVisible(!leftTowardsLabel.isVisible());
+
         rightPane.setVisible(!rightPane.isVisible());
+        rightAwayLabel.setVisible(!rightAwayLabel.isVisible());
+        rightTowardsLabel.setVisible(!rightTowardsLabel.isVisible());
+
     }
+
+
 }
