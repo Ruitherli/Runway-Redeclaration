@@ -5,19 +5,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DbConnect {
     private static String HOST = "127.0.0.1";
@@ -42,7 +39,7 @@ public class DbConnect {
     }
 
     public static void main(String[] args) throws SQLException, IOException, ParserConfigurationException, SAXException {
-        importDatabase();
+
     }
 
     public static void exportDatabase (){

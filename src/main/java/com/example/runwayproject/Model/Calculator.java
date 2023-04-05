@@ -9,8 +9,8 @@ public class Calculator {
     public static int slope = 50;
     public static int minRunDistance = 1000;
     public static int minLandingDistance = 1000;
-    public static int avarageRunwayWidth = 100;
-
+    public static int averageRunwayWidth = 100;
+    public static int maxObsHeight = 50;
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));
     }
@@ -281,7 +281,7 @@ public class Calculator {
 
     public static boolean hasError(Runway r, Obstacle obs, ObstacleLocation obsLocation){
         return obsLocation.getDistanceThresL() + obsLocation.getDistanceThresR() > r.getLeftDesignator().getTora() ||
-                obs.getHeight() < 0 || obs.getLength()<0 || obs.getWidth()<0 || obsLocation.getDistanceFromCenterline() > (avarageRunwayWidth/2)
+                obs.getHeight() < 0 || obs.getLength()<0 || obs.getWidth()<0 || obsLocation.getDistanceFromCenterline() > (averageRunwayWidth /2)
                 || obsLocation.getDistanceFromCenterline()<0;
     }
 
@@ -294,7 +294,7 @@ public class Calculator {
             System.out.println("Negative Error: negative value for length is detected");
         }else if (obs.getWidth() <0 ){
             System.out.println("Negative Error: negative value for width is detected");
-        }else if (obsLocation.getDistanceFromCenterline()>(avarageRunwayWidth/2)){
+        }else if (obsLocation.getDistanceFromCenterline()>(averageRunwayWidth /2)){
             System.out.println("Positioning Error: Obstacle Exceeded The Width of Runway");
         }else if (obsLocation.getDistanceFromCenterline()<0){
             System.out.println("Negative Error: negative value for distance from center line is detected");

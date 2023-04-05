@@ -2,18 +2,16 @@ package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Connector.DbConnect;
 import com.example.runwayproject.Model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -22,19 +20,13 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.attribute.FileTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 import static com.example.runwayproject.Model.Calculator.*;
 
@@ -757,8 +748,9 @@ public class ATCController extends MainController {
        // FileWriter myWriter = new FileWriter(j.getSelectedFile().getAbsolutePath());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
         Date date = new Date();
-       FileWriter myWriter = new FileWriter("/Users/yasink/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
-        myWriter.write("Date and Time of save: " +dateFormat.format(date)+ "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
+        FileWriter myWriter = new FileWriter("/Users/Heng Rui Kang/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
+        myWriter.write("Date and Time of save: " +dateFormat.format(date)
+                + "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
                 + "\n ------------------TODA Calculations----------------\n\n" + todaTextArea.getText()
                 + "\n ------------------ASDA Calculations----------------\n\n" + asdaTextArea.getText()
                 + "\n ------------------LDA Calculations----------------\n\n" + ldaTextArea.getText());

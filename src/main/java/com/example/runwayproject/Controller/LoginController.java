@@ -84,6 +84,7 @@ public class LoginController extends MainController{
 
     @FXML
     public void exit (ActionEvent event){
+
         System.exit(1);
     }
 

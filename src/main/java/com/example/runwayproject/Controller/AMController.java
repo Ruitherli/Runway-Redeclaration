@@ -773,7 +773,7 @@ public class AMController extends MainController {
         }
     }
 
-    public void addObstacle(ActionEvent event){
+    public void addObstacle(ActionEvent event) throws SQLException {
         if (nameTextField.getText().isEmpty() || heightTextField.getText().isEmpty() || lengthTextField.getText().isEmpty() || widthTextField.getText().isEmpty()
         || thresRTextField.getText().isEmpty() || thresLTextField.getText().isEmpty() || centerlineTextField.getText().isEmpty()){
             playErrorAlert("Please fill out all the details");
@@ -781,10 +781,56 @@ public class AMController extends MainController {
             playErrorAlert("Please select a runway");
         } else if (directionComboBox.getValue()==null){
             playErrorAlert("Please select obstacle direction");
-        } else {
+        } else if (Integer.parseInt(heightTextField.getText()) > maxObsHeight ){
+            playErrorAlert("The maximum obstacle height allowed is only " + maxObsHeight);
+        } else if (Integer.parseInt(centerlineTextField.getText()) > averageRunwayWidth/2){
+            playErrorAlert("Obstacle is off the runway. The runway width is only " + averageRunwayWidth);
+        }else {
             connection = DbConnect.getConnection();
             String query = null;
             String runway = runwayComboBox.getValue();
+
+            preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                    "                    FROM runway r\n" +
+                    "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                    "                    WHERE r.runway_name = '" + runway +"';");
+            resultSet = preparedStatement.executeQuery();
+
+            ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+            while(resultSet.next()){
+                runwayDesignators.add(new RunwayDesignator(
+                        resultSet.getInt("tora"),
+                        resultSet.getInt("toda"),
+                        resultSet.getInt("asda"),
+                        resultSet.getInt("lda"),
+                        resultSet.getInt("displaced_thres"),
+                        resultSet.getString("designator_name")
+                ));
+            }
+
+            int displacedL = 0;
+            int displacedR = 0;
+            for (RunwayDesignator i : runwayDesignators){
+                if (i.getRunwayDesignatorName().endsWith("L")){
+                    currentRunway.setLeft(i);
+                    displacedL = i.getDisplacedThres();
+                }else {
+                    currentRunway.setRight(i);
+                    displacedR = i.getDisplacedThres();
+                }
+            }
+            int maxRunwayLength = 0;
+            for (RunwayDesignator i : runwayDesignators){
+                if (i.getTora()>maxRunwayLength){
+                    maxRunwayLength = i.getTora();
+                }
+            }
+
+            if(Integer.parseInt(thresRTextField.getText()) + Integer.parseInt(thresLTextField.getText()) + displacedL + displacedR != maxRunwayLength){
+                playErrorAlert("Total threshold must be the same as the longest TORA of the current runway which is " + (maxRunwayLength-displacedL-displacedR) + ". Please check the threshold distances again.");
+                return;
+            }
+            currentRunway.setRunwayName(runway);
 
             String obsName = nameTextField.getText().trim().replaceAll(" +", " ");;
             int obsHeight = Integer.parseInt(heightTextField.getText());
@@ -828,33 +874,6 @@ public class AMController extends MainController {
                     currentLocation.setDistanceFromCenterline(centerline);
                     currentLocation.setDirection(direction);
 
-                    preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
-                            "                    FROM runway r\n" +
-                            "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
-                            "                    WHERE r.runway_name = '" + runway +"';");
-                    resultSet = preparedStatement.executeQuery();
-
-                    ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
-                    while(resultSet.next()){
-                        runwayDesignators.add(new RunwayDesignator(
-                                resultSet.getInt("tora"),
-                                resultSet.getInt("toda"),
-                                resultSet.getInt("asda"),
-                                resultSet.getInt("lda"),
-                                resultSet.getInt("displaced_thres"),
-                                resultSet.getString("designator_name")
-                        ));
-                    }
-
-                    for (RunwayDesignator i : runwayDesignators){
-                        if (i.getRunwayDesignatorName().endsWith("L")){
-                            currentRunway.setLeft(i);
-                        }else {
-                            currentRunway.setRight(i);
-                        }
-                    }
-                    currentRunway.setRunwayName(runway);
-
                     try{
                         query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
                                 "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
@@ -862,7 +881,7 @@ public class AMController extends MainController {
                                 "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
                         preparedStatement = connection.prepareStatement(query);
                         preparedStatement.execute();
-                        System.out.println("Successfully added the obstacle on the runway");
+                        playInformationAlert("Obstacle has been added as a preset obstacle.");
 
                         sideView(currentRunway,currentObstacle,currentLocation,sideLeftPane,sideRunway);
                         topView(currentRunway,currentObstacle,currentLocation,topLeftPane,topRunway);
@@ -894,12 +913,56 @@ public class AMController extends MainController {
             playErrorAlert("Please select an obstacle");
         } else if (runwayComboBox.getValue()==null) {
             playErrorAlert("Please select a runway");
-        }else if (presetDirectionComboBox.getValue()==null){
+        } else if (presetDirectionComboBox.getValue()==null){
             playErrorAlert("Please select a direction");
-        }else{
+        } else if (Integer.parseInt(presetCenterlineTextField.getText()) > averageRunwayWidth/2){
+            playErrorAlert("Obstacle is off the runway. The runway width is only " + averageRunwayWidth);
+        }
+         else{
             connection = DbConnect.getConnection();
             String query = null;
             String runway = runwayComboBox.getValue();
+
+            preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
+                    "                    FROM runway r\n" +
+                    "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
+                    "                    WHERE r.runway_name = '" + runway +"';");
+            resultSet = preparedStatement.executeQuery();
+
+            ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
+            while(resultSet.next()){
+                runwayDesignators.add(new RunwayDesignator(
+                        resultSet.getInt("tora"),
+                        resultSet.getInt("toda"),
+                        resultSet.getInt("asda"),
+                        resultSet.getInt("lda"),
+                        resultSet.getInt("displaced_thres"),
+                        resultSet.getString("designator_name")
+                ));
+            }
+
+            int displacedL = 0;
+            int displacedR = 0;
+            for (RunwayDesignator i : runwayDesignators){
+                if (i.getRunwayDesignatorName().endsWith("L")){
+                    currentRunway.setLeft(i);
+                    displacedR = i.getDisplacedThres();
+                }else {
+                    currentRunway.setRight(i);
+                    displacedL = i.getDisplacedThres();
+                }
+            }
+            int maxRunwayLength = 0;
+            for (RunwayDesignator i : runwayDesignators){
+                if (i.getTora()>maxRunwayLength){
+                    maxRunwayLength = i.getTora();
+                }
+            }
+
+            if(Integer.parseInt(presetThresLTextField.getText()) + Integer.parseInt(presetThresRTextField.getText()) + displacedL + displacedR != maxRunwayLength){
+                playErrorAlert("Total threshold must be the same as the longest TORA of the current runway which is " + (maxRunwayLength-displacedL-displacedR) + ". Please check the threshold distances again.");
+                return;
+            }
 
             String obsName = presetNameComboBox.getValue();
             int obsHeight = Integer.parseInt(presetHeightText.getText());
@@ -919,54 +982,26 @@ public class AMController extends MainController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
+
+                currentRunway.setRunwayName(runway);
+
                 try{
-                    preparedStatement = connection.prepareStatement("SELECT rd.designator_name, rd.tora, rd.toda, rd.asda, rd.lda, rd.displaced_thres\n" +
-                            "                    FROM runway r\n" +
-                            "                    JOIN runway_designator rd ON r.designator_id_1 = rd.designator_id OR r.designator_id_2 = rd.designator_id\n" +
-                            "                    WHERE r.runway_name = '" + runway +"';");
-                    resultSet = preparedStatement.executeQuery();
+                    query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
+                            "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
+                            "FROM obstacle o, runway r\n" +
+                            "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
 
-                    ObservableList<RunwayDesignator> runwayDesignators = FXCollections.observableArrayList();
-                    while(resultSet.next()){
-                        runwayDesignators.add(new RunwayDesignator(
-                                resultSet.getInt("tora"),
-                                resultSet.getInt("toda"),
-                                resultSet.getInt("asda"),
-                                resultSet.getInt("lda"),
-                                resultSet.getInt("displaced_thres"),
-                                resultSet.getString("designator_name")
-                        ));
-                    }
+                    preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.execute();
+                    System.out.println("Successfully added the obstacle on the runway");
 
-                    for (RunwayDesignator i : runwayDesignators){
-                        if (i.getRunwayDesignatorName().endsWith("L")){
-                            currentRunway.setLeft(i);
-                        }else {
-                            currentRunway.setRight(i);
-                        }
-                    }
-                    currentRunway.setRunwayName(runway);
-
-                    try{
-                        query = "INSERT INTO obstacle_location (obstacle_id, runway_id, distance_from_threshold_R, distance_from_threshold_L, distance_from_centerline, direction_from_centerline)\n" +
-                                "SELECT o.obstacle_id, r.runway_id, "+thresR+", "+ thresL +", " + centerline+ ", '"+ direction +"'\n" +
-                                "FROM obstacle o, runway r\n" +
-                                "WHERE r.runway_name = '" + runway + "' AND o.name = '"+ obsName +"';";
-
-                        preparedStatement = connection.prepareStatement(query);
-                        preparedStatement.execute();
-                        System.out.println("Successfully added the obstacle on the runway");
-
-                        sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRunway);
-                        topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);
-
-                    }catch (SQLException e){
-                        playErrorAlert("Runway "+runway+" already has an obstacle. Please remove the current obstacle on the runway "+runway+" before adding a new obstacle");
-                    }
+                    sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRunway);
+                    topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);
 
                 }catch (SQLException e){
-                    playErrorAlert(String.valueOf(e));
+                    playErrorAlert("Runway "+runway+" already has an obstacle. Please remove the current obstacle on the runway "+runway+" before adding a new obstacle");
                 }
+
             }
 
             connection.close();

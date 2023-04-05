@@ -6,15 +6,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -34,6 +32,7 @@ public class MainController implements Initializable {
     }
 
     public void selectScene(ActionEvent event,String fxml) throws IOException{
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/"+fxml)));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -62,7 +61,15 @@ public class MainController implements Initializable {
     }
 
     public void switchToLoginPage (ActionEvent event) throws IOException {
-        selectScene(event, "login.fxml");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Are you sure you want to logout? Any unsaved changes will be lost.");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            selectScene(event, "login.fxml");
+        }
+
     }
 
     public void playErrorAlert(String message) {
