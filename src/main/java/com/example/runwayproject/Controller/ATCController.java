@@ -20,6 +20,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 
 import java.awt.*;
 import java.io.File;
@@ -740,26 +741,27 @@ public class ATCController extends MainController {
 
     //add option to choose the file location add obstacle info/ runway info
     public void printToTXT(ActionEvent event) {
-        refreshRecTable();
-
-//        JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-//        int r = j.showSaveDialog(null);
     try {
-       // FileWriter myWriter = new FileWriter(j.getSelectedFile().getAbsolutePath());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
         Date date = new Date();
-        FileWriter myWriter = new FileWriter("/Users/yasink/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
-        myWriter.write("Date and Time of save: " +dateFormat.format(date) + "\n\n Runway Name: "+runwayComboBox.getValue()+"\n\n ------------------Obstacle Information----------------\n\n Obstacle name: " + nameText.getText() + "\n\n Obstacle height: "+  heightText.getText()
-                + "\n\n Obstacle length: " + lengthText.getText() + "\n\n obstacle width: "+  widthText.getText()
-                + "\n\n Obstacle Distance from Right Threshold: " + thresholdRText.getText() + "\n\n Obstacle Distance from Left Threshold: "+  thresholdLText.getText()
-                + "\n\n Distance From Center line: " + centerlineText.getText() + "\n\n Direction: "+  directionText.getText()
-                + "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
-                + "\n ------------------TODA Calculations----------------\n\n" + todaTextArea.getText()
-                + "\n ------------------ASDA Calculations----------------\n\n" + asdaTextArea.getText()
-                + "\n ------------------LDA Calculations----------------\n\n" + ldaTextArea.getText());
-        myWriter.close();
-        System.out.println("Successfully wrote to the file.");
-        ATCprintTXT.setText("Successfully saved");
+        final DirectoryChooser directoryChooser =
+                new DirectoryChooser();
+        final File selectedDirectory =
+                directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            FileWriter myWriter = new FileWriter(selectedDirectory.getAbsolutePath() + "/Runway Calculations " +dateFormat.format(date)  + ".txt");
+            myWriter.write("Date and Time of save: " + dateFormat.format(date) + "\n\n Runway Name: " + runwayComboBox.getValue() + "\n\n ------------------Obstacle Information----------------\n\n Obstacle name: " + nameText.getText() + "\n\n Obstacle height: " + heightText.getText()
+                    + "\n\n Obstacle length: " + lengthText.getText() + "\n\n obstacle width: " + widthText.getText()
+                    + "\n\n Obstacle Distance from Right Threshold: " + thresholdRText.getText() + "\n\n Obstacle Distance from Left Threshold: " + thresholdLText.getText()
+                    + "\n\n Distance From Center line: " + centerlineText.getText() + "\n\n Direction: " + directionText.getText()
+                    + "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
+                    + "\n ------------------TODA Calculations----------------\n\n" + todaTextArea.getText()
+                    + "\n ------------------ASDA Calculations----------------\n\n" + asdaTextArea.getText()
+                    + "\n ------------------LDA Calculations----------------\n\n" + ldaTextArea.getText());
+            myWriter.close();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "File Exported Successfully");
+            alert.showAndWait();
+        }
 
     } catch (IOException e) {
         playErrorAlert(String.valueOf(e));
