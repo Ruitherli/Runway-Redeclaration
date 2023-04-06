@@ -60,6 +60,13 @@ public class MainController implements Initializable {
         }
     }
 
+    public void switchToAdmin (ActionEvent event) throws IOException {
+        try {
+            selectScene(event, "ADMIN page.fxml");
+        }catch (Exception e){
+            //Do nothing
+        }
+    }
     public void switchToLoginPage (ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
