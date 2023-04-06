@@ -738,7 +738,7 @@ public class ATCController extends MainController {
         ATCprintTXT.setVisible(true);
     }
 
-    //add option to choose the file location and file name
+    //add option to choose the file location add obstacle info/ runway info
     public void printToTXT(ActionEvent event) {
         refreshRecTable();
 
@@ -748,8 +748,11 @@ public class ATCController extends MainController {
        // FileWriter myWriter = new FileWriter(j.getSelectedFile().getAbsolutePath());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
         Date date = new Date();
-        FileWriter myWriter = new FileWriter("/Users/Heng Rui Kang/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
-        myWriter.write("Date and Time of save: " +dateFormat.format(date)
+        FileWriter myWriter = new FileWriter("/Users/yasink/Desktop/RunwayCalculationBreakdown " +dateFormat.format(date) + ".txt", true);
+        myWriter.write("Date and Time of save: " +dateFormat.format(date) + "\n\n Runway Name: "+runwayComboBox.getValue()+"\n\n ------------------Obstacle Information----------------\n\n Obstacle name: " + nameText.getText() + "\n\n Obstacle height: "+  heightText.getText()
+                + "\n\n Obstacle length: " + lengthText.getText() + "\n\n obstacle width: "+  widthText.getText()
+                + "\n\n Obstacle Distance from Right Threshold: " + thresholdRText.getText() + "\n\n Obstacle Distance from Left Threshold: "+  thresholdLText.getText()
+                + "\n\n Distance From Center line: " + centerlineText.getText() + "\n\n Direction: "+  directionText.getText()
                 + "\n\n\n------------------TORA Calculations-----------------\n\n" + toraTextArea.getText()
                 + "\n ------------------TODA Calculations----------------\n\n" + todaTextArea.getText()
                 + "\n ------------------ASDA Calculations----------------\n\n" + asdaTextArea.getText()
