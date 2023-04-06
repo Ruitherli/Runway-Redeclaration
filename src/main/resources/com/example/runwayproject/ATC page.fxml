@@ -301,7 +301,7 @@
                                                       <Line fx:id="topRightTowardsArrowline" endX="100.0" layoutX="397.0" layoutY="643.0" startX="-100.0" strokeWidth="3.0" />
                                                      </children>
                                                  </AnchorPane>
-                                                <Button fx:id="topSwitchSideButton" layoutX="680.0" layoutY="786.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="Switch SIde" />
+                                                <Button fx:id="topSwitchSideButton" layoutX="678.0" layoutY="789.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="Switch Side" />
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
