@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -157,11 +157,11 @@
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="800.0" prefHeight="661.0" prefWidth="565.0">
                            <children>
-                              <TabPane layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane fx:id="TabPane" layoutX="-4.0" prefHeight="707.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <tabs>
                                   <Tab text="Side View ">
                                        <content>
-                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                          <AnchorPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0">
                                              <children>
                                                 <Label fx:id="airportNameSV" alignment="CENTER" contentDisplay="CENTER" layoutX="283.0" layoutY="21.0" prefHeight="45.0" prefWidth="236.0" stylesheets="@design.css" text="Airport Name" textAlignment="CENTER">
                                                    <font>
@@ -213,6 +213,7 @@
                                                       <Polygon fx:id="sideLeftTowardsArrowhead" layoutX="461.0" layoutY="669.0" points="-50.0, 40.0, 50.0, 40.0, 0.0, -60.0" rotate="90.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" stroke="BLACK" strokeType="INSIDE" />
                                                    </children>
                                                 </AnchorPane>
+                                                <Button fx:id="exportButton" layoutX="519.0" layoutY="789.0" mnemonicParsing="false" onAction="#exportVisualization" text="Export Visualization" />
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
@@ -302,6 +303,7 @@
                                                      </children>
                                                  </AnchorPane>
                                                 <Button fx:id="topSwitchSideButton" layoutX="678.0" layoutY="789.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="Switch Side" />
+                                                <Button fx:id="TopDownExport" layoutX="519.0" layoutY="789.0" mnemonicParsing="false" onAction="#exportVisualization" text="Export Visualization" />
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
@@ -426,6 +428,5 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-      <Button fx:id="ATCprintTXT" layoutX="67.0" layoutY="866.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#printToTXT" text="Export Calculations (.txt)" visible="false" />
     </children>
 </AnchorPane>

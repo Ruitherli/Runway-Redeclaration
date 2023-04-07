@@ -13,6 +13,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -21,6 +22,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+
+
+
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+
 
 import java.awt.*;
 import java.io.File;
@@ -112,6 +122,12 @@ public class ATCController extends MainController {
 
     @FXML
     private Label airportNameTD;
+
+    @FXML
+    private Button exportButton;
+
+    @FXML
+    private Button TopDownExport;
 
     @FXML
     private TableColumn<RunwayTable, String> runDesigCol;
@@ -207,6 +223,8 @@ public class ATCController extends MainController {
     private javafx.scene.shape.Rectangle sideRunway1;
     @FXML
     private Button sideSwitchSideButton;
+    @FXML
+    private TabPane TabPane;
     @FXML
     private Label topLeftAwayLabel;
     @FXML
@@ -1213,4 +1231,62 @@ public class ATCController extends MainController {
             t.setScaleX(1);
         }
     }
+
+    /*@FXML
+    private void exportVisualization(){
+        WritableImage snapshot = exportButton.snapshot(new SnapshotParameters(), null);
+        File file = new File("visualization.png");
+
+    }
+*//*
+   @FXML
+    private void exportVisualization() {
+        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Visualization");
+        fileChooser.setInitialFileName("visualization.png");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }*/
+
+    @FXML
+    private void exportVisualization() {
+        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Visualization");
+        fileChooser.setInitialFileName("visualization.png");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
+                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
+        );
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                String extension = getFileExtension(file.getName());
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex + 1).toLowerCase();
+        } else {
+            return "png"; // Default to PNG if file extension is not found
+        }
+    }
+
+
 }
