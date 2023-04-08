@@ -296,6 +296,15 @@ public class ATCController extends MainController {
     @FXML
     private GridPane rightGridPane;
 
+    @FXML
+    private Label topLeftLeftDesig;
+    @FXML
+    private Label topLeftRightDesig;
+    @FXML
+    private Label topRightLeftDesig;
+    @FXML
+    private Label topRightRightDesig;
+
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
@@ -1128,6 +1137,11 @@ public class ATCController extends MainController {
         String leftDesig = r.getLeftDesignator().getRunwayDesignatorName();
         String rightDesig = r.getRightDesignator().getRunwayDesignatorName();
 
+        topLeftLeftDesig.setText(leftDesig);
+        topRightLeftDesig.setText(leftDesig);
+        topLeftRightDesig.setText(rightDesig);
+        topRightRightDesig.setText(rightDesig);
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
@@ -1255,6 +1269,11 @@ public class ATCController extends MainController {
         topRightAwayLabel.setScaleX(-1);
         topRightTowardsLabel.setScaleX(-1);
 
+        topLeftLeftDesig.setScaleX(-1);
+        topLeftRightDesig.setScaleX(-1);
+        topRightLeftDesig.setScaleX(-1);
+        topRightRightDesig.setScaleX(-1);
+
         for (Text t : temporaryText){
             t.setScaleX(-1);
         }
@@ -1277,6 +1296,11 @@ public class ATCController extends MainController {
         topLeftTowardsLabel.setScaleX(1);
         topRightAwayLabel.setScaleX(1);
         topRightTowardsLabel.setScaleX(1);
+
+        topLeftLeftDesig.setScaleX(1);
+        topLeftRightDesig.setScaleX(1);
+        topRightLeftDesig.setScaleX(1);
+        topRightRightDesig.setScaleX(1);
 
         for (Text t : temporaryText){
             t.setScaleX(1);
