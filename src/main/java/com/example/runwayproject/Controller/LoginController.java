@@ -6,10 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController extends MainController{
@@ -37,8 +35,8 @@ public class LoginController extends MainController{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUsernameFormat(usernameField);
         setUsernameFormat(passwordField);
-        atcButton.setVisible(false);
-        amButton.setVisible(false);
+        atcButton.setVisible(true);
+        amButton.setVisible(true);
     }
 
     @FXML
@@ -67,7 +65,7 @@ public class LoginController extends MainController{
                 }else if (role.equals("ATC")){
                     switchToATC(event);
                 }else if (role.equals("ADMIN")){
-
+                    switchToAdmin(event);
                 }else{
                     playErrorAlert("No permission granted to this user");
                 }
@@ -84,8 +82,14 @@ public class LoginController extends MainController{
 
     @FXML
     public void exit (ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Exit the software?");
+        Optional<ButtonType> result = alert.showAndWait();
 
-        System.exit(1);
+        if(result.get() == ButtonType.OK){
+            System.exit(1);
+        }
     }
 
     public static void setUsernameFormat(TextField textField) {
