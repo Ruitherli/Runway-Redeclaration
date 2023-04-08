@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="runway_redeclaration_tool">
+	<table_structure name="airport">
+		<field Field="airport_id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="airport_name" Type="varchar(128)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="airport" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="airport_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="airport" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="1" Avg_row_length="16384" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Auto_increment="2" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="airport">
+	<row>
+		<field name="airport_id">1</field>
+		<field name="airport_name">Heathrow Airport</field>
+	</row>
+	</table_data>
+	<table_structure name="constant">
+		<field Field="constant_id" Type="int(11)" Null="NO" Key="PRI" Extra="" Comment="" />
+		<field Field="RESA" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="strip_end" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="blast_protection" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="slope" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="minRunDistance" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="minLandingDistance" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="averageRunwayWidth" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="maxObsHeight" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="constant" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="constant_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="constant" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="1" Avg_row_length="16384" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="constant">
+	<row>
+		<field name="constant_id">1</field>
+		<field name="RESA">240</field>
+		<field name="strip_end">60</field>
+		<field name="blast_protection">300</field>
+		<field name="slope">50</field>
+		<field name="minRunDistance">1000</field>
+		<field name="minLandingDistance">1000</field>
+		<field name="averageRunwayWidth">100</field>
+		<field name="maxObsHeight">50</field>
+	</row>
+	</table_data>
+	<table_structure name="obstacle">
+		<field Field="obstacle_id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="name" Type="varchar(16)" Null="NO" Key="UNI" Extra="" Comment="" />
+		<field Field="height" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="length" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="width" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="obstacle" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="obstacle_id" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle" Non_unique="0" Key_name="name" Seq_in_index="1" Column_name="name" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="obstacle" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="4" Avg_row_length="4096" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Auto_increment="38" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="obstacle">
+	<row>
+		<field name="obstacle_id">1</field>
+		<field name="name">SCENARIO-1</field>
+		<field name="height">12</field>
+		<field name="length">10</field>
+		<field name="width">15</field>
+	</row>
+	<row>
+		<field name="obstacle_id">2</field>
+		<field name="name">SCENARIO-2</field>
+		<field name="height">25</field>
+		<field name="length">13</field>
+		<field name="width">18</field>
+	</row>
+	<row>
+		<field name="obstacle_id">3</field>
+		<field name="name">SCENARIO-3</field>
+		<field name="height">15</field>
+		<field name="length">6</field>
+		<field name="width">10</field>
+	</row>
+	<row>
+		<field name="obstacle_id">4</field>
+		<field name="name">SCENARIO-4</field>
+		<field name="height">20</field>
+		<field name="length">25</field>
+		<field name="width">17</field>
+	</row>
+	</table_data>
+	<table_structure name="obstacle_location">
+		<field Field="location_id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="obstacle_id" Type="int(11)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<field Field="runway_id" Type="int(11)" Null="NO" Key="UNI" Extra="" Comment="" />
+		<field Field="distance_from_threshold_R" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="distance_from_threshold_L" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="distance_from_centerline" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="direction_from_centerline" Type="varchar(11)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="obstacle_location" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="location_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="0" Key_name="runway_id_2" Seq_in_index="1" Column_name="runway_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="0" Key_name="runway_id_3" Seq_in_index="1" Column_name="runway_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="0" Key_name="runway_id_4" Seq_in_index="1" Column_name="runway_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="1" Key_name="obstacle_id" Seq_in_index="1" Column_name="obstacle_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="1" Key_name="obstacle_id" Seq_in_index="2" Column_name="runway_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="obstacle_location" Non_unique="1" Key_name="runway_id" Seq_in_index="1" Column_name="runway_id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="obstacle_location" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="1" Avg_row_length="16384" Data_length="16384" Max_data_length="0" Index_length="81920" Data_free="0" Auto_increment="46" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="obstacle_location">
+	<row>
+		<field name="location_id">1</field>
+		<field name="obstacle_id">1</field>
+		<field name="runway_id">2</field>
+		<field name="distance_from_threshold_R">3646</field>
+		<field name="distance_from_threshold_L">-50</field>
+		<field name="distance_from_centerline">0</field>
+		<field name="direction_from_centerline">Center</field>
+	</row>
+	</table_data>
+	<table_structure name="runway">
+		<field Field="runway_id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="runway_name" Type="varchar(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="designator_id_1" Type="int(8)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<field Field="designator_id_2" Type="int(8)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<key Table="runway" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="runway_id" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="runway" Non_unique="1" Key_name="designator_id_1" Seq_in_index="1" Column_name="designator_id_1" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="runway" Non_unique="1" Key_name="designator_id_1" Seq_in_index="2" Column_name="designator_id_2" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="runway" Non_unique="1" Key_name="designator_id_2" Seq_in_index="1" Column_name="designator_id_2" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="runway" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="32768" Data_free="0" Auto_increment="3" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="runway">
+	<row>
+		<field name="runway_id">1</field>
+		<field name="runway_name">09R/27L</field>
+		<field name="designator_id_1">1</field>
+		<field name="designator_id_2">2</field>
+	</row>
+	<row>
+		<field name="runway_id">2</field>
+		<field name="runway_name">09L/27R</field>
+		<field name="designator_id_1">3</field>
+		<field name="designator_id_2">4</field>
+	</row>
+	</table_data>
+	<table_structure name="runway_designator">
+		<field Field="designator_id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="designator_name" Type="varchar(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="TORA" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="TODA" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="ASDA" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="LDA" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="displaced_thres" Type="int(8)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="runway_designator" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="designator_id" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="runway_designator" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="4" Avg_row_length="4096" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Auto_increment="5" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="runway_designator">
+	<row>
+		<field name="designator_id">1</field>
+		<field name="designator_name">09R</field>
+		<field name="TORA">3660</field>
+		<field name="TODA">3660</field>
+		<field name="ASDA">3660</field>
+		<field name="LDA">3353</field>
+		<field name="displaced_thres">307</field>
+	</row>
+	<row>
+		<field name="designator_id">2</field>
+		<field name="designator_name">27L</field>
+		<field name="TORA">3660</field>
+		<field name="TODA">3660</field>
+		<field name="ASDA">3660</field>
+		<field name="LDA">3660</field>
+		<field name="displaced_thres">0</field>
+	</row>
+	<row>
+		<field name="designator_id">3</field>
+		<field name="designator_name">09L</field>
+		<field name="TORA">3902</field>
+		<field name="TODA">3902</field>
+		<field name="ASDA">3902</field>
+		<field name="LDA">3595</field>
+		<field name="displaced_thres">306</field>
+	</row>
+	<row>
+		<field name="designator_id">4</field>
+		<field name="designator_name">27R</field>
+		<field name="TORA">3884</field>
+		<field name="TODA">3962</field>
+		<field name="ASDA">3884</field>
+		<field name="LDA">3884</field>
+		<field name="displaced_thres">0</field>
+	</row>
+	</table_data>
+	<table_structure name="user">
+		<field Field="user_name" Type="varchar(12)" Null="NO" Key="PRI" Extra="" Comment="" />
+		<field Field="password" Type="text" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="role" Type="enum('ADMIN','AM','ATC')" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="user" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="user_name" Collation="A" Cardinality="3" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="user" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="3" Avg_row_length="5461" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Create_time="2023-04-08 08:57:11" Update_time="2023-04-08 08:57:12" Collation="utf8mb4_general_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
+	</table_structure>
+	<table_data name="user">
+	<row>
+		<field name="user_name">admin</field>
+		<field name="password">21232f297a57a5a743894a0e4a801fc3</field>
+		<field name="role">ADMIN</field>
+	</row>
+	<row>
+		<field name="user_name">controller1</field>
+		<field name="password">14fc2c61398c3508084ed61e615e695e</field>
+		<field name="role">ATC</field>
+	</row>
+	<row>
+		<field name="user_name">manager1</field>
+		<field name="password">c240642ddef994358c96da82c0361a58</field>
+		<field name="role">AM</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>
