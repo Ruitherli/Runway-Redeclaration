@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2023 at 12:57 PM
+-- Generation Time: Apr 08, 2023 at 09:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -46,19 +46,23 @@ INSERT INTO `airport` (`airport_id`, `airport_name`) VALUES
 --
 
 CREATE TABLE `constant` (
+  `constant_id` int(11) NOT NULL,
   `RESA` int(11) NOT NULL,
   `strip_end` int(11) NOT NULL,
   `blast_protection` int(11) NOT NULL,
-  `ALS` int(11) NOT NULL,
-  `TOCS` int(11) NOT NULL
+  `slope` int(11) NOT NULL,
+  `minRunDistance` int(11) NOT NULL,
+  `minLandingDistance` int(11) NOT NULL,
+  `averageRunwayWidth` int(11) NOT NULL,
+  `maxObsHeight` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `constant`
 --
 
-INSERT INTO `constant` (`RESA`, `strip_end`, `blast_protection`, `ALS`, `TOCS`) VALUES
-(240, 60, 300, 50, 50);
+INSERT INTO `constant` (`constant_id`, `RESA`, `strip_end`, `blast_protection`, `slope`, `minRunDistance`, `minLandingDistance`, `averageRunwayWidth`, `maxObsHeight`) VALUES
+(1, 240, 60, 300, 50, 1000, 1000, 100, 50);
 
 -- --------------------------------------------------------
 
@@ -186,6 +190,12 @@ ALTER TABLE `airport`
   ADD PRIMARY KEY (`airport_id`);
 
 --
+-- Indexes for table `constant`
+--
+ALTER TABLE `constant`
+  ADD PRIMARY KEY (`constant_id`);
+
+--
 -- Indexes for table `obstacle`
 --
 ALTER TABLE `obstacle`
@@ -234,16 +244,22 @@ ALTER TABLE `airport`
   MODIFY `airport_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `constant`
+--
+ALTER TABLE `constant`
+  MODIFY `constant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `obstacle`
 --
 ALTER TABLE `obstacle`
-  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `obstacle_location`
 --
 ALTER TABLE `obstacle_location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `runway`
