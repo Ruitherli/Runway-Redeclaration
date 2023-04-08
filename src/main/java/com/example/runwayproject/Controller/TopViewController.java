@@ -1,9 +1,14 @@
 package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Model.*;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -12,6 +17,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -20,6 +27,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 
+import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -59,19 +67,29 @@ public class TopViewController extends ViewController{
     private Slider rotationSlider;
     @FXML
     private AnchorPane compass;
+    @FXML
+    private Slider zoomSlider;
+    @FXML
+    private ScrollPane leftScrollPane;
+    @FXML
+    private ScrollPane rightScrollPane;
+    @FXML
+    private GridPane leftGridPane;
+    @FXML
+    private GridPane rightGridPane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        leftPane.setVisible(true);
+
+        leftScrollPane.setVisible(true);
         leftAwayLabel.setVisible(true);
         leftTowardsLabel.setVisible(true);
 
-        rightPane.setVisible(false);
+        rightScrollPane.setVisible(false);
         rightAwayLabel.setVisible(false);
         rightTowardsLabel.setVisible(false);
-        //rootPane.setScaleX(0.5);
-        //rootPane.setScaleY(0.5);
 
         RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
         RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
@@ -101,10 +119,10 @@ public class TopViewController extends ViewController{
     }
 
     public void view(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, AnchorPane pane2){
-        setRunway(r,pane);
-        setObstacle(r,ol,pane,0);
+        /*setRunway(r,pane);
+        setObstacle(r,ol,pane,1);
         setRunway(r,pane2);
-        setObstacle(r,ol,pane2,0);
+        setObstacle(r,ol,pane2,1);*/
 
         viewLeft(r,o,ol,pane);
         viewRight(r,o,ol,pane2);
@@ -244,6 +262,20 @@ public class TopViewController extends ViewController{
             compass.setRotate(newValue.doubleValue()+rotationDegree);
         });
 
+        zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+            leftGridPane.setScaleX(newValue.doubleValue());
+            leftGridPane.setScaleY(newValue.doubleValue());
+            leftGridPane.setScaleZ(newValue.doubleValue());
+            rightGridPane.setScaleX(newValue.doubleValue());
+            rightGridPane.setScaleY(newValue.doubleValue());
+            rightGridPane.setScaleZ(newValue.doubleValue());
+
+            leftGridPane.setPrefSize(leftPane.getWidth()*newValue.doubleValue(), leftPane.getHeight()*newValue.doubleValue());
+            rightGridPane.setPrefSize(rightPane.getWidth()*newValue.doubleValue(), rightPane.getHeight()*newValue.doubleValue());
+
+        });
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
@@ -276,11 +308,11 @@ public class TopViewController extends ViewController{
 
     public void switchPane() {
         // Toggle visibility of pane1 and pane2
-        leftPane.setVisible(!leftPane.isVisible());
+        leftScrollPane.setVisible(!leftScrollPane.isVisible());
         leftAwayLabel.setVisible(!leftAwayLabel.isVisible());
         leftTowardsLabel.setVisible(!leftTowardsLabel.isVisible());
 
-        rightPane.setVisible(!rightPane.isVisible());
+        rightScrollPane.setVisible(!rightScrollPane.isVisible());
         rightAwayLabel.setVisible(!rightAwayLabel.isVisible());
         rightTowardsLabel.setVisible(!rightTowardsLabel.isVisible());
 

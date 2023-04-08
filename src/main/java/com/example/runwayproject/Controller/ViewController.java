@@ -98,13 +98,13 @@ public class ViewController extends AMController implements Initializable {
         double startX = runway.getLayoutX() + scaledLeftDisThres*drawnLength;
         double endX = runway.getLayoutX() + runway.getWidth() - (scaledRightDisThres * drawnLength);
         double x = startX + ((endX - startX) * startXFraction) - (obstacle.getWidth() / 2);
-        //double y = runway.getLayoutY() + (runway.getHeight() - obstacle.getHeight()) / 2;
-        double y;
+        double y = runway.getLayoutY() + (runway.getHeight() - obstacle.getHeight()) / 2 - distanceFromCenterline*runway.getHeight()/2;
+        /*double y;
         if (distanceFromCenterline<0) {
             y = runway.getLayoutY() + (runway.getHeight() / 2) - (obstacle.getHeight()) - (distanceFromCenterline * runway.getHeight() / 2);
         }else{
             y = runway.getLayoutY() + (runway.getHeight() / 2) - (obstacle.getHeight()) - (distanceFromCenterline * runway.getHeight() / 2) + obstacle.getHeight();
-        }
+        }*/
 
         obstacle.setX(x);
         obstacle.setY(y);

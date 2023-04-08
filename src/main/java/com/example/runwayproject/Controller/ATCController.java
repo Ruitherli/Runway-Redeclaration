@@ -10,10 +10,12 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -260,6 +262,21 @@ public class ATCController extends MainController {
     @FXML
     private Line topRightTowardsArrowline;
 
+    @FXML
+    private Slider rotationSlider;
+    @FXML
+    private AnchorPane compass;
+    @FXML
+    private Slider zoomSlider;
+    @FXML
+    private ScrollPane leftScrollPane;
+    @FXML
+    private ScrollPane rightScrollPane;
+    @FXML
+    private GridPane leftGridPane;
+    @FXML
+    private GridPane rightGridPane;
+
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
@@ -391,8 +408,27 @@ public class ATCController extends MainController {
 
             sideLeftPane.setVisible(true);
             sideRightPane.setVisible(false);
-            topLeftPane.setVisible(true);
-            topRightPane.setVisible(false);
+            leftScrollPane.setVisible(true);
+            rightScrollPane.setVisible(false);
+            topLeftAwayLabel.setVisible(true);
+            topLeftTowardsLabel.setVisible(true);
+            topRightAwayLabel.setVisible(false);
+            topRightTowardsLabel.setVisible(false);
+
+
+            zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+                leftGridPane.setScaleX(newValue.doubleValue());
+                leftGridPane.setScaleY(newValue.doubleValue());
+                leftGridPane.setScaleZ(newValue.doubleValue());
+                rightGridPane.setScaleX(newValue.doubleValue());
+                rightGridPane.setScaleY(newValue.doubleValue());
+                rightGridPane.setScaleZ(newValue.doubleValue());
+
+                leftGridPane.setPrefSize(topLeftPane.getWidth()*newValue.doubleValue(), topLeftPane.getHeight()*newValue.doubleValue());
+                rightGridPane.setPrefSize(topRightPane.getWidth()*newValue.doubleValue(), topRightPane.getHeight()*newValue.doubleValue());
+
+            });
 
             recAwayDistanceTable.setRowFactory(tv -> {
                 TableRow<RecTable> row = new TableRow<>();
@@ -779,8 +815,8 @@ public class ATCController extends MainController {
         setRunway(r,pane2,drawnRunway);
         setObstacle(r,ol,pane2,drawnRunway);
 
-         viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
-         viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+         viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel,200,470);
+         viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel,200,470);
 
         int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
         int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
@@ -798,8 +834,8 @@ public class ATCController extends MainController {
         setRunway(r,pane2,drawnRunway);
         setTopObstacle(r,ol,pane2,0);
 
-        viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel);
-        viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel);
+        viewLeft(r,o,ol,pane,drawnRunway,leftAwayLabel,leftTowardsLabel,140,360);
+        viewRight(r,o,ol,pane2,drawnRunway,rightAwayLabel,rightTowardsLabel,140,360);
 
         int leftNum = Integer.parseInt(r.getLeftDesignator().getRunwayDesignatorName().substring(0,2));
         int rightNum = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2));
@@ -811,21 +847,21 @@ public class ATCController extends MainController {
         }
     }
 
-    public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel){
+    public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel, int awayPos, int towardsPos){
         //setRunway(r,pane,drawnRunway);
         //setObstacle(r,ol,pane,drawnRunway);
-        drawLeft(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel);
-        drawLeft(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel);
+        drawLeft(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel,awayPos,towardsPos);
+        drawLeft(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel,awayPos,towardsPos);
     }
 
-    public void viewRight(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel){
+    public void viewRight(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel, int awayPos, int towardsPos){
         //setRunway(r,pane,drawnRunway);
         //setObstacle(r,ol,pane,drawnRunway);
-        drawRight(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel);
-        drawRight(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel);
+        drawRight(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel,awayPos,towardsPos);
+        drawRight(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane,drawnRunway,awayLabel,towardsLabel,awayPos,towardsPos);
     }
 
-    public void drawLeft(Status takeOffStatus, Status landingStatus, Runway r, Obstacle obs, ObstacleLocation obsLocation, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel) {
+    public void drawLeft(Status takeOffStatus, Status landingStatus, Runway r, Obstacle obs, ObstacleLocation obsLocation, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel, int awayPos, int towardsPos) {
         RunwayDesignator left = r.getLeftDesignator();
         RunwayDesignator right = r.getRightDesignator();
         int scale = left.getTora();
@@ -835,8 +871,8 @@ public class ATCController extends MainController {
         int newLda = calcLDA(landingStatus, left,obs,obsLocation);
         int slopeCalc = (slope*obs.getHeight());
         int lineThickness = 6;
-        int awayPos = 200;
-        int towardsPos = 500;
+        //int awayPos = 140;
+        //int towardsPos = 360;
         towardsLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         awayLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         AnchorPane.setLeftAnchor(awayLabel,10.0);
@@ -897,7 +933,7 @@ public class ATCController extends MainController {
         }
     }
 
-    public void drawRight(Status takeOffStatus, Status landingStatus, Runway r, Obstacle obs, ObstacleLocation obsLocation, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel) {
+    public void drawRight(Status takeOffStatus, Status landingStatus, Runway r, Obstacle obs, ObstacleLocation obsLocation, AnchorPane pane, Rectangle drawnRunway, Label awayLabel, Label towardsLabel, int awayPos, int towardsPos) {
         RunwayDesignator left = r.getLeftDesignator();
         RunwayDesignator right = r.getRightDesignator();
         int scale = right.getTora();
@@ -907,8 +943,8 @@ public class ATCController extends MainController {
         int newLda = calcLDA(landingStatus, right,obs,obsLocation);
         int slopeCalc = (slope*obs.getHeight());
         int lineThickness = 6;
-        int awayPos = 200;
-        int towardsPos = 500;
+        //int awayPos = 140;
+        //int towardsPos = 360;
         towardsLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         awayLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         AnchorPane.setRightAnchor(awayLabel,10.0);
@@ -1055,6 +1091,16 @@ public class ATCController extends MainController {
     public void setRunway(Runway r, AnchorPane pane, Rectangle drawnRunway){
         double lineThickness = drawnRunway.getHeight();
 
+        //get the number of right designator to configure the compass
+        int rotationDegree = Integer.parseInt(r.getRightDesignator().getRunwayDesignatorName().substring(0,2))*10;
+        compass.setRotate(rotationDegree);
+
+        rotationSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            topLeftPane.setRotate(newValue.doubleValue());
+            topRightPane.setRotate(newValue.doubleValue());
+            compass.setRotate(newValue.doubleValue()+rotationDegree);
+        });
+
         //get the name of the designators
         String leftDesig = r.getLeftDesignator().getRunwayDesignatorName();
         String rightDesig = r.getRightDesignator().getRunwayDesignatorName();
@@ -1085,8 +1131,13 @@ public class ATCController extends MainController {
 
     public void switchTopViewPane() {
         // Toggle visibility of pane1 and pane2
-        topLeftPane.setVisible(!topLeftPane.isVisible());
-        topRightPane.setVisible(!topRightPane.isVisible());
+        leftScrollPane.setVisible(!leftScrollPane.isVisible());
+        rightScrollPane.setVisible(!rightScrollPane.isVisible());
+
+        topLeftAwayLabel.setVisible(!topLeftAwayLabel.isVisible());
+        topLeftTowardsLabel.setVisible(!topLeftTowardsLabel.isVisible());
+        topRightAwayLabel.setVisible(!topRightAwayLabel.isVisible());
+        topRightTowardsLabel.setVisible(!topRightTowardsLabel.isVisible());
     }
 
     public void removeObjects(){
