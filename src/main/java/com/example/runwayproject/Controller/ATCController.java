@@ -460,7 +460,6 @@ public class ATCController extends MainController {
             topRightAwayLabel.setVisible(false);
             topRightTowardsLabel.setVisible(false);
 
-
             zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 
                 leftGridPane.setScaleX(newValue.doubleValue());
@@ -470,9 +469,37 @@ public class ATCController extends MainController {
                 rightGridPane.setScaleY(newValue.doubleValue());
                 rightGridPane.setScaleZ(newValue.doubleValue());
 
-                leftGridPane.setPrefSize(topLeftPane.getWidth()*newValue.doubleValue(), topLeftPane.getHeight()*newValue.doubleValue());
-                rightGridPane.setPrefSize(topRightPane.getWidth()*newValue.doubleValue(), topRightPane.getHeight()*newValue.doubleValue());
+                // Calculate the bounding box of the rotated grid pane
+                Bounds bounds = topLeftPane.localToScene(topLeftPane.getBoundsInLocal());
+                Bounds bounds2 = topRightPane.localToScene(topRightPane.getBoundsInLocal());
 
+                // Calculate the translation that will center the grid pane within the scroll pane
+                double offsetX = (leftScrollPane.getWidth() - bounds.getWidth()) / 2;
+                double offsetY = (leftScrollPane.getHeight() - bounds.getHeight()) / 2;
+                double maxOffsetX = Math.max(0, offsetX);
+                double maxOffsetY = Math.max(0, offsetY);
+                double minOffsetX = Math.min(0, offsetX - (leftScrollPane.getWidth() - bounds.getWidth()));
+                double minOffsetY = Math.min(0, offsetY - (leftScrollPane.getHeight() - bounds.getHeight()));
+                double translateX = Math.max(minOffsetX, Math.min(maxOffsetX, offsetX));
+                double translateY = Math.max(minOffsetY, Math.min(maxOffsetY, offsetY));
+                leftGridPane.setTranslateX(translateX);
+                leftGridPane.setTranslateY(translateY);
+
+                // Repeat for the right grid pane
+                double offsetX2 = (rightScrollPane.getWidth() - bounds2.getWidth()) / 2;
+                double offsetY2 = (rightScrollPane.getHeight() - bounds2.getHeight()) / 2;
+                double maxOffsetX2 = Math.max(0, offsetX2);
+                double maxOffsetY2 = Math.max(0, offsetY2);
+                double minOffsetX2 = Math.min(0, offsetX2 - (rightScrollPane.getWidth() - bounds2.getWidth()));
+                double minOffsetY2 = Math.min(0, offsetY2 - (rightScrollPane.getHeight() - bounds2.getHeight()));
+                double translateX2 = Math.max(minOffsetX2, Math.min(maxOffsetX2, offsetX2));
+                double translateY2 = Math.max(minOffsetY2, Math.min(maxOffsetY2, offsetY2));
+                rightGridPane.setTranslateX(translateX2);
+                rightGridPane.setTranslateY(translateY2);
+
+                // Set the preferred size of the grid pane to fit within the visible area of the scroll pane
+                leftGridPane.setPrefSize(bounds.getWidth(), bounds.getHeight());
+                rightGridPane.setPrefSize(bounds2.getWidth(), bounds2.getHeight());
             });
 
             recAwayDistanceTable.setRowFactory(tv -> {
@@ -1145,10 +1172,43 @@ public class ATCController extends MainController {
         compass.setRotate(rotationDegree);
 
         rotationSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            topLeftPane.setRotate(newValue.doubleValue());
-            topRightPane.setRotate(newValue.doubleValue());
+            leftGridPane.setRotate(newValue.doubleValue());
+            rightGridPane.setRotate(newValue.doubleValue());
             compass.setRotate(newValue.doubleValue()+rotationDegree);
+
+            // Calculate the bounding box of the rotated grid pane
+            Bounds bounds = topLeftPane.localToScene(topLeftPane.getBoundsInLocal());
+            Bounds bounds2 = topRightPane.localToScene(topRightPane.getBoundsInLocal());
+
+            // Calculate the translation that will center the grid pane within the scroll pane
+            double offsetX = (leftScrollPane.getWidth() - bounds.getWidth()) / 2;
+            double offsetY = (leftScrollPane.getHeight() - bounds.getHeight()) / 2;
+            double maxOffsetX = Math.max(0, offsetX);
+            double maxOffsetY = Math.max(0, offsetY);
+            double minOffsetX = Math.min(0, offsetX - (leftScrollPane.getWidth() - bounds.getWidth()));
+            double minOffsetY = Math.min(0, offsetY - (leftScrollPane.getHeight() - bounds.getHeight()));
+            double translateX = Math.max(minOffsetX, Math.min(maxOffsetX, offsetX));
+            double translateY = Math.max(minOffsetY, Math.min(maxOffsetY, offsetY));
+            leftGridPane.setTranslateX(translateX);
+            leftGridPane.setTranslateY(translateY);
+
+            // Repeat for the right grid pane
+            double offsetX2 = (rightScrollPane.getWidth() - bounds2.getWidth()) / 2;
+            double offsetY2 = (rightScrollPane.getHeight() - bounds2.getHeight()) / 2;
+            double maxOffsetX2 = Math.max(0, offsetX2);
+            double maxOffsetY2 = Math.max(0, offsetY2);
+            double minOffsetX2 = Math.min(0, offsetX2 - (rightScrollPane.getWidth() - bounds2.getWidth()));
+            double minOffsetY2 = Math.min(0, offsetY2 - (rightScrollPane.getHeight() - bounds2.getHeight()));
+            double translateX2 = Math.max(minOffsetX2, Math.min(maxOffsetX2, offsetX2));
+            double translateY2 = Math.max(minOffsetY2, Math.min(maxOffsetY2, offsetY2));
+            rightGridPane.setTranslateX(translateX2);
+            rightGridPane.setTranslateY(translateY2);
+
+            // Set the preferred size of the grid pane to fit within the visible area of the scroll pane
+            leftGridPane.setPrefSize(bounds.getWidth(), bounds.getHeight());
+            rightGridPane.setPrefSize(bounds2.getWidth(), bounds2.getHeight());
         });
+
 
         //get the name of the designators
         String leftDesig = r.getLeftDesignator().getRunwayDesignatorName();
