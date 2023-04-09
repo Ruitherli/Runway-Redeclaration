@@ -1434,37 +1434,37 @@ public class ATCController extends MainController {
         }
     }*/
 
-    @FXML
-    private void exportVisualization() {
-        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Visualization");
-        fileChooser.setInitialFileName("visualization.png");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
-                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
-                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
-        );
-        File file = fileChooser.showSaveDialog(null);
-        if (file != null) {
-            try {
-                String extension = getFileExtension(file.getName());
-                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
-            return fileName.substring(dotIndex + 1).toLowerCase();
-        } else {
-            return "png"; // Default to PNG if file extension is not found
-        }
-    }
-
-
+//    @FXML
+//    private void exportVisualization() {
+//        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Save Visualization");
+//        fileChooser.setInitialFileName("visualization.png");
+//        fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
+//                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
+//                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
+//                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
+//        );
+//        File file = fileChooser.showSaveDialog(null);
+//        if (file != null) {
+//            try {
+//                String extension = getFileExtension(file.getName());
+//                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    private String getFileExtension(String fileName) {
+//        int dotIndex = fileName.lastIndexOf('.');
+//        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+//            return fileName.substring(dotIndex + 1).toLowerCase();
+//        } else {
+//            return "png"; // Default to PNG if file extension is not found
+//        }
+//    }
+//
+//
 }
