@@ -2,8 +2,6 @@ package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Connector.DbConnect;
 import com.example.runwayproject.Model.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -72,7 +70,6 @@ public class LoginController extends MainController{
 
             }else {
                 playErrorAlert("Invalid username or password");
-                usernameField.clear();
                 passwordField.clear();
             }
         }catch (SQLException | IOException e){
@@ -92,22 +89,5 @@ public class LoginController extends MainController{
         }
     }
 
-    public static void setUsernameFormat(TextField textField) {
-        textField.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z0-9!#$%&()*?@^~]*")) {
-                return change;
-            }
-            return null;
-        }));
 
-        textField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                if (!newValue.matches("[a-zA-Z0-9!#$%&()*?@^~]*")) {
-                    textField.setText(oldValue);
-                }
-            }
-        });
-    }
 }

@@ -7,8 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -26,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static com.example.runwayproject.Connector.DbConnect.*;
@@ -91,6 +91,18 @@ public class AdminController extends MainController {
     @FXML
     private TableColumn<User, String> usernameCol;
 
+    @FXML
+    private TextField usernameTextField;
+
+    @FXML
+    private PasswordField passwordField1;
+
+    @FXML
+    private PasswordField passwordField2;
+
+    @FXML
+    private ComboBox<String> roleComboBox;
+
     public class Constant {
         int blast_protection, RESA, stripEnd, slope, minRunDistance, minLandDistance, avgRunwayWidth, maxObsHeight;
 
@@ -147,9 +159,31 @@ public class AdminController extends MainController {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        roleComboBox.setButtonCell(new ListCell<>(){
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(roleComboBox.getPromptText());
+                } else {
+                    setText(item);
+                }
+            }
+        });
+        ObservableList<String> roleEnum = FXCollections.observableArrayList(
+                "ADMIN",
+                "AM",
+                "ATC"
+        );
+        roleComboBox.getItems().addAll(roleEnum);
+
         formatTable(runwayDesignatorTable);
         formatTable(constantsTable);
         formatTable(userTable);
+
+        setUsernameFormat(usernameTextField);
+        setUsernameFormat(passwordField1);
+        setUsernameFormat(passwordField2);
 
         loadRunwayDesignatorTable();
         loadConstantsTable();
@@ -284,6 +318,40 @@ public class AdminController extends MainController {
         roleCol.setCellValueFactory(new PropertyValueFactory<>("roles"));
 
         constantsTable.setItems(constants);
+    }
+
+    public void addAccount (ActionEvent event) throws SQLException {
+        connection = DbConnect.getConnection();
+        if(usernameTextField.getText().isEmpty() || passwordField1.getText().isEmpty() || passwordField2.getText().isEmpty() || roleComboBox.getValue()==null){
+            playErrorAlert("Please fill in all the details");
+        } else if (!Objects.equals(passwordField1.getText(), passwordField2.getText())){
+            playErrorAlert("Passwords do not match");
+            passwordField1.clear();
+            passwordField2.clear();
+        } else {
+            String username = usernameTextField.getText();
+            String password = passwordField1.getText();
+            String role = roleComboBox.getValue();
+
+            try {
+                preparedStatement = connection.prepareStatement("INSERT INTO user (user_name, password, role) VALUES ('" + username + "', MD5('" + password + "'), '" + role + "');");
+                preparedStatement.execute();
+                playInformationAlert("Successfully added account!");
+                loadUsersTable();
+            }catch (SQLException e){
+                playErrorAlert("Username already exists");
+                usernameTextField.clear();
+                passwordField1.clear();
+                passwordField2.clear();
+            }
+        }
+    }
+
+    public void reset (ActionEvent event) {
+        usernameTextField.clear();
+        passwordField1.clear();
+        passwordField2.clear();
+        roleComboBox.setValue(null);
     }
 
     public void importDatabase (ActionEvent event) throws ParserConfigurationException, IOException, SAXException, SQLException {
