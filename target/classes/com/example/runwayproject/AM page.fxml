@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
+<AnchorPane fx:id="anchorPaneAm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="881.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AMController">
 
 
     <children>
@@ -68,26 +68,27 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="382.0">
                                  <children>
-                                    <TableView fx:id="runwayObstacleTable" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="16.4" layoutY="22.4" prefHeight="274.0" prefWidth="376.0" scaleShape="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
+                                    <TableView fx:id="runwayObstacleTable" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="16.4" layoutY="22.4" prefHeight="274.0" prefWidth="376.0" scaleShape="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
                                       <columns>
-                                        <TableColumn fx:id="runwayNameCol" prefWidth="58.999998450279236" text="Runway" />
-                                        <TableColumn fx:id="obsNameCol" prefWidth="96.50000762939453" text="Obstacle name" />
-                                          <TableColumn fx:id="heightCol" prefWidth="52.000030517578125" text="Height" />
-                                          <TableColumn fx:id="thresholdRCol" prefWidth="82.5" text="Threshold R" />
-                                          <TableColumn fx:id="thresholdLCol" prefWidth="89.0" text="Threshold L " />
+                                        <TableColumn fx:id="runwayNameCol" prefWidth="74.95488202571869" text="Runway" />
+                                        <TableColumn fx:id="obsNameCol" prefWidth="92.1175308227539" text="Obstacle name" />
+                                          <TableColumn fx:id="heightCol" prefWidth="43.58753967285156" text="Height" />
+                                          <TableColumn fx:id="thresholdRCol" prefWidth="76.89631652832031" text="Threshold R" />
+                                          <TableColumn fx:id="thresholdLCol" prefWidth="96.10366821289062" text="Threshold L " />
                                       </columns>
                                        <effect>
                                           <Blend mode="SRC_ATOP" />
                                        </effect>
                                     </TableView>
+                                    <Button fx:id="deleteSelectedObstacleButton" layoutX="34.0" layoutY="251.0" mnemonicParsing="false" onAction="#deleteRowFromRunwayObstacle" text="Delete Selected Obstacle" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" />
                                  </children></AnchorPane>
                                     </content>
                                 </TitledPane>
                                 <TitledPane animated="false" prefHeight="352.0" prefWidth="385.0" stylesheets="@design.css" text="Preset Obstacles" textFill="#f2efef">
                            <content>
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <AnchorPane prefHeight="303.0" prefWidth="393.0">
                                  <children>
-                                    <TableView fx:id="obstacleTable" centerShape="false" editable="true" focusTraversable="false" layoutX="25.4" layoutY="25.4" prefHeight="289.0" prefWidth="380.0" scaleShape="false" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
+                                    <TableView fx:id="obstacleTable" centerShape="false" editable="true" focusTraversable="false" layoutX="25.4" layoutY="25.4" prefHeight="289.0" prefWidth="380.0" scaleShape="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="4.0">
                                       <columns>
                                         <TableColumn fx:id="presetNameCol" prefWidth="109.77833592891693" text="Name" />
                                         <TableColumn fx:id="presetHeightCol" prefWidth="81.00003814697266" text="Height" />
@@ -95,6 +96,8 @@
                                           <TableColumn fx:id="presetWidthCol" prefWidth="95.0" text="Width" />
                                       </columns>
                                     </TableView>
+                                    <Button fx:id="editPresetObstacles" layoutX="24.0" layoutY="290.0" mnemonicParsing="false" onAction="#editPresetObstacle" text="Edit" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" />
+                                    <Button fx:id="doneEditButton" layoutX="90.0" layoutY="300.0" mnemonicParsing="false" onAction="#doneEditPresetObstacle" text="Done" visible="false" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="85.0" />
                                  </children>
                               </AnchorPane>
                            </content>
