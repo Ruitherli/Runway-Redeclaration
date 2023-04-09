@@ -304,6 +304,23 @@ public class ATCController extends MainController {
     private Label topRightLeftDesig;
     @FXML
     private Label topRightRightDesig;
+    @FXML
+    private Label sideLeftLeftDesig;
+    @FXML
+    private Label sideLeftLeftDesigLabel;
+    @FXML
+    private Label sideLeftRightDesig;
+    @FXML
+    private Label sideLeftRightDesigLabel;
+    @FXML
+    private Label sideRightLeftDesig;
+    @FXML
+    private Label sideRightLeftDesigLabel;
+    @FXML
+    private Label sideRightRightDesig;
+    @FXML
+    private Label sideRightRightDesigLabel;
+
 
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
@@ -1142,6 +1159,11 @@ public class ATCController extends MainController {
         topLeftRightDesig.setText(rightDesig);
         topRightRightDesig.setText(rightDesig);
 
+        sideLeftLeftDesig.setText(leftDesig.substring(0,2));
+        sideRightLeftDesig.setText(leftDesig.substring(0,2));
+        sideLeftRightDesig.setText(rightDesig.substring(0,2));
+        sideRightRightDesig.setText(rightDesig.substring(0,2));
+
         //get clearway (toda - tora)
         int leftClearway = r.getRightDesignator().getClearway();  //get from right desig. because the length is measured from right desig.
         int rightClearway = r.getLeftDesignator().getClearway();
@@ -1274,6 +1296,17 @@ public class ATCController extends MainController {
         topRightLeftDesig.setScaleX(-1);
         topRightRightDesig.setScaleX(-1);
 
+        sideLeftLeftDesig.setScaleX(-1);
+        sideLeftRightDesig.setScaleX(-1);
+        sideRightLeftDesig.setScaleX(-1);
+        sideRightRightDesig.setScaleX(-1);
+
+        sideLeftLeftDesigLabel.setScaleX(-1);
+        sideLeftRightDesigLabel.setScaleX(-1);
+        sideRightLeftDesigLabel.setScaleX(-1);
+        sideRightRightDesigLabel.setScaleX(-1);
+
+
         for (Text t : temporaryText){
             t.setScaleX(-1);
         }
@@ -1301,6 +1334,16 @@ public class ATCController extends MainController {
         topLeftRightDesig.setScaleX(1);
         topRightLeftDesig.setScaleX(1);
         topRightRightDesig.setScaleX(1);
+
+        sideLeftLeftDesig.setScaleX(1);
+        sideLeftRightDesig.setScaleX(1);
+        sideRightLeftDesig.setScaleX(1);
+        sideRightRightDesig.setScaleX(1);
+
+        sideLeftLeftDesigLabel.setScaleX(1);
+        sideLeftRightDesigLabel.setScaleX(1);
+        sideRightLeftDesigLabel.setScaleX(1);
+        sideRightRightDesigLabel.setScaleX(1);
 
         for (Text t : temporaryText){
             t.setScaleX(1);
