@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="881.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AdminController">
    <children>
@@ -20,8 +22,8 @@
          <menus>
             <Menu fx:id="menuButton1" mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Export " />
-                  <MenuItem mnemonicParsing="false" text="Import" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportDatabase" text="Export " />
+                  <MenuItem mnemonicParsing="false" onAction="#importDatabase" text="Import" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
@@ -86,13 +88,44 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="userTable" prefHeight="842.0" prefWidth="1205.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <TableView fx:id="userTable" prefHeight="842.0" prefWidth="1205.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                        <columns>
                                           <TableColumn fx:id="usernameCol" prefWidth="335.0" text="Username" />
                                           <TableColumn fx:id="passwordCol" prefWidth="660.0" text="Password" />
                                           <TableColumn fx:id="roleCol" prefWidth="169.0" text="Role" />
                                        </columns>
                                     </TableView>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="12.0" layoutY="578.0" prefHeight="33.0" prefWidth="199.0" text="Add Account" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="606.0" prefHeight="33.0" prefWidth="199.0" text="Username" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="639.0" prefHeight="33.0" prefWidth="199.0" text="Password" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="672.0" prefHeight="33.0" prefWidth="199.0" text="Confirm Password" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="10.0" layoutY="705.0" prefHeight="33.0" prefWidth="199.0" text="Role" textAlignment="RIGHT">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="usernameTextField" layoutX="228.0" layoutY="610.0" promptText="Enter Username" />
+                                    <PasswordField fx:id="passwordField1" layoutX="228.0" layoutY="643.0" promptText="Enter Password" />
+                                    <PasswordField fx:id="passwordField2" layoutX="228.0" layoutY="676.0" promptText="Confirm Password" />
+                                    <ComboBox fx:id="roleComboBox" layoutX="228.0" layoutY="709.0" prefWidth="150.0" promptText="Select Role" />
+                                    <Button layoutX="228.0" layoutY="752.0" mnemonicParsing="false" onAction="#addAccount" prefHeight="25.0" prefWidth="71.0" text="Add" />
+                                    <Button layoutX="307.0" layoutY="752.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Reset" />
                                  </children>
                               </AnchorPane>
                            </content>
