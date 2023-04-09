@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="881.0" maxWidth="1600.0" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.AdminController">
    <children>
       <MenuBar fx:id="menubar" layoutX="35.0" layoutY="66.0" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -37,7 +38,7 @@
       </MenuBar>
       <SplitPane dividerPositions="0.20087609511889862" layoutX="82.0" layoutY="50.0" prefHeight="850.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
         <items>
-          <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="160.0" prefWidth="100.0" stylesheets="@design.css">
+          <AnchorPane minHeight="663.0" minWidth="395.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Button fx:id="AMlogout" layoutX="3.0" layoutY="815.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
                   <Label alignment="CENTER" layoutX="-15.0" layoutY="14.0" prefHeight="52.0" prefWidth="395.0" text="Logged in with Admin Access" AnchorPane.bottomAnchor="819.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,13 +50,13 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TabPane layoutX="189.0" layoutY="177.0" prefHeight="871.0" prefWidth="1205.0" stylesheets="@design.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TabPane layoutX="189.0" layoutY="177.0" prefHeight="871.0" prefWidth="1205.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <tabs>
-                      <Tab styleClass="design.css" text="Runway Designators">
+                      <Tab text="Runway Designators">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TableView fx:id="runwayDesignatorTable" layoutX="72.0" layoutY="52.0" prefHeight="842.0" prefWidth="1205.0" stylesheets="@design.css" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <TableView fx:id="runwayDesignatorTable" layoutX="72.0" layoutY="52.0" prefHeight="842.0" prefWidth="1205.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                       <columns>
                                         <TableColumn fx:id="nameCol" prefWidth="199.0" text="Designator Name" />
                                         <TableColumn fx:id="toraCol" prefWidth="184.0" text="TORA" />
@@ -65,7 +66,7 @@
                                           <TableColumn fx:id="dThresCol" prefWidth="200.0" text="Displaced Threshold" />
                                       </columns>
                                     </TableView>
-                                    <TableView fx:id="constantsTable" layoutX="82.0" layoutY="62.0" prefHeight="63.0" prefWidth="1165.0" stylesheets="@design.css" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="625.0">
+                                    <TableView fx:id="constantsTable" layoutX="82.0" layoutY="62.0" prefHeight="63.0" prefWidth="1165.0" AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="625.0">
                                        <columns>
                                           <TableColumn fx:id="blastCol" prefWidth="124.0" text="Blast Protection" />
                                           <TableColumn fx:id="resaCol" prefWidth="97.0" text="RESA" />

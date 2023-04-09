@@ -1,5 +1,7 @@
 package com.example.runwayproject.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -133,5 +135,22 @@ public class MainController implements Initializable {
             }
         });
     }
+    public static void setUsernameFormat(TextField textField) {
+        textField.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[a-zA-Z0-9!#$%&()*?@^~]*")) {
+                return change;
+            }
+            return null;
+        }));
 
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (!newValue.matches("[a-zA-Z0-9!#$%&()*?@^~]*")) {
+                    textField.setText(oldValue);
+                }
+            }
+        });
+    }
 }
