@@ -13,7 +13,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -21,13 +20,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -35,12 +36,6 @@ import java.util.ResourceBundle;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class AMController extends MainController {
-
-    @FXML
-    private Button editPresetObstacles;
-
-    @FXML
-    private Button doneEditButton;
 
     @FXML
     private MenuItem opensite;
@@ -266,14 +261,12 @@ public class AMController extends MainController {
 
         }
     }
-
     public class RunwayTable {
         private String designatorName;
         private int TORA;
         private int TODA;
         private int ASDA;
-        private int LDA;
-        ;
+        private int LDA;;
 
         public RunwayTable(String designatorName, int tora, int toda, int asda, int lda) {
             this.designatorName = designatorName;
@@ -303,7 +296,6 @@ public class AMController extends MainController {
             return LDA;
         }
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -332,22 +324,22 @@ public class AMController extends MainController {
             topLeftPane.setVisible(true);
             topRightPane.setVisible(false);*/
 
-            RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306, "09L");
-            RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0, "27R");
-            RunwayDesignator l2 = new RunwayDesignator(3660, 3660, 3660, 3660, 0, "27L");
-            RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307, "09R");
+            RunwayDesignator l1 = new RunwayDesignator(3902, 3902, 3902, 3595, 306,"09L");
+            RunwayDesignator r1 = new RunwayDesignator(3884, 3962, 3884, 3884, 0,"27R");
+            RunwayDesignator l2 = new RunwayDesignator(3660, 3660, 3660, 3660, 0,"27L");
+            RunwayDesignator r2 = new RunwayDesignator(3660, 3660, 3660, 3353, 307,"09R");
 
-            Obstacle o1 = new Obstacle("obs 1", 12, 10, 10);
-            ObstacleLocation location1 = new ObstacleLocation(3646, -50, 0, ObstacleLocation.Direction.Center);
+            Obstacle o1 = new Obstacle("obs 1",12,10,10);
+            ObstacleLocation location1 = new ObstacleLocation(3646,-50,0,ObstacleLocation.Direction.Center);
 
-            Obstacle o2 = new Obstacle("obs 2", 25, 10, 10);
-            ObstacleLocation location2 = new ObstacleLocation(2853, 500, 20, ObstacleLocation.Direction.South);
+            Obstacle o2 = new Obstacle("obs 2",25,10,10);
+            ObstacleLocation location2 = new ObstacleLocation(2853,500,20,ObstacleLocation.Direction.South);
 
-            Obstacle o3 = new Obstacle("obs 3", 15, 10, 10);
-            ObstacleLocation location3 = new ObstacleLocation(150, 3203, 60, ObstacleLocation.Direction.North);
+            Obstacle o3 = new Obstacle("obs 3",15,10,10);
+            ObstacleLocation location3 = new ObstacleLocation(150,3203,60,ObstacleLocation.Direction.North);
 
-            Obstacle o4 = new Obstacle("obs 4", 20, 10, 10);
-            ObstacleLocation location4 = new ObstacleLocation(50, 3546, 20, ObstacleLocation.Direction.North);
+            Obstacle o4 = new Obstacle("obs 4",20,10,10);
+            ObstacleLocation location4 = new ObstacleLocation(50,3546,20,ObstacleLocation.Direction.North);
 
             Runway runway1 = new Runway("09L/27R", l1, r1);
             Runway runway2 = new Runway("27L/09R", l2, r2);
@@ -370,7 +362,7 @@ public class AMController extends MainController {
         }
     }
 
-    private void setConstants() {
+    private void setConstants () {
         resaText.setText(String.valueOf(RESA));
         stripEndText.setText(String.valueOf(stripEnd));
         blastProtectionText.setText(String.valueOf(blastProtection));
@@ -378,9 +370,9 @@ public class AMController extends MainController {
         tocsText.setText(String.valueOf(slope));
     }
 
-    private void setComboBox() throws SQLException {
+    private void setComboBox () throws SQLException {
 
-        directionComboBox.setButtonCell(new ListCell<>() {
+        directionComboBox.setButtonCell(new ListCell<>(){
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -392,7 +384,7 @@ public class AMController extends MainController {
             }
         });
 
-        presetDirectionComboBox.setButtonCell(new ListCell<>() {
+        presetDirectionComboBox.setButtonCell(new ListCell<>(){
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -404,7 +396,7 @@ public class AMController extends MainController {
             }
         });
 
-        runwayComboBox.setButtonCell(new ListCell<>() {
+        runwayComboBox.setButtonCell(new ListCell<>(){
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -416,7 +408,7 @@ public class AMController extends MainController {
             }
         });
 
-        presetNameComboBox.setButtonCell(new ListCell<>() {
+        presetNameComboBox.setButtonCell(new ListCell<>(){
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -428,16 +420,16 @@ public class AMController extends MainController {
             }
         });
         runwayComboBox.getItems().clear();
-        try {
+        try{
             connection = DbConnect.getConnection();
             preparedStatement = connection.prepareStatement("SELECT runway_name FROM runway");
             resultSet = preparedStatement.executeQuery();
-        } catch (Exception e) {
+        }catch (Exception e){
             //Do nothing
         }
 
 
-        while (resultSet.next()) {
+        while (resultSet.next()){
             runwayComboBox.getItems().add(resultSet.getString("runway_name"));
         }
 
@@ -445,7 +437,7 @@ public class AMController extends MainController {
         resultSet = preparedStatement.executeQuery();
         presetNameComboBox.getItems().clear();
 
-        while (resultSet.next()) {
+        while (resultSet.next()){
 
             presetNameComboBox.getItems().add(resultSet.getString("name"));
         }
@@ -469,7 +461,7 @@ public class AMController extends MainController {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT airport_name FROM airport LIMIT 1");
         resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
+        while (resultSet.next()){
             String name = resultSet.getString("airport_name");
             airportNameSV.setText(name);
             airportNameTD.setText(name);
@@ -480,15 +472,14 @@ public class AMController extends MainController {
         resultSet.close();
 
     }
-
     @FXML
-    private void reset(ActionEvent event) {
+    private void reset (ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Reset the data in the obstacle fields?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if(result.get() == ButtonType.OK){
             nameTextField.clear();
             heightTextField.clear();
             lengthTextField.clear();
@@ -501,7 +492,7 @@ public class AMController extends MainController {
 
     }
 
-    private void reset() {
+    private void reset (){
         nameTextField.clear();
         heightTextField.clear();
         lengthTextField.clear();
@@ -513,13 +504,13 @@ public class AMController extends MainController {
     }
 
     @FXML
-    private void resetPreset(ActionEvent event) {
+    private void resetPreset (ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setContentText("Reset the data in the obstacle fields?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        if(result.get() == ButtonType.OK) {
             presetThresLTextField.clear();
             presetThresRTextField.clear();
             presetCenterlineTextField.clear();
@@ -531,7 +522,7 @@ public class AMController extends MainController {
         }
     }
 
-    private void resetPreset() {
+    private void resetPreset (){
         presetThresLTextField.clear();
         presetThresRTextField.clear();
         presetCenterlineTextField.clear();
@@ -541,17 +532,16 @@ public class AMController extends MainController {
         presetWidthText.setText("0");
         presetLengthText.setText("0");
     }
-
     @FXML
     private void refreshObstacleTable() {
-        try {
+        try{
             obstacleList.clear();
 
             connection = DbConnect.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM obstacle");
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+            while(resultSet.next()){
                 obstacleList.add(new Obstacle(
                         resultSet.getString("name"),
                         resultSet.getInt("height"),
@@ -565,12 +555,12 @@ public class AMController extends MainController {
             preparedStatement.close();
             resultSet.close();
 
-        } catch (SQLException e) {
+        }catch (SQLException e){
             playErrorAlert(String.valueOf(e));
         }
     }
 
-    private void loadObstacleTable() {
+    private void loadObstacleTable(){
         connection = DbConnect.getConnection();
         refreshObstacleTable();
 
@@ -583,20 +573,20 @@ public class AMController extends MainController {
     }
 
     @FXML
-    private void refreshRunwayObsTable() {
-        try {
+    private void refreshRunwayObsTable(){
+        try{
             runwayObsList.clear();
 
             connection = DbConnect.getConnection();
             preparedStatement = connection.prepareStatement(
                     "SELECT r.runway_name, o.name AS obstacle_name, o.height, ol.distance_from_threshold_L, ol.distance_from_threshold_R\n" +
-                            "FROM obstacle_location ol\n" +
-                            "INNER JOIN obstacle o ON ol.obstacle_id = o.obstacle_id\n" +
-                            "INNER JOIN runway r ON ol.runway_id = r.runway_id\n" +
-                            "WHERE ol.location_id = location_id;");
+                    "FROM obstacle_location ol\n" +
+                    "INNER JOIN obstacle o ON ol.obstacle_id = o.obstacle_id\n" +
+                    "INNER JOIN runway r ON ol.runway_id = r.runway_id\n" +
+                    "WHERE ol.location_id = location_id;");
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+            while(resultSet.next()){
                 runwayObsList.add(new RunwayObsTable(
                         resultSet.getString("runway_name"),
                         resultSet.getString("obstacle_name"),
@@ -611,12 +601,12 @@ public class AMController extends MainController {
             preparedStatement.close();
             resultSet.close();
 
-        } catch (SQLException e) {
+        }catch (SQLException e){
             playErrorAlert(String.valueOf(e));
         }
     }
 
-    private void loadRunwayObsTable() {
+    private void loadRunwayObsTable(){
         connection = DbConnect.getConnection();
         refreshRunwayObsTable();
 
@@ -629,9 +619,9 @@ public class AMController extends MainController {
         runwayObstacleTable.setItems(runwayObsList);
     }
 
-    public void refreshRunwayTable() {
+    public void refreshRunwayTable(){
         String runway = runwayComboBox.getValue();
-        try {
+        try{
             runwayList.clear();
 
             connection = DbConnect.getConnection();
@@ -641,7 +631,7 @@ public class AMController extends MainController {
                     "WHERE r.runway_name = '" + runway + "';");
             resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
+            while(resultSet.next()){
                 runwayList.add(new RunwayTable(
                         resultSet.getString("designator_name"),
                         resultSet.getInt("tora"),
@@ -656,158 +646,9 @@ public class AMController extends MainController {
             preparedStatement.close();
             resultSet.close();
 
-        } catch (SQLException e) {
+        }catch (SQLException e){
             playErrorAlert(String.valueOf(e));
         }
-    }
-    //---------------------editing preset obstacle Table-------------------------------
-
-    public void editPresetObstacle(ActionEvent event1) throws SQLException {
-        obstacleTable.setEditable(true);
-        editPresetObstacles.setText("Edit Mode");
-        doneEditButton.setVisible(true);
-        presetNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        presetHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
-        presetLengthCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
-        presetWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
-        presetNameCol.setOnEditCommit(event -> {
-            Obstacle name = event.getRowValue();
-            String check = name.getObstacleName();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Change the Obstacle name from " + check + " to " + event.getNewValue() + "?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                try {
-                    connection = DbConnect.getConnection();
-                    PreparedStatement stmt = connection.prepareStatement("update obstacle set name = '" + event.getNewValue() + "' WHERE name = '" + check + "'");
-                    stmt.execute();
-                    setComboBox();
-                    loadObstacleTable();
-                    loadRunwayObsTable();
-                } catch (SQLException e) {
-//                playInformationAlert("Obstacle name already exists in the database");
-                    playInformationAlert(String.valueOf(e));
-                    loadObstacleTable();
-                }
-            }
-        });
-
-        presetHeightCol.setOnEditCommit(event -> {
-            Obstacle height = event.getRowValue();
-            String name = height.getObstacleName();
-            if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
-            } else if (event.getNewValue() < 0) {
-                playErrorAlert("Height cannot have a negative value");
-                loadObstacleTable();
-            } else {
-                if (event.getNewValue() > 50) {
-                    playErrorAlert("The maximum obstacle height allowed is only " + maxObsHeight);
-                    loadObstacleTable();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation");
-                    alert.setContentText("Change the Obstacle Height to " + event.getNewValue() + " for Obstacle with the name " + name + "?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        try {
-                            connection = DbConnect.getConnection();
-                            PreparedStatement stmt = connection.prepareStatement("update obstacle set height = " + event.getNewValue() + " WHERE name = '" + name + "'");
-                            stmt.execute();
-                            setComboBox();
-                            loadObstacleTable();
-                            loadRunwayObsTable();
-                        } catch (SQLException e) {
-                            playErrorAlert(String.valueOf(e));
-                        }
-                    }
-                }
-
-            }
-        });
-
-        presetWidthCol.setOnEditCommit(event -> {
-            Obstacle width = event.getRowValue();
-            String name = width.getObstacleName();
-            if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value ");
-            } else if (event.getNewValue() < 0) {
-                playErrorAlert("Width cannot have a negative value");
-                loadObstacleTable();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setContentText("Change the Obstacle Width to " + event.getNewValue() + " for Obstacle with the name " + name + "?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        connection = DbConnect.getConnection();
-                        PreparedStatement stmt = connection.prepareStatement("update obstacle set width = " + event.getNewValue() + " WHERE name = '" + name + "'");
-                        stmt.execute();
-                        setComboBox();
-                        loadObstacleTable();
-                        loadRunwayObsTable();
-                    } catch (SQLException e) {
-                        playErrorAlert(String.valueOf(e));
-                    }
-                }
-            }
-        });
-        presetLengthCol.setOnEditCommit(event -> {
-            Obstacle length = event.getRowValue();
-            String name = length.getObstacleName();
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Length cannot have a negative value");
-                loadObstacleTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
-                loadObstacleTable();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setContentText("Change the Obstacle Length to " + event.getNewValue() + " for Obstacle with the name " + name + "?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        connection = DbConnect.getConnection();
-                        PreparedStatement stmt = connection.prepareStatement("update obstacle set length = " + event.getNewValue() + " WHERE name = '" + name + "'");
-                        stmt.execute();
-                        setComboBox();
-                        loadObstacleTable();
-                        loadRunwayObsTable();
-                    } catch (SQLException e) {
-                        playErrorAlert(String.valueOf(e));
-                    }
-                }
-            }
-        });
-    }
-    public void doneEditPresetObstacle(ActionEvent event1) {
-        obstacleTable.setEditable(false);
-        editPresetObstacles.setText("Edit");
-        doneEditButton.setVisible(false);
-    }
-    ////Removing obstacles from runway
-    public void deleteRowFromRunwayObstacle(ActionEvent event) throws SQLException {
-        RunwayObsTable runway = runwayObstacleTable.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Delete Obstacle " + runway.getObstacleName() + " on " + runway.getRunwayName() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            try {
-                connection = DbConnect.getConnection();
-                PreparedStatement stmt = connection.prepareStatement("Delete from obstacle_location where runway_id in ( Select runway_id from runway where runway_name = '" + runway.getRunwayName() + "')");
-                stmt.execute();
-                loadRunwayObsTable();
-                //refresh visualisation
-//                sideView(currentRunway,obstacle,0,sideLeftPane,sideRunway);
-//                topView(currentRunway,obstacle,0,topLeftPane,topRunway);
-            } catch (SQLException e) {
-                playErrorAlert(String.valueOf(e));
-            }
-        }loadRunwayObsTable();
     }
 
     public void loadRunwayTable(ActionEvent event) throws SQLException {
