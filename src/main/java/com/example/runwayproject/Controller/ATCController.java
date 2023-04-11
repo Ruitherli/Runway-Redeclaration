@@ -948,6 +948,9 @@ public class ATCController extends MainController {
         int newLda = calcLDA(landingStatus, left,obs,obsLocation);
         int slopeCalc = (slope*obs.getHeight());
         int lineThickness = 6;
+        int blastOrResa = Math.max(blastProtection, (RESA+stripEnd));
+        int slopeOrResaOrBlast = Math.max(blastProtection, Math.max(slopeCalc, RESA));
+
         //int awayPos = 140;
         //int towardsPos = 360;
         towardsLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
@@ -975,30 +978,46 @@ public class ATCController extends MainController {
             }
         }else {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
+                awayLabel.setTextFill(Color.BLACK);
                 sideLeftAwayArrowhead.setVisible(true);
                 sideLeftAwayArrowline.setVisible(true);
                 topLeftAwayArrowhead.setVisible(true);
                 topLeftAwayArrowline.setVisible(true);
                 awayLabel.setText(left.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
-                drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.GREEN, awayPos,lineThickness,("TORA "+newTora),drawnRunway); //tora
-                drawLine((double) blastProtection / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.BLUE, awayPos,lineThickness,("blast\nprotection "+ blastProtection),drawnRunway); //blast protection
-                drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.RED, awayPos+20,lineThickness,("TODA "+newToda),drawnRunway); //toda
-                drawLine((double) newAsda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastProtection) / scale, pane, javafx.scene.paint.Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
-                drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + stripEnd + slopeCalc) / scale, pane, javafx.scene.paint.Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda),drawnRunway); //lda
-                drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
-                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
-                drawLine((double) stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeCalc) / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
+                drawLine((double) newTora / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastOrResa) / scale, pane, javafx.scene.paint.Color.GREEN, awayPos,lineThickness,("TORA "+newTora),drawnRunway); //tora
+                if (blastProtection >= RESA+stripEnd) {
+                    drawLine((double) blastProtection / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.BLUE, awayPos, lineThickness, ("blast\nprotection " + blastProtection), drawnRunway); //blast protection
+                }else{
+                    drawLine((double) RESA / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, awayPos, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                    drawLine((double) stripEnd / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL() + RESA) / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos, lineThickness, ("strip\nend " + stripEnd), drawnRunway); //strip end
+                }
+                drawLine((double) newToda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastOrResa) / scale, pane, javafx.scene.paint.Color.RED, awayPos+20,lineThickness,("TODA "+newToda),drawnRunway); //toda
+                drawLine((double) newAsda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + blastOrResa) / scale, pane, javafx.scene.paint.Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
+                drawLine((double) newLda / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + stripEnd + slopeOrResaOrBlast) / scale, pane, javafx.scene.paint.Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda),drawnRunway); //lda
+                if (slopeOrResaOrBlast == slopeCalc) {
+                    drawLine((double) slopeCalc / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos + 60, lineThickness, ("slope " + slopeCalc), drawnRunway); //slope
+                    drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
+                }else if(slopeOrResaOrBlast == RESA){
+                    drawLine((double) RESA / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, awayPos + 60, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                }else{
+                    drawLine((double) blastProtection / scale, (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, Color.BLUE, awayPos + 60, lineThickness, ("blast\nprotection " + blastProtection), drawnRunway); //blast protect
+                }
+                drawLine((double) stripEnd / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL() + slopeOrResaOrBlast) / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
             } else {
+                towardsLabel.setTextFill(Color.BLACK);
                 sideLeftTowardsArrowhead.setVisible(true);
                 sideLeftTowardsArrowline.setVisible(true);
                 topLeftTowardsArrowhead.setVisible(true);
                 topLeftTowardsArrowline.setVisible(true);
                 towardsLabel.setText(left.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora),drawnRunway); //tora
-                //draw((double) rd.getDisplacedThres() / rd.getTora(), (double) 0 / rd.getTora(), pane, Color.GREEN, 50); //displaced threshold
                 drawLine((double) stripEnd / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
-                drawLine((double) slopeCalc / scale, (double) (newTora + stripEnd ) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
-                drawSlope((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd ) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
+                if (slopeCalc >= RESA) {
+                    drawLine((double) slopeCalc / scale, (double) (newTora + stripEnd) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos + 60, lineThickness, ("slope " + slopeCalc), drawnRunway); //slope
+                    drawSlope((double) slopeCalc / scale, (double) (newTora + Calculator.stripEnd) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
+                }else {
+                    drawLine((double) RESA / scale, (double) (newTora + stripEnd) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos + 60, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                }
                 drawLine((double) newToda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.RED, towardsPos+40,lineThickness,("TODA "+newToda),drawnRunway); //toda
                 drawLine((double) newAsda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / scale, (double) left.getDisplacedThres() / scale, pane, javafx.scene.paint.Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda),drawnRunway); //lda
@@ -1020,6 +1039,8 @@ public class ATCController extends MainController {
         int newLda = calcLDA(landingStatus, right,obs,obsLocation);
         int slopeCalc = (slope*obs.getHeight());
         int lineThickness = 6;
+        int slopeOrResa = Math.max(slopeCalc, RESA);
+        int slopeOrResaOrBlast = Math.max(blastProtection, Math.max(slopeCalc, RESA));
         //int awayPos = 140;
         //int towardsPos = 360;
         towardsLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
@@ -1047,31 +1068,48 @@ public class ATCController extends MainController {
             }
         }else {
             if (takeOffStatus == Status.away && landingStatus == Status.over) {
+                awayLabel.setTextFill(Color.BLACK);
                 sideRightAwayArrowhead.setVisible(true);
                 sideRightAwayArrowline.setVisible(true);
                 topRightAwayArrowhead.setVisible(true);
                 topRightAwayArrowline.setVisible(true);
                 awayLabel.setText(right.getRunwayDesignatorName() + " Take off AWAY / Landing OVER");
                 drawLine((double) newTora / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.GREEN, awayPos,lineThickness,("TORA "+newTora),drawnRunway); //tora
-                drawLine((double) blastProtection / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.BLUE, awayPos,lineThickness,("blast\nprotection "+ blastProtection),drawnRunway); //blast protection
+                if (blastProtection >= RESA+stripEnd) {
+                    drawLine((double) blastProtection / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.BLUE, awayPos, lineThickness, ("blast\nprotection " + blastProtection), drawnRunway); //blast protection
+                }else{
+                    drawLine((double) stripEnd / scale, (double) newTora / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                    drawLine((double) RESA / scale, (double) (newTora+stripEnd) / scale, pane, javafx.scene.paint.Color.MAGENTA, awayPos, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                }
                 drawLine((double) newToda / scale, (double) (newTora-newToda) / scale, pane, javafx.scene.paint.Color.RED, awayPos+20,lineThickness,("TODA "+newToda),drawnRunway); //toda
                 drawLine((double) newAsda / scale, (double) (newTora-newAsda) / scale, pane, javafx.scene.paint.Color.ORANGE, awayPos+40,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / scale, (double) 0 / scale, pane, javafx.scene.paint.Color.PURPLE, awayPos+60,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) stripEnd / scale, (double) newLda / scale, pane, javafx.scene.paint.Color.STEELBLUE, awayPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
-                drawLine((double) slopeCalc / scale, (double) (newLda+ stripEnd) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
-                drawSlope((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
+                if (slopeOrResaOrBlast == slopeCalc) {
+                    drawLine((double) slopeCalc / scale, (double) (newLda + stripEnd) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, awayPos + 60, lineThickness, ("slope " + slopeCalc), drawnRunway); //slope
+                    drawSlope((double) slopeCalc / scale, (double) (newLda+Calculator.stripEnd) / scale, 60, pane, Color.MEDIUMORCHID, false, ("slope")); //slope
+                }else if (slopeOrResaOrBlast == RESA){
+                    drawLine((double) RESA / scale, (double) (newLda + stripEnd) / scale, pane, javafx.scene.paint.Color.MAGENTA, awayPos + 60, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                }else{
+                    drawLine((double) blastProtection / scale, (double) (newLda + stripEnd) / scale, pane, Color.BLUE, awayPos + 60, lineThickness, ("blast\nprotection " + blastProtection), drawnRunway); //blast protection
+                }
             } else {
+                towardsLabel.setTextFill(Color.BLACK);
                 sideRightTowardsArrowhead.setVisible(true);
                 sideRightTowardsArrowline.setVisible(true);
                 topRightTowardsArrowhead.setVisible(true);
                 topRightTowardsArrowline.setVisible(true);
                 towardsLabel.setText(right.getRunwayDesignatorName() + " Take off TOWARDS / Landing TOWARDS");
-                drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd)/ scale, pane, javafx.scene.paint.Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora),drawnRunway); //tora
-                drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
-                drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL())/ scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos+60,lineThickness,("slope "+slopeCalc),drawnRunway); //slope
-                drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
-                drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd) / scale, pane, javafx.scene.paint.Color.RED, towardsPos+40,lineThickness,("TODA "+newToda),drawnRunway); //toda
-                drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeCalc+ stripEnd) / scale, pane, javafx.scene.paint.Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
+                drawLine((double) newTora / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeOrResa+ stripEnd)/ scale, pane, javafx.scene.paint.Color.GREEN, towardsPos+60,lineThickness,("TORA "+newTora),drawnRunway); //tora
+                drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeOrResa) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos+60,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
+                if (slopeCalc >= RESA) {
+                    drawLine((double) slopeCalc / left.getTora(), (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MEDIUMORCHID, towardsPos + 60, lineThickness, ("slope " + slopeCalc), drawnRunway); //slope
+                    drawSlope((double) slopeCalc / scale, (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, 60, pane, Color.MEDIUMORCHID, true, ("slope")); //slope
+                }else{
+                    drawLine((double) RESA / left.getTora(), (double) (left.getDisplacedThres() + obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos + 60, lineThickness, ("RESA " + RESA), drawnRunway); //resa
+                }
+                drawLine((double) newToda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeOrResa+ stripEnd) / scale, pane, javafx.scene.paint.Color.RED, towardsPos+40,lineThickness,("TODA "+newToda),drawnRunway); //toda
+                drawLine((double) newAsda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+slopeOrResa+ stripEnd) / scale, pane, javafx.scene.paint.Color.ORANGE, towardsPos+20,lineThickness,("ASDA "+newAsda),drawnRunway); //asda
                 drawLine((double) newLda / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+ RESA+ stripEnd) / scale, pane, javafx.scene.paint.Color.PURPLE, towardsPos,lineThickness,("LDA "+newLda),drawnRunway); //lda
                 drawLine((double) stripEnd / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()+ RESA) / scale, pane, javafx.scene.paint.Color.STEELBLUE, towardsPos,lineThickness,("strip\nend "+ stripEnd),drawnRunway); //strip end
                 drawLine((double) RESA / left.getTora(), (double) (left.getDisplacedThres()+obsLocation.getDistanceThresL()) / scale, pane, javafx.scene.paint.Color.MAGENTA, towardsPos,lineThickness,("RESA "+ RESA),drawnRunway); //resa
@@ -1096,9 +1134,11 @@ public class ATCController extends MainController {
             lengthLine.setFill(color);
             lengthLine.toFront();
 
-            Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            //Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY()+ drawnRunway.getHeight()/2);
             temporaryLine.add(startMarker);
-            Line endMarker = new Line(endX, startY, endX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            //Line endMarker = new Line(endX, startY, endX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
+            Line endMarker = new Line(endX, startY, endX, drawnRunway.getLayoutY()+ drawnRunway.getHeight()/2);
             temporaryLine.add(endMarker);
             pane.getChildren().addAll(lengthLine,startMarker,endMarker);
 
