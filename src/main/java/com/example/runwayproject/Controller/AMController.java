@@ -307,6 +307,7 @@ public class AMController extends MainController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            getConstants();
             setComboBox();
             formatTable(runwayTable);
             formatTable(runwayObstacleTable);

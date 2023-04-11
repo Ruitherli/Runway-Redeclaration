@@ -1,5 +1,6 @@
 package com.example.runwayproject.Controller;
 
+import com.example.runwayproject.Connector.DbConnect;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,11 +14,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.example.runwayproject.Model.Calculator.*;
+
 public class MainController implements Initializable {
+
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
 
     public Stage stage;
     public Scene scene;
@@ -152,5 +163,30 @@ public class MainController implements Initializable {
                 }
             }
         });
+    }
+
+    public void getConstants() throws SQLException {
+        try {
+            connection = DbConnect.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM constant");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                blastProtection = Integer.parseInt(resultSet.getString("blast_protection"));
+                RESA = Integer.parseInt(resultSet.getString("RESA"));
+                stripEnd = Integer.parseInt(resultSet.getString("strip_end"));
+                slope = Integer.parseInt(resultSet.getString("slope"));
+                minRunDistance = Integer.parseInt(resultSet.getString("minRunDistance"));
+                minLandingDistance = Integer.parseInt(resultSet.getString("minLandingDistance"));
+                averageRunwayWidth = Integer.parseInt(resultSet.getString("averageRunwayWidth"));
+                maxObsHeight = Integer.parseInt(resultSet.getString("maxObsHeight"));
+            }
+
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
