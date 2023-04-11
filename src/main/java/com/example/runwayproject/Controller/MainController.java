@@ -1,5 +1,8 @@
 package com.example.runwayproject.Controller;
 
+import com.example.runwayproject.Connector.DbConnect;
+import com.example.runwayproject.Model.Calculator;
+import com.example.runwayproject.Model.RunwayDesignator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -13,16 +16,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.example.runwayproject.Connector.DbConnect.connection;
 
 public class MainController implements Initializable {
 
     public Stage stage;
     public Scene scene;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
 

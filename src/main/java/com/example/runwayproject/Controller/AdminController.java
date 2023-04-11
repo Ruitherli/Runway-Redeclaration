@@ -1,6 +1,8 @@
 package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Connector.DbConnect;
+import com.example.runwayproject.Model.Calculator;
+import com.example.runwayproject.Model.Obstacle;
 import com.example.runwayproject.Model.RunwayDesignator;
 import com.example.runwayproject.Model.User;
 import javafx.collections.FXCollections;
@@ -9,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,6 +21,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,9 +30,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.example.runwayproject.Connector.DbConnect.*;
+import static com.example.runwayproject.Model.Calculator.maxObsHeight;
+
 //testing
 public class AdminController extends MainController {
     @FXML
@@ -236,6 +243,192 @@ public class AdminController extends MainController {
     }
 
     @FXML
+    public Button editDesignatorButton;
+    @FXML
+    public Button doneEditDesignatorsButton;
+
+    //edit runway designator table
+    public void editDesignatorTable(ActionEvent e1) throws SQLException{
+
+        runwayDesignatorTable.setEditable(true);
+        editDesignatorButton.setText("Edit Mode");
+        doneEditDesignatorsButton.setVisible(true);
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        toraCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        todaCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        asdaCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        ldaCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        dThresCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        nameCol.setOnEditCommit(event -> {
+            RunwayDesignator name = event.getRowValue();
+            String check = name.getRunwayDesignatorName();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            connection = DbConnect.getConnection();
+            try {
+                preparedStatement = connection.prepareStatement("SELECT designator_name from runway_designator where designator_name = '" + event.getNewValue() + "' limit 1");
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    //System.out.println(s);
+                    playInformationAlert("Runway Designator name already exists in the database");
+                    loadConstantsTable();
+                    loadRunwayDesignatorTable();
+                } else {
+                    alert.setContentText("Change the Runway Designator from " + check + " to " + event.getNewValue() + "?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        String sql1 = ("update runway_designator set designator_name = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        PreparedStatement r = connection.prepareStatement(sql1);
+                        r.execute();
+                        loadRunwayDesignatorTable();
+                        loadConstantsTable();
+                        connection.close();
+                    }
+                    loadRunwayDesignatorTable();
+                    loadConstantsTable();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        toraCol.setOnEditCommit(event -> {
+            RunwayDesignator tora = event.getRowValue();
+            String check = tora.getRunwayDesignatorName();
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+            } else if (event.getNewValue() < 0) {
+                playErrorAlert("TORA cannot have a negative value");
+                loadRunwayDesignatorTable();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setContentText("Change the TORA to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        try {
+                            connection = DbConnect.getConnection();
+                            PreparedStatement stmt = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                            stmt.execute();
+                            connection.close();
+                        } catch (SQLException e) {
+                            playErrorAlert(String.valueOf(e));
+                        }
+                    }loadRunwayDesignatorTable();
+                }
+        });
+        todaCol.setOnEditCommit(event -> {
+            RunwayDesignator toda = event.getRowValue();
+            String check = toda.getRunwayDesignatorName();
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+            } else if (event.getNewValue() < 0) {
+                playErrorAlert("TODA cannot have a negative value");
+                loadRunwayDesignatorTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change the TODA to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update runway_designator set TODA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        stmt.execute();
+                        connection.close();
+                    } catch (SQLException e) {
+                        playErrorAlert(String.valueOf(e));
+                    }
+                }loadRunwayDesignatorTable();
+            }
+        });
+        asdaCol.setOnEditCommit(event -> {
+            RunwayDesignator asda = event.getRowValue();
+            String check = asda.getRunwayDesignatorName();
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+            } else if (event.getNewValue() < 0) {
+                playErrorAlert("ASDA cannot have a negative value");
+                loadRunwayDesignatorTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change the ASDA to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update runway_designator set ASDA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        stmt.execute();
+                        connection.close();
+                    } catch (SQLException e) {
+                        playErrorAlert(String.valueOf(e));
+                    }
+                }loadRunwayDesignatorTable();
+            }
+        });
+        ldaCol.setOnEditCommit(event -> {
+            RunwayDesignator lda = event.getRowValue();
+            String check = lda.getRunwayDesignatorName();
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+            } else if (event.getNewValue() < 0) {
+                playErrorAlert("LDA cannot have a negative value");
+                loadRunwayDesignatorTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change the LDA to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update runway_designator set LDA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        stmt.execute();
+                        connection.close();
+                    } catch (SQLException e) {
+                        playErrorAlert(String.valueOf(e));
+                    }
+                }loadRunwayDesignatorTable();
+            }
+        });
+        dThresCol.setOnEditCommit(event -> {
+            RunwayDesignator dThresh = event.getRowValue();
+            String check = dThresh.getRunwayDesignatorName();
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+            } else if (event.getNewValue() < 0) {
+                playErrorAlert("Displaced Threshold cannot have a negative value");
+                loadRunwayDesignatorTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change the Displaced Threshold to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update runway_designator set displaced_thres = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        stmt.execute();
+                        connection.close();
+                    } catch (SQLException e) {
+                        playErrorAlert(String.valueOf(e));
+                    }
+                }loadRunwayDesignatorTable();
+            }
+        });
+    }
+        public void doneEditDesignator(ActionEvent e){
+        doneEditDesignatorsButton.setVisible(false);
+        editDesignatorButton.setText("Edit Runway Designators");
+        loadConstantsTable();
+        loadRunwayDesignatorTable();
+    }
+
+    @FXML
     private void refreshConstantsTable (){
         try{
             constants.clear();
@@ -279,8 +472,264 @@ public class AdminController extends MainController {
         avgRunCol.setCellValueFactory(new PropertyValueFactory<>("avgRunwayWidth"));
         maxHeightCol.setCellValueFactory(new PropertyValueFactory<>("maxObsHeight"));
 
-       constantsTable.setItems(constants);
+        constantsTable.setItems(constants);
     }
+    @FXML
+    private Button editConstantButton;
+
+    @FXML
+    private Button doneConstantEdit;
+
+
+
+    public void editConstantTable(ActionEvent e1) {
+        loadRunwayDesignatorTable();
+        constantsTable.setEditable(true);
+        editConstantButton.setText("Edit Mode");
+        doneConstantEdit.setVisible(true);
+        blastCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        resaCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        stripCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        slopeCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        minRunCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        minLandCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        avgRunCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        maxHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        blastCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Blast Protection cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Blast Protection to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set blast_protection = " + event.getNewValue());
+                        //Calculator.setBlastProtection(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        resaCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("RESA cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change RESA to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set RESA = " + event.getNewValue());
+                       // Calculator.setRESA(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        stripCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Strip End cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Strip End to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set strip_end = " + event.getNewValue());
+                       //Calculator.setStripEnd(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        slopeCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Slope cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Slope to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set slope = " + event.getNewValue());
+                       // Calculator.setSlope(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        minRunCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Minimum Run Distance cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Minimum Run Distance to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set minRunDistance = " + event.getNewValue());
+                        //Calculator.setMinRunDistance(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        minLandCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Minimum Landing Distance cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Minimum Landing Distance to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set minLandingDistance = " + event.getNewValue());
+                      //  Calculator.setMinLandingDistance(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        avgRunCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Average Run Width cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Average Run Width to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set averageRunwayWidth = " + event.getNewValue());
+                       // Calculator.setAverageRunwayWidth(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+        maxHeightCol.setOnEditCommit(event -> {
+            if (event.getNewValue() < 0) {
+                playErrorAlert("Maximum Obstacle Height cannot have a negative value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
+                loadRunwayDesignatorTable();
+                loadConstantsTable();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change Maximum Obstacle Height to " + event.getNewValue() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = DbConnect.getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update constant set maxObsHeight = " + event.getNewValue());
+                        //Calculator.setMaxObsHeight(event.getNewValue());
+                        stmt.execute();
+
+                        connection.close();
+                    } catch (SQLException e2) {
+                        playErrorAlert(String.valueOf(e2));
+                    }
+                }
+            }
+        });
+    }
+    public void doneEditConstant(ActionEvent e){
+        constantsTable.setEditable(false);
+        editConstantButton.setText("Edit Constants");
+        doneConstantEdit.setVisible(false);
+        loadRunwayDesignatorTable();
+        loadConstantsTable();
+    }
+
+
+
 
     @FXML
     private void refreshUsersTable (){

@@ -1,6 +1,7 @@
 package com.example.runwayproject.Controller;
 
 import com.example.runwayproject.Connector.DbConnect;
+import com.example.runwayproject.Model.Calculator;
 import com.example.runwayproject.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,12 +9,11 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.example.runwayproject.Connector.DbConnect.connection;
 
 public class LoginController extends MainController{
 
@@ -35,8 +35,31 @@ public class LoginController extends MainController{
         setUsernameFormat(passwordField);
         atcButton.setVisible(true);
         amButton.setVisible(true);
-    }
+//setting the constants
+        try {
 
+            connection = DbConnect.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM constant");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()) {
+                Calculator.setBlastProtection(resultSet.getInt("blast_protection"));
+                Calculator.setRESA(resultSet.getInt("RESA"));
+                Calculator.setStripEnd(resultSet.getInt("strip_end"));
+                Calculator.setSlope(resultSet.getInt("slope"));
+                Calculator.setMinRunDistance(resultSet.getInt("minRunDistance"));
+                Calculator.setMinLandingDistance(resultSet.getInt("minLandingDistance"));
+                Calculator.setMaxObsHeight(resultSet.getInt("maxObsHeight"));
+                Calculator.setAverageRunwayWidth(resultSet.getInt("averageRunwayWidth"));
+            }
+            connection.close();
+            preparedStatement.close();
+            resultSet.close();
+
+        } catch (SQLException e) {
+            playErrorAlert(String.valueOf(e));
+        }
+    }
     @FXML
     public void logIn(ActionEvent event) {
         Connection connection = DbConnect.getConnection();

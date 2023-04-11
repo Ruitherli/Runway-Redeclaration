@@ -3,16 +3,51 @@ package com.example.runwayproject.Model;
 public class Calculator {
     //class variables
     //constant
-    public static int blastProtection = 300;
-    public static int RESA = 240;
-    public static int stripEnd = 60;
-    public static int slope = 50;
-    public static int minRunDistance = 1000;
-    public static int minLandingDistance = 1000;
-    public static int averageRunwayWidth = 100;
-    public static int maxObsHeight = 50;
+    public static int blastProtection;
+    public static int RESA ;
+    public static int stripEnd;
+    public static int slope;
+    public static int minRunDistance;
+    public static int minLandingDistance;
+    public static int averageRunwayWidth;
+    public static int maxObsHeight;
+
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));
+    }
+
+    public static void setBlastProtection(int blastProtection) {
+        Calculator.blastProtection = blastProtection;
+    }
+
+
+    public static void setRESA(int RESA) {
+        Calculator.RESA = RESA;
+    }
+
+    public static void setStripEnd(int stripEnd) {
+        Calculator.stripEnd = stripEnd;
+    }
+
+    public static void setSlope(int slope) {
+        Calculator.slope = slope;
+    }
+
+    public static void setMinRunDistance(int minRunDistance) {
+        Calculator.minRunDistance = minRunDistance;
+    }
+
+    public static void setMinLandingDistance(int minLandingDistance) {
+        Calculator.minLandingDistance = minLandingDistance;
+    }
+
+    public static void setAverageRunwayWidth(int averageRunwayWidth) {
+        Calculator.averageRunwayWidth = averageRunwayWidth;
+    }
+
+    public static void setMaxObsHeight(int maxObsHeight) {
+        Calculator.maxObsHeight = maxObsHeight;
+
     }
 
     //methods
@@ -20,7 +55,7 @@ public class Calculator {
 
     public static int calcTORA (Status s, RunwayDesignator r, Obstacle obs, ObstacleLocation obsLocation){
         if (s == Status.away){
-           // return r.getTora() - Calculator.getSignificant() - (Math.min(obsLocation.getDistanceThresL(), obsLocation.getDistanceThresR())) - r.getDisplacedThres();
+            // return r.getTora() - Calculator.getSignificant() - (Math.min(obsLocation.getDistanceThresL(), obsLocation.getDistanceThresR())) - r.getDisplacedThres();
             if (r.getRunwayDesignatorName().endsWith("L")){
                 return r.getTora() - Calculator.getSignificant() - obsLocation.getDistanceThresL() - r.getDisplacedThres();
             }else{
