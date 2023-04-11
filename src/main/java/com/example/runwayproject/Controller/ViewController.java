@@ -87,9 +87,21 @@ public class ViewController extends AMController implements Initializable {
         }
     }
 
-    public void setObstacle(Runway r, ObstacleLocation ol, AnchorPane pane, double distanceFromCenterline) {
+    public void setObstacle(Runway r, ObstacleLocation ol, AnchorPane pane) {
         int length = 30;
         int width = 30;
+        double distanceFromCenterline;
+        if (ol.getDirection()== ObstacleLocation.Direction.Center){
+            distanceFromCenterline = 0;
+            System.out.println("center");
+        }else if (ol.getDirection() == ObstacleLocation.Direction.North){
+            distanceFromCenterline = (double) ol.getDistanceFromCenterline()/50;
+            System.out.println("north");
+        }else {
+            distanceFromCenterline = (double) -ol.getDistanceFromCenterline()/50;
+            System.out.println("south");
+        }
+
         obstacle = new Rectangle(0, 0, length, width);
         double startXFraction = (double) ol.getDistanceThresL()/(r.getLeftDesignator().getTora()-r.getLeftDesignator().getDisplacedThres()-r.getRightDesignator().getDisplacedThres());
         double drawnLength = runway.getWidth();

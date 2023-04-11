@@ -1247,7 +1247,7 @@ public class AMController extends MainController {
 
     public void topView(Runway r, Obstacle o, ObstacleLocation ol, AnchorPane pane, Rectangle drawnRunway){
         setRunway(r,pane,drawnRunway);
-        setTopObstacle(r,ol,pane,0);
+        setTopObstacle(r,ol,pane);
         /*setRunway(r,pane2,drawnRunway);
         setTopObstacle(r,ol,pane2,0);*/
 
@@ -1440,9 +1440,17 @@ public class AMController extends MainController {
         pane.getChildren().add(obstacle);
     }
 
-    public void setTopObstacle(Runway r, ObstacleLocation ol, AnchorPane pane, double distanceFromCenterline) {
+    public void setTopObstacle(Runway r, ObstacleLocation ol, AnchorPane pane) {
         int length = 30;
         int width = 30;
+        double distanceFromCenterline;
+        if (ol.getDirection()== ObstacleLocation.Direction.Center){
+            distanceFromCenterline = 0;
+        }else if (ol.getDirection() == ObstacleLocation.Direction.North){
+            distanceFromCenterline = (double) ol.getDistanceFromCenterline()/50;
+        }else {
+            distanceFromCenterline = (double) -ol.getDistanceFromCenterline()/50;
+        }
         obstacle = new Rectangle(0, 0, length, width);
         temporaryRect.add(obstacle);
         double startXFraction = (double) ol.getDistanceThresL()/(r.getLeftDesignator().getTora()-r.getLeftDesignator().getDisplacedThres()-r.getRightDesignator().getDisplacedThres());
@@ -1452,13 +1460,7 @@ public class AMController extends MainController {
         double startX = topRunway.getLayoutX() + scaledLeftDisThres*drawnLength;
         double endX = topRunway.getLayoutX() + topRunway.getWidth() - (scaledRightDisThres * drawnLength);
         double x = startX + ((endX - startX) * startXFraction) - (obstacle.getWidth() / 2);
-        //double y = runway.getLayoutY() + (runway.getHeight() - obstacle.getHeight()) / 2;
-        double y;
-        if (distanceFromCenterline<0) {
-            y = topRunway.getLayoutY() + (topRunway.getHeight() / 2) - (obstacle.getHeight()) - (distanceFromCenterline * topRunway.getHeight() / 2);
-        }else{
-            y = topRunway.getLayoutY() + (topRunway.getHeight() / 2) - (obstacle.getHeight()) - (distanceFromCenterline * topRunway.getHeight() / 2) + obstacle.getHeight();
-        }
+        double y = topRunway.getLayoutY() + (topRunway.getHeight() - obstacle.getHeight()) / 2 - distanceFromCenterline*topRunway.getHeight()/2;
 
         obstacle.setX(x);
         obstacle.setY(y);
