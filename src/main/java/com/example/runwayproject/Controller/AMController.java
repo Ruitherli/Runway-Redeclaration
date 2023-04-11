@@ -1448,9 +1448,9 @@ public class AMController extends MainController {
         if (ol.getDirection()== ObstacleLocation.Direction.Center){
             distanceFromCenterline = 0;
         }else if (ol.getDirection() == ObstacleLocation.Direction.North){
-            distanceFromCenterline = (double) ol.getDistanceFromCenterline()/50;
+            distanceFromCenterline = (double) ol.getDistanceFromCenterline()/((double) averageRunwayWidth/2);
         }else {
-            distanceFromCenterline = (double) -ol.getDistanceFromCenterline()/50;
+            distanceFromCenterline = (double) -ol.getDistanceFromCenterline()/((double) averageRunwayWidth/2);
         }
         obstacle = new Rectangle(0, 0, length, width);
         temporaryRect.add(obstacle);
