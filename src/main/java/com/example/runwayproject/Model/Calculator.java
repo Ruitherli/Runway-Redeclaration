@@ -3,14 +3,47 @@ package com.example.runwayproject.Model;
 public class Calculator {
     //class variables
     //constant
-    public static int blastProtection = 300;
-    public static int RESA = 240;
-    public static int stripEnd = 60;
-    public static int slope = 50;
-    public static int minRunDistance = 1000;
-    public static int minLandingDistance = 1000;
-    public static int averageRunwayWidth = 100;
-    public static int maxObsHeight = 50;
+    public static int blastProtection = 0;
+    public static int RESA = 0;
+    public static int stripEnd = 0;
+    public static int slope = 0;
+    public static int minRunDistance = 0;
+    public static int minLandingDistance = 0;
+    public static int averageRunwayWidth = 0;
+    public static int maxObsHeight = 0;
+
+    public static void setBlastProtection(int blastProtection) {
+        Calculator.blastProtection = blastProtection;
+    }
+
+    public static void setRESA(int RESA) {
+        Calculator.RESA = RESA;
+    }
+
+    public static void setStripEnd(int stripEnd) {
+        Calculator.stripEnd = stripEnd;
+    }
+
+    public static void setSlope(int slope) {
+        Calculator.slope = slope;
+    }
+
+    public static void setMinRunDistance(int minRunDistance) {
+        Calculator.minRunDistance = minRunDistance;
+    }
+
+    public static void setMinLandingDistance(int minLandingDistance) {
+        Calculator.minLandingDistance = minLandingDistance;
+    }
+
+    public static void setAverageRunwayWidth(int averageRunwayWidth) {
+        Calculator.averageRunwayWidth = averageRunwayWidth;
+    }
+
+    public static void setMaxObsHeight(int maxObsHeight) {
+        Calculator.maxObsHeight = maxObsHeight;
+    }
+
     static int getSignificant(){
         return Math.max(blastProtection, (RESA+stripEnd));
     }

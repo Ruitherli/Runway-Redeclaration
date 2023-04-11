@@ -35,6 +35,9 @@ public class LoginController extends MainController{
         setUsernameFormat(passwordField);
         atcButton.setVisible(true);
         amButton.setVisible(true);
+
+        //Check if XAMPP is running
+        //Check if the database exists
     }
 
     @FXML

@@ -443,6 +443,7 @@ public class ATCController extends MainController {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            getConstants();
             setRunwayComboBox();
             formatTable(oriDistanceTable);
             formatTable(recAwayDistanceTable);
