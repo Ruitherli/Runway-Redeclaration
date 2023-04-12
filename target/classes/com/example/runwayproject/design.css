@@ -103,9 +103,9 @@
 }
 .table-view .label{
  -fx-font-family: Helvetica, sans-serif;
- -fx-font-size: 12px;
- /*-fx-font-weight : 900;*/
- -fx-effect: dropshadow(three-pass-box, Black , 20, 0, 0, 0);
+ -fx-font-size: 13px;
+ -fx-font-weight : 900;
+ -fx-effect: dropshadow(three-pass-box, black, 20, 0, 0, 0);
  -fx-text-fill: #000000;
 }
 .table-view .scroll-bar * {
@@ -243,14 +243,6 @@
  -fx-font-size: 15px;
  -fx-font-family: Helvetica;
 }
-#LT{
- -fx-font-family: Helvetica;
- -fx-font-size: 30px;
- -fx-font-weight : 900;
- -fx-effect: dropshadow(three-pass-box, Black , 20, 0, 0, 0);
-}
-
-
 #originalDistancesLabel{
  -fx-font-size: 20px;
  -fx-font-family: Helvetica;
@@ -291,7 +283,7 @@
 .text-field-table-cell .text-field {
    -fx-padding: 2;
    -fx-border-color:black;
-   -fx-background-color: white;
+   -fx-background-color: gray;
 }
 .table-cell:focused {
    -fx-padding: 0;

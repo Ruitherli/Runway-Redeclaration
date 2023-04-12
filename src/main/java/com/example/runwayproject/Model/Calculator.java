@@ -3,23 +3,18 @@ package com.example.runwayproject.Model;
 public class Calculator {
     //class variables
     //constant
-    public static int blastProtection;
-    public static int RESA ;
-    public static int stripEnd;
-    public static int slope;
-    public static int minRunDistance;
-    public static int minLandingDistance;
-    public static int averageRunwayWidth;
-    public static int maxObsHeight;
-
-    static int getSignificant(){
-        return Math.max(blastProtection, (RESA+stripEnd));
-    }
+    public static int blastProtection = 0;
+    public static int RESA = 0;
+    public static int stripEnd = 0;
+    public static int slope = 0;
+    public static int minRunDistance = 0;
+    public static int minLandingDistance = 0;
+    public static int averageRunwayWidth = 0;
+    public static int maxObsHeight = 0;
 
     public static void setBlastProtection(int blastProtection) {
         Calculator.blastProtection = blastProtection;
     }
-
 
     public static void setRESA(int RESA) {
         Calculator.RESA = RESA;
@@ -47,7 +42,10 @@ public class Calculator {
 
     public static void setMaxObsHeight(int maxObsHeight) {
         Calculator.maxObsHeight = maxObsHeight;
+    }
 
+    static int getSignificant(){
+        return Math.max(blastProtection, (RESA+stripEnd));
     }
 
     //methods
@@ -55,7 +53,7 @@ public class Calculator {
 
     public static int calcTORA (Status s, RunwayDesignator r, Obstacle obs, ObstacleLocation obsLocation){
         if (s == Status.away){
-            // return r.getTora() - Calculator.getSignificant() - (Math.min(obsLocation.getDistanceThresL(), obsLocation.getDistanceThresR())) - r.getDisplacedThres();
+           // return r.getTora() - Calculator.getSignificant() - (Math.min(obsLocation.getDistanceThresL(), obsLocation.getDistanceThresR())) - r.getDisplacedThres();
             if (r.getRunwayDesignatorName().endsWith("L")){
                 return r.getTora() - Calculator.getSignificant() - obsLocation.getDistanceThresL() - r.getDisplacedThres();
             }else{

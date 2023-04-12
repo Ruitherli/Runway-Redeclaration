@@ -106,7 +106,7 @@ public class TopViewController extends ViewController{
         ObstacleLocation location3 = new ObstacleLocation(150,3203,60,ObstacleLocation.Direction.North);
 
         Obstacle o4 = new Obstacle("obs 4",20,10,10);
-        ObstacleLocation location4 = new ObstacleLocation(50,3546,20,ObstacleLocation.Direction.North);
+        ObstacleLocation location4 = new ObstacleLocation(50,3546,25,ObstacleLocation.Direction.South);
 
         Runway runway1 = new Runway("09L/27R", l1, r1);
         Runway runway2 = new Runway("27L/09R", l2, r2);
@@ -131,7 +131,7 @@ public class TopViewController extends ViewController{
     public void viewLeft(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
         //isViewLeft=true;
         setRunway(r,pane);
-        setObstacle(r,ol,pane,0);
+        setObstacle(r,ol,pane);
         drawLeft(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane);
         drawLeft(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane);
     }
@@ -139,7 +139,7 @@ public class TopViewController extends ViewController{
     public void viewRight(Runway r,Obstacle o,ObstacleLocation ol, AnchorPane pane){
         //isViewLeft=false;
         setRunway(r,pane);
-        setObstacle(r,ol,pane,0);
+        setObstacle(r,ol,pane);
         drawRight(Calculator.Status.away, Calculator.Status.over,r,o,ol,pane);
         drawRight(Calculator.Status.towards, Calculator.Status.towards,r,o,ol,pane);
     }
