@@ -63,8 +63,4 @@ public class RunwayDesignator {
         setTora(tora);
         setDisplacedThres(displacedThres);
     }
-
-
-
-
 }

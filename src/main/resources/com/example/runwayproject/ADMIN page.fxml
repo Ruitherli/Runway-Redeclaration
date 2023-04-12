@@ -93,7 +93,7 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <TableView fx:id="userTable" prefHeight="842.0" prefWidth="1205.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                                <TableView fx:id="userTable" layoutX="20.0" layoutY="14.0" prefHeight="521.0" prefWidth="1165.0" AnchorPane.bottomAnchor="286.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0">
                                                     <columns>
                                                         <TableColumn fx:id="usernameCol" prefWidth="335.0" text="Username" />
                                                         <TableColumn fx:id="passwordCol" prefWidth="660.0" text="Password" />
@@ -128,6 +128,8 @@
                                                 <Button layoutX="594.0" layoutY="755.0" mnemonicParsing="false" onAction="#addAccount" prefHeight="25.0" prefWidth="71.0" text="Add" />
                                                 <Button layoutX="677.0" layoutY="755.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Reset" />
                                                 <Line endX="1104.0" layoutX="101.0" layoutY="594.0" startX="-100.0" />
+                                    <Button fx:id="editPasswordAdmin" layoutX="20.0" layoutY="548.0" mnemonicParsing="false" onAction="#changeAdminPassword" text="Edit Admin Password" />
+                                    <Button fx:id="donePasswordEdit" layoutX="237.0" layoutY="548.0" mnemonicParsing="false" onAction="#doneEditPassword" text="Done" visible="false" AnchorPane.leftAnchor="115.0" />
                                             </children>
                                         </AnchorPane>
                                     </content>

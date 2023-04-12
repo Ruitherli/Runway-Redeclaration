@@ -382,10 +382,10 @@ public class AMController extends MainController {
     private void setComboBox() throws SQLException {
         directionComboBox.getItems().clear();
         presetDirectionComboBox.getItems().clear();
+
         directionComboBox.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-
                 super.updateItem(item, empty);
                 if (item == null || empty) {
                     setText(directionComboBox.getPromptText());
@@ -662,40 +662,9 @@ public class AMController extends MainController {
             playErrorAlert(String.valueOf(e));
         }
     }
-
-    ////Removing obstacles from runway
-    public void deleteRowFromRunwayObstacle(ActionEvent event) throws SQLException {
-        RunwayObsTable runway = runwayObstacleTable.getSelectionModel().getSelectedItem();
-        if(runway != null){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setContentText("Delete Obstacle " + runway.getObstacleName() + " on " + runway.getRunwayName() + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            try {
-                connection = DbConnect.getConnection();
-                PreparedStatement stmt = connection.prepareStatement("Delete from obstacle_location where runway_id in ( Select runway_id from runway where runway_name = '" + runway.getRunwayName() + "')");
-                stmt.execute();
-                loadRunwayObsTable();
-                connection.close();
-                //refresh visualisation
-//                sideView(currentRunway,obstacle,0,sideLeftPane,sideRunway);
-//                topView(currentRunway,obstacle,0,topLeftPane,topRunway);
-            } catch (Exception e) {
-                playErrorAlert("Select a row");
-            }}
-        else{
-            playErrorAlert("Select a row");
-        }
-        }loadRunwayObsTable();
-        //loadObstacleTable();
-    }
-
     //---------------------editing preset obstacle Table-------------------------------
 
     public void editPresetObstacle(ActionEvent event1) throws SQLException {
-        loadRunwayObsTable();
-        loadObstacleTable();
         obstacleTable.setEditable(true);
         editPresetObstacles.setText("Edit Mode");
         doneEditButton.setVisible(true);
@@ -704,6 +673,8 @@ public class AMController extends MainController {
         presetLengthCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
         presetWidthCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
         presetNameCol.setOnEditCommit(event -> {
+            loadObstacleTable();
+            loadRunwayObsTable();
             Obstacle name = event.getRowValue();
             String check = name.getObstacleName();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -720,23 +691,24 @@ public class AMController extends MainController {
                     loadRunwayObsTable();
                     connection.close();
                 } catch (SQLException e) {
-                    playInformationAlert("Obstacle name already exists in the database");
-                    //playInformationAlert(String.valueOf(e));
+//                playInformationAlert("Obstacle name already exists in the database");
+                    playInformationAlert(String.valueOf(e));
                     loadObstacleTable();
                 }
             }loadObstacleTable();
         });
 
         presetHeightCol.setOnEditCommit(event -> {
+            loadObstacleTable();
+            loadRunwayObsTable();
             Obstacle height = event.getRowValue();
             String name = height.getObstacleName();
-            if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
-            } else if (event.getNewValue() < 0) {
-                playErrorAlert("Height cannot have a negative value");
-                loadObstacleTable();
-            } else {
-                if (event.getNewValue() > maxObsHeight) {
+                if (event.getNewValue() == -1) {
+                    playErrorAlert("Enter Integer Value");
+                } else if (event.getNewValue() < 0) {
+                    playErrorAlert("Height cannot have a negative value");
+                    loadObstacleTable();
+                } else if (event.getNewValue() > maxObsHeight) {
                     playErrorAlert("The maximum obstacle height allowed is only " + maxObsHeight);
                     loadObstacleTable();
                 } else {
@@ -757,13 +729,14 @@ public class AMController extends MainController {
                             playErrorAlert(String.valueOf(e));
                             loadObstacleTable();
                         }
-                    }loadObstacleTable();
+                    }
+                    loadObstacleTable();
                 }
-
-            }
-        });
+            });
 
         presetWidthCol.setOnEditCommit(event -> {
+            loadObstacleTable();
+            loadRunwayObsTable();
             Obstacle width = event.getRowValue();
             String name = width.getObstacleName();
             if (event.getNewValue() == -1) {
@@ -784,7 +757,7 @@ public class AMController extends MainController {
                         setComboBox();
                         loadObstacleTable();
                         loadRunwayObsTable();
-                        connection.close();
+                         connection.close();
                     } catch (SQLException e) {
                         playErrorAlert(String.valueOf(e));
                         loadObstacleTable();
@@ -793,6 +766,8 @@ public class AMController extends MainController {
             }
         });
         presetLengthCol.setOnEditCommit(event -> {
+            loadObstacleTable();
+            loadRunwayObsTable();
             Obstacle length = event.getRowValue();
             String name = length.getObstacleName();
             if (event.getNewValue() < 0) {
@@ -829,8 +804,59 @@ public class AMController extends MainController {
         loadObstacleTable();
         doneEditButton.setVisible(false);
     }
+    ////Removing obstacles from runway
+    public void deleteRowFromRunwayObstacle(ActionEvent event) throws SQLException {
+        RunwayObsTable runway = runwayObstacleTable.getSelectionModel().getSelectedItem();
+        if (runway != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("Delete Obstacle " + runway.getObstacleName() + " on " + runway.getRunwayName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    connection = DbConnect.getConnection();
+                    PreparedStatement stmt = connection.prepareStatement("Delete from obstacle_location where runway_id in ( Select runway_id from runway where runway_name = '" + runway.getRunwayName() + "')");
+                    stmt.execute();
+                    loadRunwayObsTable();
+                    connection.close();
+                    removeObjects();
+                    stmt.close();
+//                    PreparedStatement stmt1 = connection.prepareStatement("SELECT r.runway_name, d1.designator_name " +
+//                            "AS designatorname1, d2.designator_name FROM runway r " +
+//                            "LEFT OUTER JOIN runway_designator d1 ON r.designator_id_1 = d1.designator_id " +
+//                            "LEFT OUTER JOIN runway_designator d2 ON r.designator_id_2 = d2.designator_id " +
+//                            "WHERE r.runway_name ='" + runway.getRunwayName() + "'");
+//                    Runway r = new Runway();
+//                    while(resultSet.next()){
+//                        r.setRunwayName(resultSet.getString("runway_name"));
+//                        r.setRight(resultSet.getString("designatorname1"));
+//                        r.setLeft(resultSet.getString("designator_name"));
+//
+//
+//                    }
+//
+//                    setRunway(r, sideLeftPane, sideRunway);
+//                    setRunway(r, topLeftPane, topRunway);
+//                    sideView(currentRunway,obstacle,0,sideLeftPane,sideRunway);
+//                    topView(currentRunway,obstacle,0,topLeftPane,topRunway);
+//                    stmt1.execute();
+//                    stmt1.close();
+                    connection.close();
+                } catch (Exception e) {
+                    playErrorAlert(String.valueOf(e));
+                }
+            } else{
+            }
+        }else{
+            playErrorAlert("Select a row");
 
-    public void loadRunwayTable(ActionEvent event) throws SQLException {
+        }
+        loadRunwayObsTable();
+        loadObstacleTable();
+    }
+
+
+        public void loadRunwayTable(ActionEvent event) throws SQLException {
         connection = DbConnect.getConnection();
         refreshRunwayTable();
         connection = DbConnect.getConnection();
@@ -866,7 +892,6 @@ public class AMController extends MainController {
                 obstacle.setHeight(resultSet.getInt("height"));
                 obstacle.setLength(resultSet.getInt("length"));
                 obstacle.setWidth(resultSet.getInt("width"));
-                loadObstacleTable();
 
             }
 
@@ -884,7 +909,7 @@ public class AMController extends MainController {
                 obstacleLocation.setDistanceThresL(resultSet.getInt("distance_from_threshold_L"));
                 obstacleLocation.setDistanceFromCenterline(resultSet.getInt("distance_from_centerline"));
                 obstacleLocation.setDirection(ObstacleLocation.Direction.valueOf(resultSet.getString("direction_from_centerline")));
-                loadObstacleTable();
+
             }
 
             //Getting the runway original distances
@@ -1589,4 +1614,3 @@ public class AMController extends MainController {
     }
 
 }
-

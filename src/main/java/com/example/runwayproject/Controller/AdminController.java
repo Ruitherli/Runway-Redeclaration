@@ -273,6 +273,7 @@ public class AdminController extends MainController {
                     playInformationAlert("Runway Designator name already exists in the database");
                     loadConstantsTable();
                     loadRunwayDesignatorTable();
+                    connection.close();
                 } else {
                     alert.setContentText("Change the Runway Designator from " + check + " to " + event.getNewValue() + "?");
                     Optional<ButtonType> result = alert.showAndWait();
@@ -496,14 +497,14 @@ public class AdminController extends MainController {
         avgRunCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
         maxHeightCol.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
         blastCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Blast Protection cannot have a negative value");
-                loadRunwayDesignatorTable();
-                loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
+            if (event.getNewValue() == -1) {
                 playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
+            } else if  (event.getNewValue() < 0) {
+                    playErrorAlert("Blast Protection cannot have a negative value");
+                    loadRunwayDesignatorTable();
+                    loadConstantsTable();
             } else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
@@ -524,12 +525,12 @@ public class AdminController extends MainController {
             }
         });
         resaCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("RESA cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("RESA cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -552,12 +553,12 @@ public class AdminController extends MainController {
             }
         });
         stripCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Strip End cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Strip End cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -580,12 +581,12 @@ public class AdminController extends MainController {
             }
         });
         slopeCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Slope cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Slope cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -608,12 +609,12 @@ public class AdminController extends MainController {
             }
         });
         minRunCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Minimum Run Distance cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Minimum Run Distance cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -636,12 +637,12 @@ public class AdminController extends MainController {
             }
         });
         minLandCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Minimum Landing Distance cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Minimum Landing Distance cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -664,12 +665,12 @@ public class AdminController extends MainController {
             }
         });
         avgRunCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Average Run Width cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Average Run Width cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -692,12 +693,12 @@ public class AdminController extends MainController {
             }
         });
         maxHeightCol.setOnEditCommit(event -> {
-            if (event.getNewValue() < 0) {
-                playErrorAlert("Maximum Obstacle Height cannot have a negative value");
+            if (event.getNewValue() == -1) {
+                playErrorAlert("Enter Integer Value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
-            } else if (event.getNewValue() == -1) {
-                playErrorAlert("Enter Integer Value");
+            } else if  (event.getNewValue() < 0) {
+                playErrorAlert("Maximum Obstacle Height cannot have a negative value");
                 loadRunwayDesignatorTable();
                 loadConstantsTable();
             } else {
@@ -1255,5 +1256,49 @@ public class AdminController extends MainController {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public Button editPasswordAdmin;
+    @FXML
+    public Button donePasswordEdit;
+    public void changeAdminPassword(ActionEvent e1){
+        userTable.setEditable(true);
+        editPasswordAdmin.setText("Edit Mode");
+        donePasswordEdit.setVisible(true);
+        passwordCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        passwordCol.setOnEditCommit(event -> {
+            User password = event.getRowValue();
+            String username = password.getUsername();
+            String role = String.valueOf(password.getRoles());
+            if (role == "ADMIN") {
+                try {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setContentText("Change Admin password ?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        connection = DbConnect.getConnection();
+                        String sql1 = ("UPDATE user SET password = MD5('" + event.getNewValue() + "') WHERE user_name ='" + username + "'");
+                        PreparedStatement r = connection.prepareStatement(sql1);
+                        r.execute();
+                        loadUsersTable();
+                        connection.close();
+                    }
+                    loadUsersTable();
+                } catch (Exception e) {
+                    playErrorAlert(String.valueOf(e));
+                }
+            }else{
+                playErrorAlert("Can only change the password for the admin");
+                loadUsersTable();
+            }
+        });
+    }
+    public void doneEditPassword(ActionEvent e){
+        loadUsersTable();
+        userTable.setEditable(false);
+        editPasswordAdmin.setText("Edit Admin Password");
+        donePasswordEdit.setVisible(false);
+
     }
 }
