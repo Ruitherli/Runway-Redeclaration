@@ -25,14 +25,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
-
-
-import javafx.stage.FileChooser;
-import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
 
+import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.io.File;
@@ -1483,7 +1482,7 @@ public class ATCController extends MainController {
         }
     }*/
 
-    @FXML
+  /*  @FXML
     private void exportVisualization() {
         WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
         FileChooser fileChooser = new FileChooser();
@@ -1513,7 +1512,53 @@ public class ATCController extends MainController {
         } else {
             return "png"; // Default to PNG if file extension is not found
         }
+    }*/
+
+    private void exportVisualization() {
+        WritableImage snapshot = sideRightPane.snapshot(new SnapshotParameters(), null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Visualization");
+        fileChooser.setInitialFileName("visualization.png");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
+                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
+                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
+        );
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                String format = getFormatFromExtension(getFileExtension(file.getName()));
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), format, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    private String getFileExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex + 1).toLowerCase();
+        } else {
+            return "png"; // Default to PNG if file extension is not found
+        }
+    }
 
+    private String getFormatFromExtension(String fileExtension) {
+        switch (fileExtension) {
+            case "jpg":
+            case "jpeg":
+                return "jpg";
+            case "bmp":
+                return "bmp";
+            case "gif":
+                return "gif";
+            default:
+                return "png";
+        }
+    }
 }
+
+
+

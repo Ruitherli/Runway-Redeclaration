@@ -219,7 +219,7 @@
                                                    <children>
                                                       <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="532.0000610351562, 94.00003051757812, -48.999969482421875, 47.00001525878906, -113.99999237060547, 94.00003051757812" stroke="#d3dce4" strokeType="INSIDE" />
                                                       <Rectangle fx:id="sideRunway" arcHeight="5.0" arcWidth="5.0" fill="#606265" height="30.0" layoutX="77.0" layoutY="419.0" stroke="#606265" strokeType="INSIDE" width="646.0" />
-                                                      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="34.0" layoutX="142.0" layoutY="372.0" stroke="#d3dce4" strokeType="INSIDE" width="524.0" />
+                                                      <Rectangle fx:id="rec" arcHeight="5.0" arcWidth="5.0" fill="#d3dce4" height="34.0" layoutX="142.0" layoutY="372.0" stroke="#d3dce4" strokeType="INSIDE" width="524.0" />
                                                       <Polygon fill="#d3dce4" layoutX="191.0" layoutY="325.0" points="532.0000610351562, 94.00003051757812, 474.99993896484375, 47.00001525878906, -113.99999237060547, 94.00003051757812" stroke="#d3dce4" strokeType="INSIDE" />
                                                       <Label fx:id="sideLeftAwayLabel" alignment="TOP_LEFT" layoutX="32.0" layoutY="139.0" text="left away">
                                                          <font>
