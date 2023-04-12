@@ -1,0 +1,94 @@
+Date and Time of save: 12.04.23,17-23-30
+
+ Runway Name: 09R/27L
+
+ ------------------Obstacle Information----------------
+
+ Obstacle name: apple
+
+ Obstacle height: 15
+
+ Obstacle length: 1
+
+ obstacle width: 2
+
+ Obstacle Distance from Right Threshold: 3353
+
+ Obstacle Distance from Left Threshold: 0
+
+ Distance From Center line: 0
+
+ Direction: North
+
+
+------------------TORA Calculations-----------------
+
+TORA = Original TORA - Blast protection - Distance from threshold - Displaced threshold
+ = 3660 - 400 - 3353 - 307
+ = -400
+
+TORA = Original TORA - Blast protection - Distance from threshold - Displaced threshold
+ = 3660 - 400 - 0 - 0
+ = 3260
+
+TORA = Distance from threshold - Slope calculation + Displaced Threshold - Strip end
+ = 3353 - 50*15 + 307 - 60
+ = 2850
+
+TORA = Distance from threshold - Slope calculation + Displaced Threshold - Strip end
+ = 0 - 50*15 + 0 - 60
+ = -810
+
+
+ ------------------TODA Calculations----------------
+
+TODA = Recalculated + ClearWay
+ = -400 + (3660 - 3660)
+ = -400
+
+TODA = Recalculated + ClearWay
+ = 3260 + (3660 - 3660)
+ = 3260
+
+TODA = Recalculated TORA
+ = 2850
+
+TODA = Recalculated TORA
+ = -810
+
+
+ ------------------ASDA Calculations----------------
+
+ASDA = Recalculated TORA + StopWay
+ = -400 + (3660 - 3660)
+ = -400
+
+ASDA = Recalculated TORA + StopWay
+ = 3260 + (3660 - 3660)
+ = 3260
+
+ASDA = Recalculated TORA
+ = 2850
+
+ASDA = Recalculated TORA
+ = -810
+
+
+ ------------------LDA Calculations----------------
+
+LDA = Original LDA - Slope calculation - Distance from threshold - Strip end
+ = 3353 - 50*15 - 3353 - 60
+ = -810
+
+LDA = Original LDA - Slope calculation - Distance from threshold - Strip end
+ = 3660 - 50*15 - 0 - 60
+ = 2850
+
+LDA = Distance from threshold - RESA - Strip end
+ = 3353 - 300 - 60
+ = 2993
+
+LDA = Distance from threshold - RESA - Strip end
+ = 0 - 300 - 60
+ = -360
+
