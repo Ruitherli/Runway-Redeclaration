@@ -814,33 +814,38 @@ public class AMController extends MainController {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 try {
-                    connection = DbConnect.getConnection();
+                    connection= DbConnect.getConnection();
                     PreparedStatement stmt = connection.prepareStatement("Delete from obstacle_location where runway_id in ( Select runway_id from runway where runway_name = '" + runway.getRunwayName() + "')");
                     stmt.execute();
                     loadRunwayObsTable();
+                    stmt.close();
                     connection.close();
                     removeObjects();
-                    stmt.close();
-//                    PreparedStatement stmt1 = connection.prepareStatement("SELECT r.runway_name, d1.designator_name " +
-//                            "AS designatorname1, d2.designator_name FROM runway r " +
-//                            "LEFT OUTER JOIN runway_designator d1 ON r.designator_id_1 = d1.designator_id " +
-//                            "LEFT OUTER JOIN runway_designator d2 ON r.designator_id_2 = d2.designator_id " +
-//                            "WHERE r.runway_name ='" + runway.getRunwayName() + "'");
-//                    Runway r = new Runway();
-//                    while(resultSet.next()){
-//                        r.setRunwayName(resultSet.getString("runway_name"));
-//                        r.setRight(resultSet.getString("designatorname1"));
-//                        r.setLeft(resultSet.getString("designator_name"));
-//
-//
-//                    }
-//
-//                    setRunway(r, sideLeftPane, sideRunway);
-//                    setRunway(r, topLeftPane, topRunway);
+                    connection = DbConnect.getConnection();
+                    PreparedStatement stmt1 = connection.prepareStatement("SELECT r.runway_name,d1.designator_name " +
+                            "as designatorName1,d1.TORA TORA1,d1.TODA as TODA1,d1.ASDA as ASDA1,d1.LDA as LDA1,d1.displaced_thres as displaced1," +
+                            "d2.designator_name as designatorName2,d2.TORA as TORA2,d2.TODA as TODA2,d2.ASDA as ASDA2,d2.LDA as LDA2,d2.displaced_thres as displaced2 " +
+                            "FROM runway r " +
+                            "LEFT OUTER JOIN runway_designator d1 ON r.designator_id_1 = d1.designator_id " +
+                            "LEFT OUTER JOIN runway_designator d2 ON r.designator_id_2 = d2.designator_id " +
+                            "WHERE r.runway_name ='" + runway.getRunwayName() + "'");
+                    Runway r = new Runway();
+                    resultSet = stmt1.executeQuery();
+                    while(resultSet.next()){
+                        RunwayDesignator r1 = new RunwayDesignator(resultSet.getInt("TORA1"),resultSet.getInt("TODA1"),resultSet.getInt("ASDA1"),resultSet.getInt("LDA1"),resultSet.getInt("displaced1"),resultSet.getString("designatorName1"));
+                        RunwayDesignator r2 = new RunwayDesignator(resultSet.getInt("TORA2"),resultSet.getInt("TODA2"),resultSet.getInt("ASDA2"),resultSet.getInt("LDA2"),resultSet.getInt("displaced2"),resultSet.getString("designatorName2"));
+                        r.setRunwayName(resultSet.getString("runway_name"));
+                        r.setRight(r1);
+                        r.setLeft(r2);
+                        setRunway(r, sideLeftPane, sideRunway);
+                        setRunway(r, topLeftPane, topRunway);
+                    }
+
 //                    sideView(currentRunway,obstacle,0,sideLeftPane,sideRunway);
 //                    topView(currentRunway,obstacle,0,topLeftPane,topRunway);
-//                    stmt1.execute();
-//                    stmt1.close();
+
+                    stmt1.execute();
+                    stmt1.close();
                     connection.close();
                 } catch (Exception e) {
                     playErrorAlert(String.valueOf(e));
@@ -854,6 +859,7 @@ public class AMController extends MainController {
         loadRunwayObsTable();
         loadObstacleTable();
     }
+
 
 
         public void loadRunwayTable(ActionEvent event) throws SQLException {
