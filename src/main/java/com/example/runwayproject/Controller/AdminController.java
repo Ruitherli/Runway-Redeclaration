@@ -809,8 +809,6 @@ public class AdminController extends MainController {
         String username = USERNAME; // Replace with your database username
         String pass = PASSWORD; // Replace with your database password
         String dbName = DB_NAME;
-        //Check if database exists
-        checkDatabase();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -1214,6 +1212,11 @@ public class AdminController extends MainController {
             }catch (SQLException e){
                 e.printStackTrace();
             }
+
+            playInformationAlert("Successfully imported "+xmlFile.getName() + ".");
+            loadUsersTable();
+            loadConstantsTable();
+            loadRunwayDesignatorTable();
         }
 
     }
@@ -1250,8 +1253,9 @@ public class AdminController extends MainController {
             int exitCode = process.waitFor();
             if (exitCode == 0) {
                 System.out.println("Backup successful.");
+                playInformationAlert("Successfully exported database in XML format to " + dumpPath);
             } else {
-                System.err.println("Backup failed. Exit code: " + exitCode);
+                playErrorAlert("Backup failed. Exit code: " + exitCode);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

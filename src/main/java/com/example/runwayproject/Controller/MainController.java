@@ -56,7 +56,25 @@ public class MainController implements Initializable {
         stage.show();
         stage.centerOnScreen();
     }
+    public void selectScene(String fxml) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/" + fxml)));
+        Stage stage = (Stage) scene.getWindow();
+        Scene newScene = new Scene(root);
+        //String css = this.getClass().getResource("/design.css").toExternalForm();
+        //newScene.getStylesheets().add(css);
+        stage.setResizable(false);
+        stage.setScene(newScene);
+        stage.show();
+        stage.centerOnScreen();
+    }
 
+    public void switchToAdmin () throws IOException {
+        try {
+            selectScene("ADMIN page.fxml");
+        }catch (Exception e){
+            //Do nothing
+        }
+    }
     public void switchToATC (ActionEvent event) throws IOException {
         try {
             selectScene(event, "ATC page.fxml");
@@ -80,6 +98,8 @@ public class MainController implements Initializable {
             //Do nothing
         }
     }
+
+
     public void switchToLoginPage (ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");

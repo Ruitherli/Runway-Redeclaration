@@ -288,11 +288,7 @@
  -fx-font-size: 15px;
  -fx-font-family: Helvetica;
 }
-.text-field-table-cell .text-field {
-   -fx-padding: 2;
-   -fx-border-color:black;
-   -fx-background-color: white;
-}
+
 .table-cell:focused {
    -fx-padding: 0;
 }

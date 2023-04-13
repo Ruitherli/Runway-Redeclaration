@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2023 at 09:50 AM
+-- Generation Time: Apr 13, 2023 at 09:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -85,8 +85,8 @@ CREATE TABLE `obstacle` (
 INSERT INTO `obstacle` (`obstacle_id`, `name`, `height`, `length`, `width`) VALUES
 (1, 'SCENARIO-1', 12, 10, 15),
 (2, 'SCENARIO-2', 25, 13, 18),
-(3, 'SCENARIO-3', 15, 6, 10),
-(4, 'SCENARIO-4', 20, 25, 17);
+(3, 'SCENARIO-3', 15, 15, 10),
+(4, 'SCENARIO-4', 20, 30, 17);
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE `obstacle_location` (
 --
 
 INSERT INTO `obstacle_location` (`location_id`, `obstacle_id`, `runway_id`, `distance_from_threshold_R`, `distance_from_threshold_L`, `distance_from_centerline`, `direction_from_centerline`) VALUES
-(1, 1, 2, 3646, -50, 0, 'Center');
+(84, 1, 2, 3646, -50, 0, 'Center');
 
 -- --------------------------------------------------------
 
@@ -244,22 +244,16 @@ ALTER TABLE `airport`
   MODIFY `airport_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `constant`
---
-ALTER TABLE `constant`
-  MODIFY `constant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `obstacle`
 --
 ALTER TABLE `obstacle`
-  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `obstacle_location`
 --
 ALTER TABLE `obstacle_location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `runway`

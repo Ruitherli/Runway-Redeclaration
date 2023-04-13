@@ -15,6 +15,9 @@ import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.example.runwayproject.Connector.DbConnect.checkDatabase;
+import static com.example.runwayproject.Connector.DbConnect.createDatabase;
+
 public class LoginController extends MainController{
 
     @FXML
@@ -36,8 +39,6 @@ public class LoginController extends MainController{
         atcButton.setVisible(true);
         amButton.setVisible(true);
 
-        //Check if XAMPP is running
-        //Check if the database exists
     }
 
     @FXML
