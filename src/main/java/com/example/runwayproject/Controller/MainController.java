@@ -79,6 +79,7 @@ public class MainController implements Initializable {
         try {
             selectScene(event, "ATC page.fxml");
         }catch (Exception e){
+            System.out.println(e);
             //Do nothing
         }
     }
