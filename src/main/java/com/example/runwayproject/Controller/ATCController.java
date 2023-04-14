@@ -318,6 +318,10 @@ public class ATCController extends MainController {
     private Label sideRightRightDesig;
     @FXML
     private Label sideRightRightDesigLabel;
+    @FXML
+    private Label zoomScaleLabel;
+    @FXML
+    private Label rotationDegreeLabel;
 
 
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
@@ -462,6 +466,8 @@ public class ATCController extends MainController {
 
             zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 
+                double roundedValue = Math.round(newValue.doubleValue() * 10) / 10.0;
+                zoomScaleLabel.setText("X " + String.format("%.1f", roundedValue));
                 leftGridPane.setScaleX(newValue.doubleValue());
                 leftGridPane.setScaleY(newValue.doubleValue());
                 leftGridPane.setScaleZ(newValue.doubleValue());
@@ -1211,6 +1217,11 @@ public class ATCController extends MainController {
         pane.getChildren().add(obstacle);
     }
 
+    public void recentre() {
+        zoomSlider.setValue(1);
+        rotationSlider.setValue(0);
+    }
+
     public void setRunway(Runway r, AnchorPane pane, Rectangle drawnRunway) {
         double lineThickness = drawnRunway.getHeight();
 
@@ -1219,6 +1230,8 @@ public class ATCController extends MainController {
         compass.setRotate(rotationDegree);
 
         rotationSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double roundedValue = Math.round(newValue.doubleValue() * 10) / 10.0;
+            rotationDegreeLabel.setText(String.format("%.1f", roundedValue) + "\u00B0");
             leftGridPane.setRotate(newValue.doubleValue());
             rightGridPane.setRotate(newValue.doubleValue());
             compass.setRotate(newValue.doubleValue() + rotationDegree);
