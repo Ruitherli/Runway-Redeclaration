@@ -42,6 +42,7 @@
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem fx:id="export" mnemonicParsing="false" onAction="#export1" text="Export Visualization" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -257,7 +258,6 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <Button fx:id="exportButton" layoutX="519.0" layoutY="789.0" mnemonicParsing="false" onAction="#exportVisualization" text="Export Visualization" />
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
@@ -412,7 +412,7 @@
                                                  <Slider fx:id="rotationSlider" layoutX="627.0" layoutY="710.0" majorTickUnit="90.0" max="360.0" minorTickCount="0" showTickLabels="true" />
                                                  <Slider fx:id="zoomSlider" layoutX="627.0" layoutY="746.0" majorTickUnit="0.5" max="1.5" min="0.5" minorTickCount="0" showTickLabels="true" value="1.0" />
                                                 <Button fx:id="topSwitchSideButton" layoutX="678.0" layoutY="789.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="Switch Side" />
-                                                <Button fx:id="TopDownExport" layoutX="519.0" layoutY="789.0" mnemonicParsing="false" onAction="#exportVisualization" text="Export Visualization" />
+                                                <Button fx:id="TopDownExport" layoutX="519.0" layoutY="789.0" mnemonicParsing="false" text="Export Visualization" />
                                              </children>
                                           </AnchorPane>
                                        </content></Tab>
