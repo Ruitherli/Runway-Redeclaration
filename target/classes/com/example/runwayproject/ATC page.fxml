@@ -27,7 +27,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.ATCController">
 
 
     <children>
@@ -42,7 +42,7 @@
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Delete" />
-                  <MenuItem fx:id="screenshotButton" mnemonicParsing="false" onAction="#takeScreenshot" text="Export Visualization" />
+                  <MenuItem fx:id="screenshotButton" mnemonicParsing="false" text="Export Visualization" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -115,6 +115,7 @@
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <TextArea fx:id="toraTextArea" layoutX="14.0" prefHeight="245.0" prefWidth="393.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <Button layoutX="61.0" layoutY="248.0" mnemonicParsing="false" onAction="#refreshAll" text="Refresh" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -153,7 +154,7 @@
                             </children>
                         </VBox>
                         <Button fx:id="ATClogout" layoutX="3.0" layoutY="841.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                        <Button fx:id="ATCprintTXT" layoutX="67.0" layoutY="841.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#printToTXT" text="Export Calculations (.txt)" visible="false" />
+                        <Button fx:id="ATCprintTXT" layoutX="210.0" layoutY="841.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#printToTXT" text="Export Calculations (.txt)" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
@@ -412,7 +413,7 @@
                                                  <Slider fx:id="rotationSlider" layoutX="624.0" layoutY="712.0" majorTickUnit="90.0" max="360.0" minorTickCount="0" />
                                                  <Slider fx:id="zoomSlider" layoutX="624.0" layoutY="759.0" majorTickUnit="0.5" max="1.5" min="0.5" minorTickCount="0" value="1.0" />
                                                 <Button fx:id="topSwitchSideButton" layoutX="678.0" layoutY="789.0" mnemonicParsing="false" onAction="#switchTopViewPane" text="Switch Side" />
-                                                <Button fx:id="recentreButton" layoutX="589.0" layoutY="789.0" mnemonicParsing="false" onAction="#recentre" text="Recentre" />
+                                                <Button fx:id="recentreButton" layoutX="589.0" layoutY="789.0" mnemonicParsing="false" text="Recentre" />
                                                 <Label fx:id="rotateLabel" layoutX="624.0" layoutY="689.0" text="Rotate" />
                                                 <Label fx:id="zoomLabel" layoutX="624.0" layoutY="740.0" text="Zoom" />
                                                 <Label fx:id="rotationDegreeLabel" layoutX="673.0" layoutY="689.0" text="0.0 °" />

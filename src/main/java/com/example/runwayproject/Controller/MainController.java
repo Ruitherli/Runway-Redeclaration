@@ -75,6 +75,15 @@ public class MainController implements Initializable {
             //Do nothing
         }
     }
+    public void switchToATC () throws IOException {
+        try {
+            selectScene("ATC page.fxml");
+        }catch (Exception e){
+            System.out.println(e);
+            //Do nothing
+        }
+    }
+
     public void switchToATC (ActionEvent event) throws IOException {
         try {
             selectScene(event, "ATC page.fxml");

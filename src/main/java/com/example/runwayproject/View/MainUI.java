@@ -1,6 +1,9 @@
 package com.example.runwayproject.View;
 
 import com.example.runwayproject.Connector.DbConnect;
+import com.example.runwayproject.Controller.AMController;
+import com.example.runwayproject.Controller.MainController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +48,6 @@ public class MainUI extends Application {
                 primaryStage.setScene(scene);
                 primaryStage.show();
                 primaryStage.centerOnScreen();
-
             }catch (Exception e){
                 //Do nothing
             }
@@ -71,8 +73,10 @@ public class MainUI extends Application {
 
     }
 
+
     public static void main(String[] args) {
         launch();
+
     }
 }
 

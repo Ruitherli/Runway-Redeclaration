@@ -35,6 +35,24 @@ import java.util.ResourceBundle;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class AMController extends MainController {
+    public static Boolean obstacleAdded = false;
+    public static Boolean obstacleDeleted = false;
+
+    public static Boolean getObstacleAdded() {
+        return obstacleAdded;
+    }
+
+    public static void setObstacleAdded(Boolean obstacleAdded) {
+        AMController.obstacleAdded = obstacleAdded;
+    }
+
+    public static Boolean getObstacleDeleted() {
+        return obstacleDeleted;
+    }
+
+    public static void setObstacleDeleted(Boolean obstacleDeleted) {
+        AMController.obstacleDeleted = obstacleDeleted;
+    }
 
     @FXML
     private Button editPresetObstacles;
@@ -689,6 +707,7 @@ public class AMController extends MainController {
                     setComboBox();
                     loadObstacleTable();
                     loadRunwayObsTable();
+                    event.consume();
                     connection.close();
                 } catch (SQLException e) {
 //                playInformationAlert("Obstacle name already exists in the database");
@@ -705,13 +724,14 @@ public class AMController extends MainController {
             String name = height.getObstacleName();
             if (event.getNewValue() == -1) {
                 playErrorAlert("Enter Integer Value");
+                loadObstacleTable();
             } else if (event.getNewValue() < 0) {
                 playErrorAlert("Height cannot have a negative value");
                 loadObstacleTable();
             } else if (event.getNewValue() > maxObsHeight) {
                 playErrorAlert("The maximum obstacle height allowed is only " + maxObsHeight);
                 loadObstacleTable();
-            } else {
+            } else{
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
                 alert.setContentText("Change the Obstacle Height to " + event.getNewValue() + " for Obstacle with the name " + name + "?");
@@ -724,6 +744,7 @@ public class AMController extends MainController {
                         setComboBox();
                         loadObstacleTable();
                         loadRunwayObsTable();
+                        event.consume();
                         connection.close();
                     } catch (SQLException e) {
                         playErrorAlert(String.valueOf(e));
@@ -741,6 +762,7 @@ public class AMController extends MainController {
             String name = width.getObstacleName();
             if (event.getNewValue() == -1) {
                 playErrorAlert("Enter Integer Value ");
+                loadObstacleTable();
             } else if (event.getNewValue() < 0) {
                 playErrorAlert("Width cannot have a negative value");
                 loadObstacleTable();
@@ -757,6 +779,7 @@ public class AMController extends MainController {
                         setComboBox();
                         loadObstacleTable();
                         loadRunwayObsTable();
+                        event.consume();
                         connection.close();
                     } catch (SQLException e) {
                         playErrorAlert(String.valueOf(e));
@@ -789,6 +812,7 @@ public class AMController extends MainController {
                         setComboBox();
                         loadObstacleTable();
                         loadRunwayObsTable();
+                        event.consume();
                         connection.close();
                     } catch (SQLException e) {
                         playErrorAlert(String.valueOf(e));
@@ -840,13 +864,13 @@ public class AMController extends MainController {
                         setRunway(r, sideLeftPane, sideRunway);
                         setRunway(r, topLeftPane, topRunway);
                     }
-
-//                    sideView(currentRunway,obstacle,0,sideLeftPane,sideRunway);
-//                    topView(currentRunway,obstacle,0,topLeftPane,topRunway);
-
+                   // AMController.obstacleDeleted=true;
+                    System.out.println("ass fuck "+ getObstacleDeleted());
                     stmt1.execute();
                     stmt1.close();
+
                     connection.close();
+
                 } catch (Exception e) {
                     playErrorAlert(String.valueOf(e));
                 }
@@ -859,8 +883,6 @@ public class AMController extends MainController {
         loadRunwayObsTable();
         loadObstacleTable();
     }
-
-
 
     public void loadRunwayTable(ActionEvent event) throws SQLException {
         try {
@@ -1209,6 +1231,8 @@ public class AMController extends MainController {
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.execute();
                     System.out.println("Successfully added the obstacle on the runway");
+                   // setObstacleAdded(true);
+                    System.out.println("fucking obstcle added" + getObstacleAdded());
 
                     sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRunway);
                     topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);

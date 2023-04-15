@@ -1,6 +1,8 @@
 package com.example.runwayproject.Model;
 
-public class User {
+public class
+
+User {
     public User() {
 
     }
