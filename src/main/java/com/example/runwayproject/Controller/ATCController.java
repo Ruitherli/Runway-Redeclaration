@@ -637,6 +637,7 @@ public class ATCController extends MainController {
         todaTextArea.clear();
         asdaTextArea.clear();
         ldaTextArea.clear();
+        ATCprintTXT.setVisible(false);
 //refresh visualisation
     }
 

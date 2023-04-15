@@ -114,8 +114,7 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TextArea fx:id="toraTextArea" layoutX="14.0" prefHeight="245.0" prefWidth="393.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <Button layoutX="61.0" layoutY="248.0" mnemonicParsing="false" onAction="#refreshAll" text="Refresh" />
+                                                <TextArea fx:id="toraTextArea" layoutX="14.0" prefHeight="239.0" prefWidth="393.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -154,7 +153,8 @@
                             </children>
                         </VBox>
                         <Button fx:id="ATClogout" layoutX="3.0" layoutY="841.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Logout" />
-                        <Button fx:id="ATCprintTXT" layoutX="210.0" layoutY="841.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#printToTXT" text="Export Calculations (.txt)" />
+                  <Button layoutX="65.0" layoutY="841.0" mnemonicParsing="false" onAction="#refreshAll" text="Refresh" />
+                        <Button fx:id="ATCprintTXT" layoutX="210.0" layoutY="841.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#printToTXT" text="Export Calculations (.txt)" visible="false" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="160.0" minWidth="1205.0" prefHeight="160.0" prefWidth="100.0">
@@ -454,20 +454,20 @@
                                                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Runway">
+                                                      <Text fx:id="l11" strokeType="OUTSIDE" strokeWidth="0.0" text="Runway">
                                                          <font>
                                                             <Font size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" GridPane.rowIndex="1" />
-                                                      <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Strip End" GridPane.rowIndex="2" />
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Blast Protection" GridPane.rowIndex="3">
+                                                      <Text fx:id="l22" strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" GridPane.rowIndex="1" />
+                                                      <Text fx:id="l33" strokeType="OUTSIDE" strokeWidth="0.0" text="Strip End" GridPane.rowIndex="2" />
+                                                      <Text fx:id="l44" strokeType="OUTSIDE" strokeWidth="0.0" text="Blast Protection" GridPane.rowIndex="3">
                                                          <font>
                                                             <Font size="12.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="ALS" GridPane.rowIndex="4" />
-                                                      <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="TOCS" GridPane.rowIndex="5" />
+                                                      <Text fx:id="l77" strokeType="OUTSIDE" strokeWidth="0.0" text="ALS" GridPane.rowIndex="4" />
+                                                      <Text fx:id="l66" strokeType="OUTSIDE" strokeWidth="0.0" text="TOCS" GridPane.rowIndex="5" />
                                                       <ComboBox fx:id="runwayComboBox" onAction="#loadData" prefWidth="150.0" promptText="Select Runway" GridPane.columnIndex="1" />
                                                       <Text fx:id="resaText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                       <Text fx:id="stripEndText" strokeType="OUTSIDE" strokeWidth="0.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -305,15 +305,15 @@
                                                                   <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <Text fx:id="l1" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="40.01220703125" />
-                                                                  <Text fx:id="l2" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1" />
-                                                                  <Text fx:id="l3" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2" />
-                                                                  <Text fx:id="l4" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="41.34228515625" GridPane.rowIndex="3" />
-                                                                  <Text fx:id="l5" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" wrappingWidth="109.765625" GridPane.rowIndex="5" />
-                                                                  <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="132.3189697265625" GridPane.rowIndex="6" />
-                                                                  <Text fx:id="l7" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" wrappingWidth="111.21630859375" GridPane.rowIndex="7" />
-                                                                  <Text fx:id="l8" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8" />
-                                                                  <Text fx:id="l9" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" wrappingWidth="106.873779296875" GridPane.rowIndex="9" />
+                                                                  <Text fx:id="l11" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="40.01220703125" />
+                                                                  <Text fx:id="l22" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" GridPane.rowIndex="1" />
+                                                                  <Text fx:id="l33" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" GridPane.rowIndex="2" />
+                                                                  <Text fx:id="l44" strokeType="OUTSIDE" strokeWidth="0.0" text="Width" wrappingWidth="41.34228515625" GridPane.rowIndex="3" />
+                                                                  <Text fx:id="l55" strokeType="OUTSIDE" strokeWidth="0.0" text="Distances" wrappingWidth="109.765625" GridPane.rowIndex="5" />
+                                                                  <Text fx:id="l66" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold R" wrappingWidth="132.3189697265625" GridPane.rowIndex="6" />
+                                                                  <Text fx:id="l77" strokeType="OUTSIDE" strokeWidth="0.0" text="     Threshold L" wrappingWidth="111.21630859375" GridPane.rowIndex="7" />
+                                                                  <Text fx:id="l88" strokeType="OUTSIDE" strokeWidth="0.0" text="     Centerline" GridPane.rowIndex="8" />
+                                                                  <Text fx:id="l99" strokeType="OUTSIDE" strokeWidth="0.0" text="     Direction" wrappingWidth="106.873779296875" GridPane.rowIndex="9" />
                                                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" m" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="System Bold" size="12.0" />
