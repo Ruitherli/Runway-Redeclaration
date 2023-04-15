@@ -865,7 +865,6 @@ public class AMController extends MainController {
                         setRunway(r, topLeftPane, topRunway);
                     }
                    // AMController.obstacleDeleted=true;
-                    System.out.println("ass fuck "+ getObstacleDeleted());
                     stmt1.execute();
                     stmt1.close();
 
@@ -1232,7 +1231,6 @@ public class AMController extends MainController {
                     preparedStatement.execute();
                     System.out.println("Successfully added the obstacle on the runway");
                    // setObstacleAdded(true);
-                    System.out.println("fucking obstcle added" + getObstacleAdded());
 
                     sideView(currentRunway,obstacle,obstacleLocation,sideLeftPane,sideRunway);
                     topView(currentRunway,obstacle,obstacleLocation,topLeftPane,topRunway);
