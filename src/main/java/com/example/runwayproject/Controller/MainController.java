@@ -37,6 +37,7 @@ public class MainController implements Initializable {
 
     }
 
+
     public void formatTable(TableView<?> table){
         for (TableColumn column : table.getColumns()) {
             column.setResizable(false);
@@ -45,7 +46,6 @@ public class MainController implements Initializable {
     }
 
     public void selectScene(ActionEvent event,String fxml) throws IOException{
-
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/"+fxml)));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -67,6 +67,7 @@ public class MainController implements Initializable {
         stage.show();
         stage.centerOnScreen();
     }
+
 
     public void switchToAdmin () throws IOException {
         try {
@@ -219,4 +220,5 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
+
 }

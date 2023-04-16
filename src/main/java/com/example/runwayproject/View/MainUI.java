@@ -1,9 +1,4 @@
 package com.example.runwayproject.View;
-
-import com.example.runwayproject.Connector.DbConnect;
-import com.example.runwayproject.Controller.AMController;
-import com.example.runwayproject.Controller.MainController;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,18 +19,18 @@ public class MainUI extends Application {
     Connection connection = null;
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
-        if(checkDatabase()==0){
+        if (checkDatabase() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Error: Could not connect to database. The database may be offline or unavailable at this time. Please check your network connection and try again later.");
             alert.showAndWait();
-        } else if (checkDatabase()==-1){
+        } else if (checkDatabase() == -1) {
 
             //Create database
             createDatabase();
             //Add default admin
             //Switch to admin page
-            try{
+            try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/ADMIN page.fxml")));
                 primaryStage.setTitle("Runway Redeclaration Tool");
                 primaryStage.setResizable(false);
@@ -48,16 +43,15 @@ public class MainUI extends Application {
                 primaryStage.setScene(scene);
                 primaryStage.show();
                 primaryStage.centerOnScreen();
-            }catch (Exception e){
+            } catch (Exception e) {
                 //Do nothing
             }
-        } else{
-            try{
+        } else {
+            try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/login.fxml")));
                 primaryStage.setTitle("Runway Redeclaration Tool");
                 primaryStage.setResizable(false);
                 Scene scene = new Scene(root);
-
                 //Get css stylesheet
                 String css = this.getClass().getResource("/com/example/runwayproject/design.css").toExternalForm();
                 scene.getStylesheets().add(css);
@@ -66,13 +60,11 @@ public class MainUI extends Application {
                 primaryStage.show();
                 primaryStage.centerOnScreen();
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 //Do nothing
             }
         }
-
     }
-
 
     public static void main(String[] args) {
         launch();

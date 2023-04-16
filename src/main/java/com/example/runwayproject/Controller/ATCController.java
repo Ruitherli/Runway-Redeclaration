@@ -555,11 +555,20 @@ public class ATCController extends MainController {
             playErrorAlert(String.valueOf(e));
         }
     }
+    private Timestamp datetimeValue;
+    private Timeline timeline1;
+    private Timeline timeline2;
 
+    public Timestamp getDatetimeValue() {
+        return datetimeValue;
+    }
 
-//add time of change
+    public void setDatetimeValue(Timestamp datetimeValue) {
+        this.datetimeValue = datetimeValue;
+    }
+
     public void startPeriodicCheck() throws SQLException {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+        timeline1 = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
             try {
                 checkChanges();
 
@@ -567,41 +576,31 @@ public class ATCController extends MainController {
 
                 throw new RuntimeException(e);
             }
-            Platform.runLater(() ->
-            {
+
                 try {
                     refreshAll();
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-//                Alert alert1 = new Alert(Alert.AlertType.WARNING);
-//                alert1.setTitle("Warning Dialog");
-//                alert1.setHeaderText("Look out!");
-//                alert1.setContentText("Refreshing page");
-//                alert1.showAndWait();
-                playWarningAlert("Refreshing page...");
+                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Page is refreshing. Please wait...");
+                alert1.show();
+                timeline2 = new Timeline(new KeyFrame(Duration.seconds(2), event1 -> {
+                    alert1.setResult(ButtonType.CANCEL);
+                    alert1.close();
+                }));
+                timeline2.play();
 
+                Platform.runLater(() ->
+                {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Notification");
                 alert.setHeaderText("Notification Title");
 
                 if (AMController.getObstacleDeleted()) {
-//                    try {
-//                        connection = DbConnect.getConnection();
-//                        Statement stmt = connection.createStatement();
-//
-//                        ResultSet rs = stmt.executeQuery("SELECT time_stamp from obstacle_history");
-//                        Timestamp datetimeValue = rs.getTimestamp("time_stamp");
-
-                        alert.setContentText("An Obstacle has been deleted at ");
+                        alert.setContentText("An Obstacle has been deleted at "+getDatetimeValue());
                         alert.showAndWait();
 
                         AMController.setObstacleDeleted(false);
-//
-//                        stmt.close();
-//                        connection.close();
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
                     }try {
                         clearChanges();
                     } catch (SQLException e) {
@@ -609,24 +608,10 @@ public class ATCController extends MainController {
                     }
 
                 if (AMController.getObstacleAdded()) {
-//                    try {
-//                        connection = DbConnect.getConnection();
-//                        Statement stmt = connection.createStatement();
-//
-//                        ResultSet rs = stmt.executeQuery("SELECT time_stamp from obstacle_history");
-//                        Timestamp datetimeValue = rs.getTimestamp("time_stamp");
-
-                        alert.setContentText("An obstacle has been Added at ");
+                        alert.setContentText("An New Obstacle has been Added at "+getDatetimeValue());
                         alert.showAndWait();
 
                         AMController.setObstacleAdded(false);
-
-//                        stmt.close();
-//                        connection.close();
-//
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                    }
                     try {
                         clearChanges();
 
@@ -639,11 +624,28 @@ public class ATCController extends MainController {
 
         clearChanges();
 
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        timeline1.setCycleCount(Timeline.INDEFINITE);
+        timeline1.play();
     }
 
-    public void refreshAll(ActionEvent event) throws IOException, SQLException {
+    public void stopPeriodicCheck(){
+        if (timeline1 != null) {
+            timeline1.stop();
+            timeline1 = null;
+        }
+        if (timeline2 != null) {
+            timeline2.stop();
+            timeline2 = null;
+        }
+
+    }
+    public void switchToLogin2(ActionEvent e) throws IOException {
+       stopPeriodicCheck();
+       MainController login = new MainController();
+       login.switchToLoginPage(e);
+    }
+
+    public void refreshAll(ActionEvent event) throws SQLException {
         refreshAll();
     }
 
@@ -665,33 +667,16 @@ public class ATCController extends MainController {
         statement.execute("DELETE FROM obstacle_history");
         statement.close();
         connection.close();
-        System.out.println("table cleared");
-    }
-
-    public Object dateChange() {
-        try {
-            connection = DbConnect.getConnection();
-            // Create a statement to execute SQL queries
-            Statement stmt = connection.createStatement();
-
-            // Execute a SELECT query to get the datetime column
-            ResultSet rs = stmt.executeQuery("SELECT time_stamp from obstacle_history");
-            Timestamp datetimeValue = rs.getTimestamp("time_stamp");
-            stmt.close();
-            connection.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 
 
     public void checkChanges() throws SQLException {
         connection = DbConnect.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT added_deleted from obstacle_history");
+        preparedStatement = connection.prepareStatement("SELECT added_deleted,time_stamp from obstacle_history");
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
+            setDatetimeValue(Timestamp.valueOf(resultSet.getTimestamp("time_stamp").toLocalDateTime()));
             String action = resultSet.getString("added_deleted");
             if("deleted".equals(action)){
                 AMController.setObstacleDeleted(true);
