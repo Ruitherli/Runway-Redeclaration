@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -53,9 +54,26 @@ import static com.example.runwayproject.Model.Calculator.*;
 
 public class ATCController extends MainController {
 
+    @FXML
+    private Button recentreButton;
 
     @FXML
-    private MenuItem about;
+    private Label rotateLabel;
+
+    @FXML
+    private Label zoomLabel;
+
+    @FXML
+    private Label rotationDegreeLabel;
+
+    @FXML
+    private Label zoomScaleLabel;
+
+    @FXML
+    private MenuItem screenshotButton;
+
+    @FXML
+    private AnchorPane middlePane;
 
     @FXML
     private Text alsText;
@@ -1632,32 +1650,19 @@ public class ATCController extends MainController {
         }
     }
 
-    /*@FXML
-    private void exportVisualization(){
-        WritableImage snapshot = exportButton.snapshot(new SnapshotParameters(), null);
-        File file = new File("visualization.png");
+    @FXML
+    private void export1() {
 
-    }
-*//*
-   @FXML
-    private void exportVisualization() {
-        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Visualization");
-        fileChooser.setInitialFileName("visualization.png");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"));
-        File file = fileChooser.showSaveDialog(null);
-        if (file != null) {
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
+        sideSwitchSideButton.setVisible(false);
+        rotationSlider.setVisible(false);
+        zoomSlider.setVisible(false);
+        topSwitchSideButton.setVisible(false);
+        recentreButton.setVisible(false);
+        rotateLabel.setVisible(false);
+        zoomLabel.setVisible(false);
+        rotationDegreeLabel.setVisible(false);
+        zoomScaleLabel.setVisible(false);
 
-  /*  @FXML
-    private void exportVisualization() {
         WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Visualization");
@@ -1677,37 +1682,17 @@ public class ATCController extends MainController {
                 e.printStackTrace();
             }
         }
-    }
 
-    private String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
-            return fileName.substring(dotIndex + 1).toLowerCase();
-        } else {
-            return "png"; // Default to PNG if file extension is not found
-        }
-    }*/
+        sideSwitchSideButton.setVisible(true);
+        rotationSlider.setVisible(true);
+        zoomSlider.setVisible(true);
+        topSwitchSideButton.setVisible(true);
+        recentreButton.setVisible(true);
+        rotateLabel.setVisible(true);
+        zoomLabel.setVisible(true);
+        rotationDegreeLabel.setVisible(true);
+        zoomScaleLabel.setVisible(true);
 
-    private void exportVisualization() {
-        WritableImage snapshot = sideRightPane.snapshot(new SnapshotParameters(), null);
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Visualization");
-        fileChooser.setInitialFileName("visualization.png");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
-                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
-                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
-        );
-        File file = fileChooser.showSaveDialog(null);
-        if (file != null) {
-            try {
-                String format = getFormatFromExtension(getFileExtension(file.getName()));
-                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), format, file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private String getFileExtension(String fileName) {
@@ -1719,19 +1704,9 @@ public class ATCController extends MainController {
         }
     }
 
-    private String getFormatFromExtension(String fileExtension) {
-        switch (fileExtension) {
-            case "jpg":
-            case "jpeg":
-                return "jpg";
-            case "bmp":
-                return "bmp";
-            case "gif":
-                return "gif";
-            default:
-                return "png";
-        }
-    }
+
+
+
 }
 
 
