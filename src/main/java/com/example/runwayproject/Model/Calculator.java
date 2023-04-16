@@ -15,7 +15,6 @@ public class Calculator {
     public static void setBlastProtection(int blastProtection) {
         Calculator.blastProtection = blastProtection;
     }
-
     public static void setRESA(int RESA) {
         Calculator.RESA = RESA;
     }
