@@ -264,12 +264,11 @@ public class AdminController extends MainController {
             String check = name.getRunwayDesignatorName();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            connection = DbConnect.getConnection();
+            connection = getConnection();
             try {
                 preparedStatement = connection.prepareStatement("SELECT designator_name from runway_designator where designator_name = '" + event.getNewValue() + "' limit 1");
                 resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
-                    //System.out.println(s);
                     playInformationAlert("Runway Designator name already exists in the database");
                     loadConstantsTable();
                     loadRunwayDesignatorTable();
@@ -302,21 +301,155 @@ public class AdminController extends MainController {
                 playErrorAlert("TORA cannot have a negative value");
                 loadRunwayDesignatorTable();
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation");
-                    alert.setContentText("Change the TORA to " + event.getNewValue() + " for Runway Designator " + check + "?");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        try {
-                            connection = DbConnect.getConnection();
-                            PreparedStatement stmt = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setContentText("Change the TORA to " + event.getNewValue() + " for Runway Designator " + check + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        connection = getConnection();
+                        PreparedStatement stmt = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
+                        PreparedStatement rs1 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_1 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                        stmt.execute();
+                        ResultSet resultSet1 = rs1.executeQuery();
+
+                        if (resultSet1.next()) {
+                            PreparedStatement stmt1 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id " +
+                                    "WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                            stmt1.execute();
+                            ResultSet res1 = stmt1.executeQuery();
+                            if (res1.next()) {
+                                PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '"
+                                        + res1.getInt("designator_id_1") + "'");
+                                stmt33.execute();
+                            }
+                            PreparedStatement rs = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
                             stmt.execute();
+                            ResultSet resultSet = rs.executeQuery();
+
+                            if (resultSet.next()) {
+                                PreparedStatement stmt11 = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_1 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                                stmt11.execute();
+
+                                ResultSet res11 = stmt11.executeQuery();
+                                if (res1.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res11.getInt("designator_id_2") + "'");
+                                    stmt33.execute();
+                                }
+
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            } else {
+                                PreparedStatement stmt4 = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_1 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "')");
+                                stmt4.execute();
+                                ResultSet res12 = stmt4.executeQuery();
+
+                                if (res12.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res12.getInt("designator_id_2") + "'");
+                                    stmt33.execute();
+                                }
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            }
+                            if (resultSet.next()) {
+                                PreparedStatement stmt13 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                                stmt13.execute();
+                                ResultSet res13 = stmt13.executeQuery();
+                                if (res1.next()) {
+                                    // PreparedStatement stmt3 = connection.prepareStatement("update");
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res13.getInt("designator_id_1") + "'");
+                                    stmt33.execute();
+                                }
+
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            } else {
+                                PreparedStatement stmt3 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "')");
+                                stmt3.execute();
+                                ResultSet res14 = stmt3.executeQuery();
+                                if (res14.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res14.getInt("designator_id_1") + "'");
+                                    stmt33.execute();
+                                }
+                            }
+                            loadRunwayDesignatorTable();
+                            loadConstantsTable();
                             connection.close();
-                        } catch (SQLException e) {
-                            playErrorAlert(String.valueOf(e));
+                            loadRunwayDesignatorTable();
+                            loadConstantsTable();
+                        } else {
+                            PreparedStatement stmt2 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id " +
+                                    "WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "')");
+                            ResultSet res = stmt2.executeQuery();
+
+                            if (res.next()) {
+
+                                PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res.getInt("designator_id_1") + "'");
+                                stmt33.execute();
+                            }
+                            loadRunwayDesignatorTable();
+                            loadConstantsTable();
+                            PreparedStatement rs = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                            stmt.execute();
+                            ResultSet resultSet = rs.executeQuery();
+
+                            if (resultSet.next()) {
+                                PreparedStatement stmt1 = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_1 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                                stmt1.execute();
+
+                                ResultSet res1 = stmt1.executeQuery();
+                                if (res1.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res1.getInt("designator_id_2") + "'");
+                                    stmt33.execute();
+                                }
+
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            } else {
+                                PreparedStatement stmt4 = connection.prepareStatement("SELECT runway.designator_id_2 FROM runway JOIN runway_designator ON runway.designator_id_1 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "')");
+                                stmt4.execute();
+                                ResultSet res1 = stmt2.executeQuery();
+
+                                if (res.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res1.getInt("designator_id_2") + "'");
+                                    stmt33.execute();
+                                }
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            } if (resultSet.next()) {
+                                PreparedStatement stmt1 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "');");
+                                stmt1.execute();
+                                ResultSet res1 = stmt1.executeQuery();
+                                if (res1.next()) {
+                                    // PreparedStatement stmt3 = connection.prepareStatement("update");
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res1.getInt("designator_id_1") + "'");
+                                    stmt33.execute();
+                                    stmt33.close();
+                                }
+
+                                loadRunwayDesignatorTable();
+                                loadConstantsTable();
+                            } else {
+                                PreparedStatement stmt3 = connection.prepareStatement("SELECT runway.designator_id_1 FROM runway JOIN runway_designator ON runway.designator_id_2 = runway_designator.designator_id WHERE runway_designator.designator_id = (select designator_id from runway_designator where designator_name = '" + check + "')");
+                                stmt3.execute();
+                                ResultSet res1 = stmt3.executeQuery();
+                                if (res1.next()) {
+                                    PreparedStatement stmt33 = connection.prepareStatement("update runway_designator set TORA = '" + event.getNewValue() + "' where designator_id = '" + res1.getInt("designator_id_1") + "'");
+                                    stmt33.execute();
+                                    stmt33.close();
+                                }
+                            }
+                            loadRunwayDesignatorTable();
+                            loadConstantsTable();
+                            connection.close();
                         }
-                    }loadRunwayDesignatorTable();
+
+                    } catch (SQLException e) {
+                    }
+                    loadRunwayDesignatorTable();
                 }
+            }
+
         });
         todaCol.setOnEditCommit(event -> {
             RunwayDesignator toda = event.getRowValue();
@@ -334,9 +467,10 @@ public class AdminController extends MainController {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {
-                        connection = DbConnect.getConnection();
+                        connection = getConnection();
                         PreparedStatement stmt = connection.prepareStatement("update runway_designator set TODA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
                         stmt.execute();
+                        //Statement statement = connection.createStatement();
                         connection.close();
                     } catch (SQLException e) {
                         playErrorAlert(String.valueOf(e));
@@ -360,7 +494,7 @@ public class AdminController extends MainController {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {
-                        connection = DbConnect.getConnection();
+                        connection = getConnection();
                         PreparedStatement stmt = connection.prepareStatement("update runway_designator set ASDA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
                         stmt.execute();
                         connection.close();
@@ -386,7 +520,7 @@ public class AdminController extends MainController {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {
-                        connection = DbConnect.getConnection();
+                        connection = getConnection();
                         PreparedStatement stmt = connection.prepareStatement("update runway_designator set LDA = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
                         stmt.execute();
                         connection.close();
@@ -411,7 +545,7 @@ public class AdminController extends MainController {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {
-                        connection = DbConnect.getConnection();
+                        connection = getConnection();
                         PreparedStatement stmt = connection.prepareStatement("update runway_designator set displaced_thres = '" + event.getNewValue() + "' WHERE designator_name = '" + check + "'");
                         stmt.execute();
                         connection.close();

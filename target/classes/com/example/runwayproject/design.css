@@ -338,3 +338,7 @@
 .table-cell:focused {
    -fx-padding: 0;
 }
+#passwordshown{
+ -fx-font-size: 15px;
+ -fx-font-family: Helvetica;
+}

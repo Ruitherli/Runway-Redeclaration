@@ -82,9 +82,9 @@
                                                         <TableColumn fx:id="maxHeightCol" prefWidth="187.0" text="Maximum Obstacle Height" />
                                                     </columns>
                                                 </TableView>
-                                                <Button fx:id="doneConstantEdit" layoutX="110.0" layoutY="701.0" mnemonicParsing="false" onAction="#doneEditConstant" text="Done" visible="false" />
+                                                <Button fx:id="doneConstantEdit" layoutX="105.0" layoutY="699.0" mnemonicParsing="false" onAction="#doneEditConstant" text="Done" visible="false" />
                                     <Button fx:id="editDesignatorButton" layoutX="20.0" layoutY="571.0" mnemonicParsing="false" onAction="#editDesignatorTable" text="Edit Runway Designators" />
-                                    <Button fx:id="doneEditDesignatorsButton" layoutX="110.0" layoutY="571.0" mnemonicParsing="false" onAction="#doneEditDesignator" text="Done" visible="false" />
+                                    <Button fx:id="doneEditDesignatorsButton" layoutX="105.0" layoutY="571.0" mnemonicParsing="false" onAction="#doneEditDesignator" text="Done" visible="false" />
                                             </children>
                                         </AnchorPane>
                                     </content>
@@ -129,7 +129,8 @@
                                                 <Button layoutX="677.0" layoutY="755.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Reset" />
                                                 <Line endX="1104.0" layoutX="101.0" layoutY="594.0" startX="-100.0" />
                                     <Button fx:id="editPasswordAdmin" layoutX="20.0" layoutY="548.0" mnemonicParsing="false" onAction="#changeAdminPassword" text="Edit Admin Password" />
-                                    <Button fx:id="donePasswordEdit" layoutX="237.0" layoutY="548.0" mnemonicParsing="false" onAction="#doneEditPassword" text="Done" visible="false" AnchorPane.leftAnchor="115.0" />
+                                    <Button fx:id="donePasswordEdit" layoutX="104.0" layoutY="548.0" mnemonicParsing="false" onAction="#doneEditPassword" text="Done" visible="false" AnchorPane.leftAnchor="104.0" />
+                                    <Label fx:id="passwordshown" layoutX="941.0" layoutY="555.0" text="*Passwords shown here are Hashed" />
                                             </children>
                                         </AnchorPane>
                                     </content>

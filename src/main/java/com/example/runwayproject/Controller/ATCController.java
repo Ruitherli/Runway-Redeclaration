@@ -599,7 +599,6 @@ public class ATCController extends MainController {
                 if (AMController.getObstacleDeleted()) {
                         alert.setContentText("An Obstacle has been deleted at "+getDatetimeValue());
                         alert.showAndWait();
-
                         AMController.setObstacleDeleted(false);
                     }try {
                         clearChanges();
@@ -610,7 +609,6 @@ public class ATCController extends MainController {
                 if (AMController.getObstacleAdded()) {
                         alert.setContentText("An New Obstacle has been Added at "+getDatetimeValue());
                         alert.showAndWait();
-
                         AMController.setObstacleAdded(false);
                     try {
                         clearChanges();
