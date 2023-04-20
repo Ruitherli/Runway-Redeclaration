@@ -20,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
@@ -33,11 +32,13 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TabPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 
 import java.awt.*;
+import java.awt.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,10 +46,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.Date;
-import java.util.ResourceBundle;
+
+import java.util.ArrayList;
+
 
 import static com.example.runwayproject.Model.Calculator.*;
 
@@ -344,6 +346,7 @@ public class ATCController extends MainController {
 
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
+    ArrayList<Color> colorsUsed = new ArrayList<>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
     ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
     ArrayList<Text> polygonText = new ArrayList<Text>();
@@ -1650,9 +1653,63 @@ public class ATCController extends MainController {
     }
 
 
+//    @FXML
+//    private void export1() {
+//
+//        sideSwitchSideButton.setVisible(false);
+//        rotationSlider.setVisible(false);
+//        zoomSlider.setVisible(false);
+//        topSwitchSideButton.setVisible(false);
+//        recentreButton.setVisible(false);
+//        rotateLabel.setVisible(false);
+//        zoomLabel.setVisible(false);
+//        rotationDegreeLabel.setVisible(false);
+//        zoomScaleLabel.setVisible(false);
+//
+//        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Save Visualization");
+//        fileChooser.setInitialFileName("visualization.png");
+//        fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
+//                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
+//                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
+//                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
+//        );
+//        File file = fileChooser.showSaveDialog(null);
+//        if (file != null) {
+//            try {
+//                String extension = getFileExtension(file.getName());
+//                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        sideSwitchSideButton.setVisible(true);
+//        rotationSlider.setVisible(true);
+//        zoomSlider.setVisible(true);
+//        topSwitchSideButton.setVisible(true);
+//        recentreButton.setVisible(true);
+//        rotateLabel.setVisible(true);
+//        zoomLabel.setVisible(true);
+//        rotationDegreeLabel.setVisible(true);
+//        zoomScaleLabel.setVisible(true);
+//
+//    }
+//
+//    private String getFileExtension(String fileName) {
+//        int dotIndex = fileName.lastIndexOf('.');
+//        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+//            return fileName.substring(dotIndex + 1).toLowerCase();
+//        } else {
+//            return "png"; // Default to PNG if file extension is not found
+//        }
+//    }
+
     @FXML
     private void export1() {
-
+        // Hide the UI elements that are not part of the visualization
         sideSwitchSideButton.setVisible(false);
         rotationSlider.setVisible(false);
         zoomSlider.setVisible(false);
@@ -1663,26 +1720,42 @@ public class ATCController extends MainController {
         rotationDegreeLabel.setVisible(false);
         zoomScaleLabel.setVisible(false);
 
+        // Take a snapshot of the visualization
         WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+
+        // Create a file chooser dialog
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Visualization");
-        fileChooser.setInitialFileName("visualization.png");
+
+        // Set the default file name to the current date and time
+        String defaultFileName = "Visualization_" + getCurrentDateTime() + ".png";
+        fileChooser.setInitialFileName(defaultFileName);
+
+        // Set the file extension filters
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
                 new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
                 new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
                 new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
         );
+
+        // Show the dialog and get the selected file
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             try {
+                // Get the file extension
                 String extension = getFileExtension(file.getName());
+
+                // Write the snapshot to the selected file
                 ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
+
+                System.out.println("File saved successfully: " + file.getAbsolutePath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        // Show the UI elements again
         sideSwitchSideButton.setVisible(true);
         rotationSlider.setVisible(true);
         zoomSlider.setVisible(true);
@@ -1692,34 +1765,86 @@ public class ATCController extends MainController {
         zoomLabel.setVisible(true);
         rotationDegreeLabel.setVisible(true);
         zoomScaleLabel.setVisible(true);
-
     }
 
     private String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
-            return fileName.substring(dotIndex + 1).toLowerCase();
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex >= 0) {
+            return fileName.substring(dotIndex + 1);
         } else {
-            return "png"; // Default to PNG if file extension is not found
+            return "";
         }
+    }
+
+    private String getCurrentDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        return dateFormat.format(new Date());
     }
 
 
 
+
+
+
+//    private void changeColour(Rectangle rectangle) {
+//        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
+//            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
+//        }
+//        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
+//        if (toggleOn) {  //if toggle button is on ....
+//            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
+//                rectangle.setFill(Color.DARKSLATEBLUE);
+//            } else {
+//                rectangle.setFill(Color.DARKKHAKI);
+//            }
+//        } else {  // if toggle button is off, switch back to original colour
+//            rectangle.setFill(originalColor);
+//        }
+//    }
+
     private void changeColour(Rectangle rectangle) {
-        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
-            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
+        // Store the original color if it hasn't been stored yet
+        if (!rectangle.getProperties().containsKey("originalColor")) {
+            rectangle.getProperties().put("originalColor", rectangle.getFill());
         }
+        // Get the original color of the rectangle
         Color originalColor = (Color) rectangle.getProperties().get("originalColor");
-        if (toggleOn) {  //if toggle button is on ....
-            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
-                rectangle.setFill(Color.DARKSLATEBLUE);
+
+        // Check if the toggle button is on
+        if (toggleOn) {
+            // Get the index of the rectangle in the temporaryRect list
+            int index = temporaryRect.indexOf(rectangle);
+            // Alternate between two random colors
+            if (index % 2 == 0) {
+                rectangle.setFill(getRandomColor());
             } else {
-                rectangle.setFill(Color.DARKKHAKI);
+                rectangle.setFill(getRandomColor());
             }
-        } else {  // if toggle button is off, switch back to original colour
+        } else {
+            // If the toggle button is off, switch back to the original color
             rectangle.setFill(originalColor);
         }
+    }
+
+    private Color getRandomColor() {
+        Random rand = new Random();
+        // Define an array of available colors
+        Color[] availableColors = {Color.DARKSLATEBLUE, Color.DARKKHAKI, Color.CORNFLOWERBLUE, Color.CRIMSON, Color.DARKORANGE, Color.FORESTGREEN, Color.LIGHTPINK, Color.MEDIUMAQUAMARINE, Color.PLUM, Color.SADDLEBROWN};
+        // Get a random color from the available colors
+        Color color = availableColors[rand.nextInt(availableColors.length)];
+        // Check if the color has already been used
+        while (colorsUsed.contains(color)) {
+            // If it has, get another random color
+            color = availableColors[rand.nextInt(availableColors.length)];
+        }
+        // Add the new color to the list of used colors
+        colorsUsed.add(color);
+        // If all available colors have been used, clear the list
+        if (colorsUsed.size() == availableColors.length) {
+            colorsUsed.clear();
+        }
+        // Return the selected color
+        return color;
     }
 
     public void toggleColour(){
