@@ -337,12 +337,18 @@ public class ATCController extends MainController {
     @FXML
     private Label sideRightRightDesigLabel;
 
+    @FXML
+    private ToggleButton colourBlindToggle;
+
+
 
     ArrayList<javafx.scene.shape.Rectangle> temporaryRect = new ArrayList<Rectangle>();
     ArrayList<Line> temporaryLine = new ArrayList<Line>();
     ArrayList<Text> temporaryText = new ArrayList<Text>();
     ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
     ArrayList<Text> polygonText = new ArrayList<Text>();
+    //ArrayList<Color> originalColors = new ArrayList<>(); // add a new ArrayList to store the original colors
+    boolean toggleOn = false;
 
 
     Connection connection = null;
@@ -481,7 +487,8 @@ public class ATCController extends MainController {
             topRightTowardsLabel.setVisible(false);
 
             zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-
+                double roundedValue = Math.round(newValue.doubleValue() * 10) / 10.0;
+                zoomScaleLabel.setText("X " + String.format("%.1f", roundedValue));
                 leftGridPane.setScaleX(newValue.doubleValue());
                 leftGridPane.setScaleY(newValue.doubleValue());
                 leftGridPane.setScaleZ(newValue.doubleValue());
@@ -1307,6 +1314,7 @@ public class ATCController extends MainController {
             temporaryRect.add(lengthLine); //add to temporary list
             lengthLine.setFill(color);
             lengthLine.toFront();
+            changeColour(lengthLine);  //check if need to change colour
 
             //Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
             Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY()+ drawnRunway.getHeight()/2);
@@ -1395,6 +1403,9 @@ public class ATCController extends MainController {
         compass.setRotate(rotationDegree);
 
         rotationSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double roundedValue = Math.round(newValue.doubleValue() * 10) / 10.0;
+            rotationDegreeLabel.setText(String.format("%.1f", roundedValue) + "\u00B0");
+
             leftGridPane.setRotate(newValue.doubleValue());
             rightGridPane.setRotate(newValue.doubleValue());
             compass.setRotate(newValue.doubleValue()+rotationDegree);
@@ -1633,6 +1644,12 @@ public class ATCController extends MainController {
         }
     }
 
+    public void recentre() {
+        zoomSlider.setValue(1);
+        rotationSlider.setValue(0);
+    }
+
+
     @FXML
     private void export1() {
 
@@ -1684,6 +1701,31 @@ public class ATCController extends MainController {
             return fileName.substring(dotIndex + 1).toLowerCase();
         } else {
             return "png"; // Default to PNG if file extension is not found
+        }
+    }
+
+
+
+    private void changeColour(Rectangle rectangle) {
+        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
+            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
+        }
+        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
+        if (toggleOn) {  //if toggle button is on ....
+            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
+                rectangle.setFill(Color.DARKSLATEBLUE);
+            } else {
+                rectangle.setFill(Color.DARKKHAKI);
+            }
+        } else {  // if toggle button is off, switch back to original colour
+            rectangle.setFill(originalColor);
+        }
+    }
+
+    public void toggleColour(){
+        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
+        for (Rectangle rectangle : temporaryRect) {
+            changeColour(rectangle);
         }
     }
 
