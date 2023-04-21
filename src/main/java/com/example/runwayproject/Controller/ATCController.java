@@ -1342,6 +1342,9 @@ public class ATCController extends MainController {
         }
     }
 
+    private void changeColour(Rectangle lengthLine) {
+    }
+
     public void setObstacle(Runway r, ObstacleLocation ol, AnchorPane pane,Rectangle drawnRunway) {
         obstacle = new Rectangle(0, 0, 30, 60);
         temporaryRect.add(obstacle);
@@ -1796,35 +1799,45 @@ public class ATCController extends MainController {
 //            rectangle.setFill(originalColor);
 //        }
 //    }
+//
+//
+//    public void toggleColour(){
+//        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
+//        for (Rectangle rectangle : temporaryRect) {
+//            changeColour(rectangle);
+//        }
+//    }
 
-    private void changeColour(Rectangle rectangle) {
+    private void changeColour(Rectangle rectangle, Text text) {
         // Store the original color if it hasn't been stored yet
         if (!rectangle.getProperties().containsKey("originalColor")) {
             rectangle.getProperties().put("originalColor", rectangle.getFill());
+            text.getProperties().put("originalColor", text.getFill());
         }
-        // Get the original color of the rectangle
+
+        // Get the original color of the rectangle and text
         Color originalColor = (Color) rectangle.getProperties().get("originalColor");
+        Color originalTextColor = (Color) text.getProperties().get("originalColor");
 
         // Check if the toggle button is on
         if (toggleOn) {
-            // Get the index of the rectangle in the temporaryRect list
-            int index = temporaryRect.indexOf(rectangle);
-            // Alternate between two random colors
-            if (index % 2 == 0) {
-                rectangle.setFill(getNextColor());
-            } else {
-                rectangle.setFill(getNextColor());
-            }
+            // Use the same color for both the rectangle and text
+            Color nextColor = getNextColor();
+            rectangle.setFill(nextColor);
+            text.setFill(nextColor);
         } else {
             // If the toggle button is off, switch back to the original color
             rectangle.setFill(originalColor);
+            text.setFill(originalTextColor);
         }
     }
 
     public void toggleColour(){
         toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
-        for (Rectangle rectangle : temporaryRect) {
-            changeColour(rectangle);
+        for (int i = 0; i < temporaryRect.size(); i++) {
+            Rectangle rectangle = temporaryRect.get(i);
+            Text text = temporaryText.get(i);
+            changeColour(rectangle, text);
         }
     }
 
