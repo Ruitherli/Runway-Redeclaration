@@ -1781,22 +1781,6 @@ public class ATCController extends MainController {
         return dateFormat.format(new Date());
     }
 
-//    private void changeColour(Rectangle rectangle) {
-//        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
-//            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
-//        }
-//        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
-//        if (toggleOn) {  //if toggle button is on ....
-//            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
-//                rectangle.setFill(Color.DARKSLATEBLUE);
-//            } else {
-//                rectangle.setFill(Color.DARKKHAKI);
-//            }
-//        } else {  // if toggle button is off, switch back to original colour
-//            rectangle.setFill(originalColor);
-//        }
-//    }
-
     private void changeColour(Rectangle rectangle) {
         // Store the original color if it hasn't been stored yet
         if (!rectangle.getProperties().containsKey("originalColor")) {
