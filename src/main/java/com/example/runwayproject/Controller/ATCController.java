@@ -1781,11 +1781,6 @@ public class ATCController extends MainController {
         return dateFormat.format(new Date());
     }
 
-
-
-
-
-
 //    private void changeColour(Rectangle rectangle) {
 //        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
 //            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
@@ -1816,9 +1811,9 @@ public class ATCController extends MainController {
             int index = temporaryRect.indexOf(rectangle);
             // Alternate between two random colors
             if (index % 2 == 0) {
-                rectangle.setFill(getRandomColor());
+                rectangle.setFill(getNextColor());
             } else {
-                rectangle.setFill(getRandomColor());
+                rectangle.setFill(getNextColor());
             }
         } else {
             // If the toggle button is off, switch back to the original color
@@ -1826,32 +1821,44 @@ public class ATCController extends MainController {
         }
     }
 
-    private Color getRandomColor() {
-        Random rand = new Random();
-        // Define an array of available colors
-        Color[] availableColors = {Color.DARKSLATEBLUE, Color.DARKKHAKI, Color.CORNFLOWERBLUE, Color.CRIMSON, Color.DARKORANGE, Color.FORESTGREEN, Color.LIGHTPINK, Color.MEDIUMAQUAMARINE, Color.PLUM, Color.SADDLEBROWN};
-        // Get a random color from the available colors
-        Color color = availableColors[rand.nextInt(availableColors.length)];
-        // Check if the color has already been used
-        while (colorsUsed.contains(color)) {
-            // If it has, get another random color
-            color = availableColors[rand.nextInt(availableColors.length)];
-        }
-        // Add the new color to the list of used colors
-        colorsUsed.add(color);
-        // If all available colors have been used, clear the list
-        if (colorsUsed.size() == availableColors.length) {
-            colorsUsed.clear();
-        }
-        // Return the selected color
-        return color;
-    }
+//    private Color getRandomColor() {
+//        Random rand = new Random();
+//        // Define an array of available colors
+//        Color[] availableColors = {Color.DARKSLATEBLUE, Color.DARKKHAKI, Color.CORNFLOWERBLUE, Color.CRIMSON, Color.DARKORANGE, Color.FORESTGREEN, Color.LIGHTPINK, Color.MEDIUMAQUAMARINE, Color.PLUM, Color.SADDLEBROWN};
+//        // Get a random color from the available colors
+//        Color color = availableColors[rand.nextInt(availableColors.length)];
+//        // Check if the color has already been used
+//        while (colorsUsed.contains(color)) {
+//            // If it has, get another random color
+//            color = availableColors[rand.nextInt(availableColors.length)];
+//        }
+//        // Add the new color to the list of used colors
+//        colorsUsed.add(color);
+//        // If all available colors have been used, clear the list
+//        if (colorsUsed.size() == availableColors.length) {
+//            colorsUsed.clear();
+//        }
+//        // Return the selected color
+//        return color;
+//    }
 
     public void toggleColour(){
         toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
         for (Rectangle rectangle : temporaryRect) {
             changeColour(rectangle);
         }
+    }
+
+    private int lastColorIndex = -1; // Keep track of the last color index returned
+
+    private Color getNextColor() {
+        // Define an array of available colors
+        Color[] availableColors = {Color.DARKSLATEBLUE, Color.DARKKHAKI, Color.CORNFLOWERBLUE, Color.CRIMSON, Color.DARKORANGE, Color.FORESTGREEN, Color.LIGHTPINK, Color.MEDIUMAQUAMARINE, Color.PLUM, Color.SADDLEBROWN};
+        lastColorIndex++; // Increment the last color index
+        if (lastColorIndex >= availableColors.length) {
+            lastColorIndex = 0; // If we reach the end of the array, start over
+        }
+        return availableColors[lastColorIndex];
     }
 
 
