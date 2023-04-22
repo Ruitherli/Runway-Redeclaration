@@ -1903,7 +1903,34 @@ public class ATCController extends MainController {
     private int lastColorIndex = -1; // Keep track of the last color index returned
     private Color getNextColor() {
         // Define an array of available colors
-        Color[] availableColors = {Color.DARKSLATEBLUE, Color.DARKKHAKI, Color.CORNFLOWERBLUE, Color.CRIMSON, Color.DARKORANGE, Color.FORESTGREEN, Color.LIGHTPINK, Color.MEDIUMAQUAMARINE, Color.PLUM, Color.SADDLEBROWN};
+        Color[] availableColors = {Color.BLACK, // Black
+                Color.PINK, // Bright pink
+                Color.DARKBLUE, // Dark blue
+                Color.ORANGERED, // Bright orange-red
+                Color.DARKGREEN, // Dark green
+                Color.LIGHTPINK, // Bright pink
+                Color.DARKRED, // Dark red
+                Color.LIGHTGREEN, // Bright green
+                Color.DARKMAGENTA, // Dark magenta
+                Color.LIGHTBLUE // Bright blue
+        };
+//        Color[] availableColors = {Color.web("#0000FF"), // Pure blue
+//                Color.web("#0066CC"), // Deep sky blue
+//                Color.web("#1E90FF"), // Dodger blue
+//                Color.web("#6495ED"), // Cornflower blue
+//                Color.web("#008000"), // Green
+//                Color.web("#006400"), // Dark green
+//                Color.web("#228B22"), // Forest green
+//                Color.web("#ADFF2F"), // Green-yellow
+//                Color.web("#800080"), // Purple
+//                Color.web("#BA55D3"), // Medium orchid
+//                Color.web("#9370DB"), // Medium purple
+//                Color.web("#8A2BE2"), // Blue-violet
+//                Color.web("#FFFF00"), // Pure yellow
+//                Color.web("#FFD700"), // Gold
+//                Color.web("#FFA500"), // Orange
+//                Color.web("#FFFFE0")  // Light yellow
+//        };
         lastColorIndex++; // Increment the last color index
         if (lastColorIndex >= availableColors.length) {
             lastColorIndex = 0; // If we reach the end of the array, start over
