@@ -668,7 +668,53 @@ public class ATCController extends MainController {
         asdaTextArea.clear();
         ldaTextArea.clear();
         ATCprintTXT.setVisible(false);
-//refresh visualisation
+        //refresh visualisation
+        refreshVisualisation();
+    }
+
+    public void refreshVisualisation(){
+        removeSlope();
+        removeObjects();
+        sideLeftAwayLabel.setText("");
+        sideLeftTowardsLabel.setText("");
+        sideRightAwayLabel.setText("");
+        sideRightTowardsLabel.setText("");
+        topLeftAwayLabel.setText("");
+        topLeftTowardsLabel.setText("");
+        topRightAwayLabel.setText("");
+        topRightTowardsLabel.setText("");
+        sideLeftLeftDesig.setText("XX");
+        sideLeftRightDesig.setText("XX");
+        sideRightLeftDesig.setText("XX");
+        sideRightRightDesig.setText("XX");
+        topLeftLeftDesig.setText("XX");
+        topLeftRightDesig.setText("XX");
+        topRightLeftDesig.setText("XX");
+        topRightRightDesig.setText("XX");
+
+        sideLeftAwayArrowline.setVisible(false);
+        sideLeftAwayArrowhead.setVisible(false);
+        sideLeftTowardsArrowline.setVisible(false);
+        sideLeftTowardsArrowhead.setVisible(false);
+
+        sideRightAwayArrowline.setVisible(false);
+        sideRightAwayArrowhead.setVisible(false);
+        sideRightTowardsArrowline.setVisible(false);
+        sideRightTowardsArrowhead.setVisible(false);
+
+        topLeftAwayArrowline.setVisible(false);
+        topLeftAwayArrowhead.setVisible(false);
+        topLeftTowardsArrowline.setVisible(false);
+        topLeftTowardsArrowhead.setVisible(false);
+
+        topRightAwayArrowline.setVisible(false);
+        topRightAwayArrowhead.setVisible(false);
+        topRightTowardsArrowline.setVisible(false);
+        topRightTowardsArrowhead.setVisible(false);
+
+        zoomSlider.setValue(1.0);
+        rotationSlider.setValue(0);
+
     }
 
     public void clearChanges() throws SQLException {
