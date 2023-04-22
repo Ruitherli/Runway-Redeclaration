@@ -32,13 +32,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.TabPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.imageio.ImageIO;
 
 import java.awt.*;
-import java.awt.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -350,6 +348,10 @@ public class ATCController extends MainController {
     ArrayList<Text> temporaryText = new ArrayList<Text>();
     ArrayList<Polygon> temporaryPolygons = new ArrayList<Polygon>();
     ArrayList<Text> polygonText = new ArrayList<Text>();
+    ArrayList<Text> labelToChangeColour = new ArrayList<Text>(); // same as temporary text but without the slope label
+    ArrayList<javafx.scene.shape.Rectangle> rectToChangeColour = new ArrayList<Rectangle>();  // same as temporary rect but without the obstacle
+
+
     //ArrayList<Color> originalColors = new ArrayList<>(); // add a new ArrayList to store the original colors
     boolean toggleOn = false;
 
@@ -1317,7 +1319,7 @@ public class ATCController extends MainController {
             temporaryRect.add(lengthLine); //add to temporary list
             lengthLine.setFill(color);
             lengthLine.toFront();
-            changeColour(lengthLine);  //check if need to change colour
+            //changeColour(lengthLine);  //check if need to change colour
 
             //Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY() + drawnRunway.getHeight());
             Line startMarker = new Line(startX, startY, startX, drawnRunway.getLayoutY()+ drawnRunway.getHeight()/2);
@@ -1331,6 +1333,13 @@ public class ATCController extends MainController {
             temporaryText.add(text);
             text.setFont(Font.font("Arial", 10));
             text.setFill(color);
+
+            //-----for colour blind purpose-------
+            rectToChangeColour.add(lengthLine);
+            labelToChangeColour.add(text);
+            changeColour(lengthLine,text);  //check if need to change colour
+            //------------------------------------
+
             Bounds lineBounds = lengthLine.getBoundsInParent();
             double textX = lineBounds.getMinX() + (lineBounds.getWidth() - text.getLayoutBounds().getWidth()) / 2;
             double textY = lineBounds.getMaxY() + 10;
@@ -1342,8 +1351,6 @@ public class ATCController extends MainController {
         }
     }
 
-    private void changeColour(Rectangle lengthLine) {
-    }
 
     public void setObstacle(Runway r, ObstacleLocation ol, AnchorPane pane,Rectangle drawnRunway) {
         obstacle = new Rectangle(0, 0, 30, 60);
@@ -1784,40 +1791,43 @@ public class ATCController extends MainController {
         return dateFormat.format(new Date());
     }
 
-//    private void changeColour(Rectangle rectangle) {
-//        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
-//            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
-//        }
-//        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
-//        if (toggleOn) {  //if toggle button is on ....
-//            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
-//                rectangle.setFill(Color.DARKSLATEBLUE);
-//            } else {
-//                rectangle.setFill(Color.DARKKHAKI);
-//            }
-//        } else {  // if toggle button is off, switch back to original colour
-//            rectangle.setFill(originalColor);
-//        }
-//    }
-//
-//
-//    public void toggleColour(){
-//        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
-//        for (Rectangle rectangle : temporaryRect) {
-//            changeColour(rectangle);
-//        }
-//    }
+    /*private void changeColour(Rectangle rectangle) {
+        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
+            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
+        }
+        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
+        if (toggleOn) {  //if toggle button is on ....
+            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
+                rectangle.setFill(Color.DARKSLATEBLUE);
+            } else {
+                rectangle.setFill(Color.DARKKHAKI);
+            }
+        } else {  // if toggle button is off, switch back to original colour
+            rectangle.setFill(originalColor);
+        }
+    }
+
+
+    public void toggleColour(){
+        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
+        for (Rectangle rectangle : temporaryRect) {
+            changeColour(rectangle);
+        }
+    }*/
 
     private void changeColour(Rectangle rectangle, Text text) {
         // Store the original color if it hasn't been stored yet
         if (!rectangle.getProperties().containsKey("originalColor")) {
             rectangle.getProperties().put("originalColor", rectangle.getFill());
-            text.getProperties().put("originalColor", text.getFill());
+            //text.getProperties().put("originalColor", text.getFill());
+        }
+        if (!text.getProperties().containsKey("originalTextColor")) {
+            text.getProperties().put("originalTextColor", text.getFill());
         }
 
         // Get the original color of the rectangle and text
         Color originalColor = (Color) rectangle.getProperties().get("originalColor");
-        Color originalTextColor = (Color) text.getProperties().get("originalColor");
+        Color originalTextColor = (Color) text.getProperties().get("originalTextColor");
 
         // Check if the toggle button is on
         if (toggleOn) {
@@ -1834,11 +1844,14 @@ public class ATCController extends MainController {
 
     public void toggleColour(){
         toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
-        for (int i = 0; i < temporaryRect.size(); i++) {
-            Rectangle rectangle = temporaryRect.get(i);
-            Text text = temporaryText.get(i);
+        for (int i = 0; i < rectToChangeColour.size(); i++) {
+            //Rectangle rectangle = temporaryRect.get(i);
+            //Text text = temporaryText.get(i);
+            Rectangle rectangle = rectToChangeColour.get(i);
+            Text text = labelToChangeColour.get(i);
             changeColour(rectangle, text);
         }
+        lastColorIndex = -1;  //reset the colour index to ensure same colour instead of random colour everytime clicking the toggle button
     }
 
     private int lastColorIndex = -1; // Keep track of the last color index returned
