@@ -533,7 +533,7 @@
                                           </AnchorPane>
                                       </content>
                                     </TitledPane>
-                                    <ToggleButton fx:id="colourBlindToggle" mnemonicParsing="false" onAction="#toggleColour" text="ToggleButton" />
+                                    <ToggleButton fx:id="colourBlindToggle" mnemonicParsing="false" onAction="#toggleColour" text="Colour Blind Mode" />
                                             </children>
                                         </VBox>
                                     </children>

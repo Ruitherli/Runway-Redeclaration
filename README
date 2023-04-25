@@ -1,0 +1,79 @@
+
+1. Brief Introduction
+Welcome to the Airport Runway System. Our system helps manage airport runways to ensure safe takeoffs, landings, and aircraft of any size to operate without incident or accident. Its purpose is to facilitate smooth operations while simultaneously reducing accidents at airports by offering comprehensive support in every aspect of runway management - including scheduling runway maintenance tasks as well as weather tracking flights - making airport management simple 24/7! We take great pride in offering user-friendly yet dependable solutions to ensure airports run seamlessly all the time!
+-----------------------------------------------------------------------------------------------------
+
+2. Installation Instructions
+
+Step 1:
+Install IntelliJ: If you don't already have IntelliJ installed, you can download it from the official website at https://www.jetbrains.com/idea/download/. Follow the instructions provided on the website to install IntelliJ on your computer.
+
+Step 2:
+Install XAMPP: Download and install XAMPP on your computer by following the instructions on the official website at https://www.apachefriends.org/index.html. Be sure to download the appropriate version of XAMPP for your operating system.
+
+Step 3:
+Set up the database: After installing XAMPP, open the XAMPP Control Panel and start the Apache and MySQL services. Then, open your web browser and go to http://localhost/phpmyadmin. From here, you can create a new database and tables, and import any necessary data.
+
+Step 4:
+Configure the project: In IntelliJ, open the project and go to File -> Project Structure. Under "Project Settings", click on "Libraries" and then click the "+" button to add a new library. Choose "Java" as the library type and add the JDBC driver to the library. You can download the JDBC driver from the MySQL website at https://dev.mysql.com/downloads/connector/j/. Once the library is added, go to File -> Settings and then navigate to "Build, Execution, Deployment" -> "Database". Here, you can add a new data source for your MySQL database and configure the connection URL, username, and password.
+
+Step 5:
+Test the connection: To test the connection between the project and the database, open the project and run the application. If everything is set up correctly, you should be able to connect to the database and perform database operations within your code.
+
+-----------------------------------------------------------------------------------------------------
+
+3. Usage Instructions
+
+This airport runway system has three different user roles: Airport Manager, Air Traffic Controller, and Admin. Here's what you can do as each user:
+
+Airport Manager:
+- Export/import database
+- Select runway
+- Input obstacle details
+- Select obstacle from presets
+- Input location of obstacles
+- Visualize the runway
+
+Air Traffic Controller:
+- Select runway
+- Visualize the runway
+- View calculation breakdown
+
+Admin:
+- Export/import database
+- Add user
+- Edit runway parameters
+- Edit passwords
+- Edit constraints
+
+To use the system, log in with your appropriate user credentials and navigate to the appropriate tab for the task you want to perform. Follow the instructions provided in each tab to carry out the desired action.
+
+-----------------------------------------------------------------------------------------------------
+
+4. Contact
+
+If you have any questions or concerns regarding airport runway system, please feel free to contact us using the following methods:
+
+Email: vk1c21@soton.ac.uk, yn1c21@soton.ac.uk, jst1c21@soton.ac.uk, rkh1c21@soton.ac.uk
+GitHub: https://github.com/Ruitherli/Runway-Redeclaration
+
+We welcome your feedback and suggestions and will do our best to respond in a timely manner. Thank you for your interest in airport runway system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
