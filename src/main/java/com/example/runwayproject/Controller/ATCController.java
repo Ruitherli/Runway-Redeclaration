@@ -606,7 +606,7 @@ public class ATCController extends MainController {
                 {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Notification");
-                alert.setHeaderText("Notification Title");
+                alert.setHeaderText("Notification");
 
                 if (AMController.getObstacleDeleted()) {
                         alert.setContentText("An Obstacle has been deleted at "+getDatetimeValue());
