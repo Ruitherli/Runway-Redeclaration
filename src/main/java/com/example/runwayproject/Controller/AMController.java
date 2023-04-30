@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.example.runwayproject.Connector.DbConnect.getConnection;
 import static com.example.runwayproject.Model.Calculator.*;
 
 public class AMController extends MainController {
@@ -697,24 +698,36 @@ public class AMController extends MainController {
             String check = name.getObstacleName();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("Change the Obstacle name from " + check + " to " + event.getNewValue() + "?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                try {
-                    connection = DbConnect.getConnection();
-                    PreparedStatement stmt = connection.prepareStatement("update obstacle set name = '" + event.getNewValue() + "' WHERE name = '" + check + "'");
-                    stmt.execute();
-                    setComboBox();
+            connection = getConnection();
+            try {
+                preparedStatement = connection.prepareStatement("SELECT name from obstacle where name = '" + event.getNewValue() + "' limit 1");
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    playInformationAlert("Obstacle name already exists in the database");
                     loadObstacleTable();
                     loadRunwayObsTable();
-                    event.consume();
                     connection.close();
-                } catch (SQLException e) {
-//                playInformationAlert("Obstacle name already exists in the database");
-                    playInformationAlert(String.valueOf(e));
-                    loadObstacleTable();
+                } else {
+                    alert.setContentText("Change the Obstacle name from " + check + " to " + event.getNewValue() + "?");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        String sql1 = ("update obstacle set name = '" + event.getNewValue() + "' WHERE name = '" + check + "'");
+                        PreparedStatement r = connection.prepareStatement(sql1);
+                        r.execute();
+                        setComboBox();
+                        loadObstacleTable();
+                        loadRunwayObsTable();
+                        event.consume();
+                        connection.close();
+                    }
                 }
-            }loadObstacleTable();
+                loadObstacleTable();
+                loadRunwayObsTable();
+                    } catch(SQLException e){
+//                playInformationAlert("Obstacle name already exists in the database");
+                        playInformationAlert("The format of the obstacle name entered is not correct");
+                    }
+            loadObstacleTable();
         });
 
         presetHeightCol.setOnEditCommit(event -> {
@@ -864,7 +877,7 @@ public class AMController extends MainController {
                         setRunway(r, sideLeftPane, sideRunway);
                         setRunway(r, topLeftPane, topRunway);
                     }
-                   // AMController.obstacleDeleted=true;
+
                     stmt1.execute();
                     stmt1.close();
 
