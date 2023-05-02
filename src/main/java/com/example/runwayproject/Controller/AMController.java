@@ -1021,7 +1021,10 @@ public class AMController extends MainController {
             playErrorAlert("The maximum obstacle height allowed is only " + maxObsHeight);
         } else if (Integer.parseInt(centerlineTextField.getText()) > averageRunwayWidth/2){
             playErrorAlert("Obstacle is off the runway. The runway width is only " + averageRunwayWidth);
-        }else {
+        } else if (Integer.parseInt(heightTextField.getText())==0 || Integer.parseInt(lengthTextField.getText())==0 || Integer.parseInt(widthTextField.getText())==0 ){
+            playErrorAlert("Dimensions cannot be 0");
+        }
+        else {
             connection = DbConnect.getConnection();
             String query = null;
             String runway = runwayComboBox.getValue();
