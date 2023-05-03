@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2023 at 05:58 AM
+-- Generation Time: May 03, 2023 at 06:54 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.2
 
@@ -62,7 +62,7 @@ CREATE TABLE `constant` (
 --
 
 INSERT INTO `constant` (`constant_id`, `RESA`, `strip_end`, `blast_protection`, `slope`, `minRunDistance`, `minLandingDistance`, `averageRunwayWidth`, `maxObsHeight`) VALUES
-(1, 400, 60, 300, 50, 1000, 1000, 100, 50);
+(1, 2323, 60, 300, 50, 1000, 1000, 100, 50);
 
 -- --------------------------------------------------------
 
@@ -83,23 +83,10 @@ CREATE TABLE `obstacle` (
 --
 
 INSERT INTO `obstacle` (`obstacle_id`, `name`, `height`, `length`, `width`) VALUES
-(1, 'name1', 14, 12, 15),
+(1, 'SCENARIO-1', 14, 12, 15),
 (2, 'SCENARIO-2', 15, 10, 18),
-(3, 'aplesbottom', 12, 100, 10),
+(3, 'SCENARIO-3', 12, 100, 10),
 (4, 'SCENARIO-4', 34, 30, 17);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `obstacle_history`
---
-
-CREATE TABLE `obstacle_history` (
-  `id` int(11) NOT NULL,
-  `obstacle_id` int(30) NOT NULL,
-  `added_deleted` enum('added','deleted') NOT NULL,
-  `time_stamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -122,7 +109,7 @@ CREATE TABLE `obstacle_location` (
 --
 
 INSERT INTO `obstacle_location` (`location_id`, `obstacle_id`, `runway_id`, `distance_from_threshold_R`, `distance_from_threshold_L`, `distance_from_centerline`, `direction_from_centerline`) VALUES
-(189, 3, 1, 3353, 0, 0, 'North');
+(219, 1, 1, 5248, 0, 0, 'North');
 
 --
 -- Triggers `obstacle_location`
@@ -130,20 +117,20 @@ INSERT INTO `obstacle_location` (`location_id`, `obstacle_id`, `runway_id`, `dis
 DELIMITER $$
 CREATE TRIGGER `obstacle_added` AFTER INSERT ON `obstacle_location` FOR EACH ROW BEGIN
   -- Delete all rows from the table
-  DELETE FROM obstacle_history;
+  DELETE FROM obstacle_update;
   -- Insert the latest row
-  INSERT INTO obstacle_history (obstacle_id, added_deleted, time_stamp)
-  VALUES (NEW.obstacle_id, 'added', NOW());
+  INSERT INTO obstacle_update (location_id, added_deleted, time_stamp)
+  VALUES (NEW.location_id, 'added', NOW());
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `obstacle_deleted` AFTER DELETE ON `obstacle_location` FOR EACH ROW BEGIN
   -- Delete all rows from the table
-  DELETE FROM obstacle_history;
+   DELETE FROM obstacle_update WHERE location_id = OLD.location_id;
   -- Insert the latest row
-  INSERT INTO obstacle_history (obstacle_id, added_deleted, time_stamp)
-  VALUES (old.obstacle_id, 'deleted', NOW());
+  INSERT INTO obstacle_update(location_id, added_deleted, time_stamp)
+  VALUES (old.location_id, 'deleted', NOW());
 END
 $$
 DELIMITER ;
@@ -190,10 +177,10 @@ CREATE TABLE `runway_designator` (
 --
 
 INSERT INTO `runway_designator` (`designator_id`, `designator_name`, `TORA`, `TODA`, `ASDA`, `LDA`, `displaced_thres`) VALUES
-(1, '09R', 3660, 3660, 3660, 3353, 307),
-(2, '27L', 3660, 3660, 3660, 3660, 0),
-(3, '09L', 3902, 3902, 3902, 3595, 306),
-(4, '27R', 5555, 3962, 3884, 3884, 0);
+(1, '09R', 5555, 3333, 3660, 3353, 307),
+(2, '27L', 5555, 3660, 3660, 3660, 0),
+(3, '09L', 2342, 3902, 3902, 3595, 306),
+(4, '27R', 2342, 1000, 3884, 3884, 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +199,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_name`, `password`, `role`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN'),
+('admin', 'daeccf0ad3c1fc8c8015205c332f5b42', 'ADMIN'),
 ('controller1', 'daeccf0ad3c1fc8c8015205c332f5b42', 'ATC'),
 ('manager1', 'c240642ddef994358c96da82c0361a58', 'AM');
 
@@ -238,12 +225,6 @@ ALTER TABLE `constant`
 ALTER TABLE `obstacle`
   ADD PRIMARY KEY (`obstacle_id`),
   ADD UNIQUE KEY `name` (`name`);
-
---
--- Indexes for table `obstacle_history`
---
-ALTER TABLE `obstacle_history`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `obstacle_location`
@@ -299,16 +280,10 @@ ALTER TABLE `obstacle`
   MODIFY `obstacle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT for table `obstacle_history`
---
-ALTER TABLE `obstacle_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
-
---
 -- AUTO_INCREMENT for table `obstacle_location`
 --
 ALTER TABLE `obstacle_location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT for table `runway`
