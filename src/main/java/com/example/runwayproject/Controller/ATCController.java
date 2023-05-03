@@ -570,17 +570,23 @@ public class ATCController extends MainController {
     private Timestamp datetimeValue;
     private Timeline timeline1;
     private Timeline timeline2;
-
+    private Timeline timeline3;
+    private Boolean obstacleChanges;
+    public Boolean getObstacleChanges() {
+        return obstacleChanges;
+    }
+    public void setObstacleChanges(Boolean obstacleChanges) {
+        this.obstacleChanges = obstacleChanges;
+    }
     public Timestamp getDatetimeValue() {
         return datetimeValue;
     }
-
     public void setDatetimeValue(Timestamp datetimeValue) {
         this.datetimeValue = datetimeValue;
     }
 
     public void startPeriodicCheck() throws SQLException {
-        timeline1 = new Timeline(new KeyFrame(Duration.seconds(20), event -> {
+        timeline1 = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             try {
                 checkChanges();
 
@@ -588,52 +594,58 @@ public class ATCController extends MainController {
 
                 throw new RuntimeException(e);
             }
-
-                try {
-                    refreshAll();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Page is refreshing. Please wait...");
-                alert1.show();
-                timeline2 = new Timeline(new KeyFrame(Duration.seconds(2), event1 -> {
-                    alert1.setResult(ButtonType.CANCEL);
-                    alert1.close();
-                }));
-                timeline2.play();
-
-                Platform.runLater(() ->
-                {
+            if(getObstacleChanges()){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Notification");
-                alert.setHeaderText("Notification");
 
                 if (AMController.getObstacleDeleted()) {
-                        alert.setContentText("An Obstacle has been deleted at "+getDatetimeValue());
-                        alert.showAndWait();
-                        AMController.setObstacleDeleted(false);
-                    }try {
-                        clearChanges();
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                    alert.setContentText("An OBSTACLE has been DELETED at " + getDatetimeValue() + " \n\n ↻ REFRESHING... ");
+                           // alert.showAndWait();
+                        alert.show();
+                        timeline2 = new Timeline(new KeyFrame(Duration.seconds(3), event1 -> {
+                            alert.setResult(ButtonType.CANCEL);
+                            alert.close();
+                            AMController.setObstacleDeleted(false);
+                            setObstacleChanges(false);
+                            try {
+                                refreshAll();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            try {
+                                clearChanges();
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            setObstacleChanges(false);
+                        }));
+                        timeline2.play();
                     }
-
                 if (AMController.getObstacleAdded()) {
-                        alert.setContentText("An New Obstacle has been Added at "+getDatetimeValue());
-                        alert.showAndWait();
+                    alert.setContentText("An NEW OBSTACLE has been ADDED at " + getDatetimeValue() + "\n\n ↻ REFRESHING... ");
+                    alert.show();
+                    timeline3 = new Timeline(new KeyFrame(Duration.seconds(3), event1 -> {
+                        alert.setResult(ButtonType.CANCEL);
+                        alert.close();
                         AMController.setObstacleAdded(false);
-                    try {
-                        clearChanges();
-
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                        setObstacleChanges(false);
+                        try {
+                            refreshAll();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            clearChanges();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        setObstacleChanges(false);
+                    }));
+                    timeline3.play();
                 }
-            });
-        }));
-
+            }}));
         clearChanges();
-
+        setObstacleChanges(false);
         timeline1.setCycleCount(Timeline.INDEFINITE);
         timeline1.play();
     }
@@ -647,7 +659,10 @@ public class ATCController extends MainController {
             timeline2.stop();
             timeline2 = null;
         }
-
+        if (timeline3 != null) {
+            timeline3.stop();
+            timeline3 = null;
+        }
     }
     public void switchToLogin2(ActionEvent e) throws IOException {
        stopPeriodicCheck();
@@ -668,7 +683,6 @@ public class ATCController extends MainController {
         asdaTextArea.clear();
         ldaTextArea.clear();
         ATCprintTXT.setVisible(false);
-        //refresh visualisation
         refreshVisualisation();
     }
 
@@ -720,7 +734,7 @@ public class ATCController extends MainController {
     public void clearChanges() throws SQLException {
         connection = DbConnect.getConnection();
         Statement statement = connection.createStatement();
-        statement.execute("DELETE FROM obstacle_history");
+        statement.execute("DELETE FROM obstacle_update");
         statement.close();
         connection.close();
     }
@@ -728,10 +742,11 @@ public class ATCController extends MainController {
 
     public void checkChanges() throws SQLException {
         connection = DbConnect.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT added_deleted,time_stamp from obstacle_history");
+        preparedStatement = connection.prepareStatement("SELECT added_deleted,time_stamp from obstacle_update");
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
+            setObstacleChanges(true);
             setDatetimeValue(Timestamp.valueOf(resultSet.getTimestamp("time_stamp").toLocalDateTime()));
             String action = resultSet.getString("added_deleted");
             if("deleted".equals(action)){
@@ -742,14 +757,14 @@ public class ATCController extends MainController {
                 AMController.setObstacleDeleted(false);
                 AMController.setObstacleAdded(true);
             }
+        }else{
+            setObstacleChanges(false);
         }
-
         resultSet = preparedStatement.executeQuery();
         connection.close();
         preparedStatement.close();
         resultSet.close();
     }
-
 
     public void setTextArea (){
         asdaTextArea.setEditable(false);
