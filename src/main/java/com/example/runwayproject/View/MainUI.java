@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -26,9 +25,8 @@ public class MainUI extends Application {
             alert.showAndWait();
         } else if (checkDatabase() == -1) {
 
-            //Create database
+            //Create database and add default admin
             createDatabase();
-            //Add default admin
             //Switch to admin page
             try {
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/runwayproject/ADMIN page.fxml")));

@@ -113,6 +113,12 @@ public class DbConnect {
                     "  `password` text NOT NULL,\n" +
                     "  `role` enum('ADMIN','AM','ATC') NOT NULL\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+            String table8CreateQuery = "CREATE TABLE `obstacle_history` (\n" +
+                    "  `id` int(11) NOT NULL,\n" +
+                    "  `obstacle_id` int(30) NOT NULL,\n" +
+                    "  `added_deleted` enum('added','deleted') NOT NULL,\n" +
+                    "  `time_stamp` datetime NOT NULL\n" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
             Statement stmt = conn.createStatement();
@@ -130,6 +136,7 @@ public class DbConnect {
             createTableStmt.executeUpdate(table5CreateQuery);
             createTableStmt.executeUpdate(table6CreateQuery);
             createTableStmt.executeUpdate(table7CreateQuery);
+            createTableStmt.executeUpdate(table8CreateQuery);
             System.out.println("Tables created successfully!");
 
             String addConstraintQuery1 = "ALTER TABLE `airport`\n" +
@@ -171,8 +178,24 @@ public class DbConnect {
             String addConstraintQuery14 = "ALTER TABLE `runway`\n" +
                     "  ADD CONSTRAINT `runway_ibfk_1` FOREIGN KEY (`designator_id_1`) REFERENCES `runway_designator` (`designator_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
                     "  ADD CONSTRAINT `runway_ibfk_2` FOREIGN KEY (`designator_id_2`) REFERENCES `runway_designator` (`designator_id`) ON DELETE CASCADE ON UPDATE CASCADE";
+            String addConstraintQuery15 = "ALTER TABLE `obstacle_history`\n" +
+                    "  ADD PRIMARY KEY (`id`);";
+            String addConstraintQuery16 = "ALTER TABLE `obstacle_history`\n" +
+                    "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;";
+            String triggerQuery1 = "CREATE TRIGGER `obstacle_added` AFTER INSERT ON `obstacle_location` FOR EACH ROW\n" +
+                    "BEGIN\n" +
+                    "    INSERT INTO `obstacle_history` (`obstacle_id`, `added_deleted`, `time_stamp`)\n" +
+                    "    VALUES (NEW.obstacle_id, 'added', NOW());\n" +
+                    "END;";
 
-
+            String triggerQuery2 = "CREATE TRIGGER `obstacle_deleted` AFTER DELETE ON `obstacle_location` FOR EACH ROW\n" +
+                    "  BEGIN\n" +
+                    "    -- Delete all rows from the table\n" +
+                    "    DELETE FROM obstacle_history;\n" +
+                    "    -- Insert the latest row\n" +
+                    "    INSERT INTO obstacle_history (obstacle_id, added_deleted, time_stamp)\n" +
+                    "    VALUES (old.obstacle_id, 'deleted', NOW());\n" +
+                    "  END;";
             Statement addConstraintStmt = conn.createStatement();
             addConstraintStmt.executeUpdate(addConstraintQuery1);
             addConstraintStmt.executeUpdate(addConstraintQuery2);
@@ -188,12 +211,23 @@ public class DbConnect {
             addConstraintStmt.executeUpdate(addConstraintQuery12);
             addConstraintStmt.executeUpdate(addConstraintQuery13);
             addConstraintStmt.executeUpdate(addConstraintQuery14);
+            addConstraintStmt.executeUpdate(addConstraintQuery15);
+            addConstraintStmt.executeUpdate(addConstraintQuery16);
+
+            Statement triggerStmt = conn.createStatement();
+            triggerStmt.executeUpdate(triggerQuery1);
+            triggerStmt.executeUpdate(triggerQuery2);
             System.out.println("Constraints added successfully!");
 
             String defaultAdmin = "INSERT INTO user (user_name, password, role) VALUES ('admin', MD5('admin'), 'ADMIN' )";
             Statement addDefaultAdmin = conn.createStatement();
             addDefaultAdmin.executeUpdate(defaultAdmin);
             System.out.println("Default admin added successfully!");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Welcome to our application! As a first-time user, we would like to provide you with the default admin username and password. The username is 'admin' and the password is also 'admin'. We strongly recommend that you change the password after logging in for security reasons. Thank you for using our app!");
+            alert.showAndWait();
         }catch (Exception e){
             e.printStackTrace();
         }
