@@ -338,7 +338,8 @@ public class ATCController extends MainController {
     private Label sideRightRightDesigLabel;
 
     @FXML
-    private ToggleButton colourBlindToggle;
+    private CheckMenuItem colourBlindMenu;
+
 
 
 
@@ -877,6 +878,7 @@ public class ATCController extends MainController {
     public void refreshRecTable() {
         try {
             String runway = runwayComboBox.getValue();
+            lastColorIndex = -1; // reset the last colour index everytime changing runway to give a consistent colour under colour blind mode
             try {
                 recAwayTableList.clear();
                 recTowardTableList.clear();
@@ -1904,7 +1906,8 @@ public class ATCController extends MainController {
     }
 
     public void toggleColour(){
-        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
+        //toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
+        toggleOn = colourBlindMenu.isSelected();
         for (int i = 0; i < rectToChangeColour.size(); i++) {
             //Rectangle rectangle = temporaryRect.get(i);
             //Text text = temporaryText.get(i);
