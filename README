@@ -27,7 +27,6 @@ Test the connection: To test the connection between the project and the database
 This airport runway system has three different user roles: Airport Manager, Air Traffic Controller, and Admin. Here's what you can do as each user:
 
 Airport Manager:
-- Export/import database
 - Select runway
 - Input obstacle details
 - Select obstacle from presets

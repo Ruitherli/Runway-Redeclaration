@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.DirectoryChooser;
@@ -25,8 +27,11 @@ import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
+import java.awt.MenuItem;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Objects;
@@ -38,6 +43,10 @@ import static com.example.runwayproject.Model.Calculator.maxObsHeight;
 
 //testing
 public class AdminController extends MainController {
+
+    @FXML
+    private MenuItem opensite;
+
     @FXML
     private TableView<RunwayDesignator> runwayDesignatorTable;
 
@@ -1438,5 +1447,12 @@ public class AdminController extends MainController {
         editPasswordAdmin.setText("Edit Admin Password");
         donePasswordEdit.setVisible(false);
 
+    }
+
+    @FXML
+    void hyperlink2(ActionEvent event) throws URISyntaxException, IOException {
+        System.out.println("opened");
+        File file = new File("src/main/resources/UserManualAdmin.pdf");
+        Desktop.getDesktop().open(file);
     }
 }
