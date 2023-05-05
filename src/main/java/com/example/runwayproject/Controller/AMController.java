@@ -724,7 +724,6 @@ public class AMController extends MainController {
                 loadObstacleTable();
                 loadRunwayObsTable();
                     } catch(SQLException e){
-//                playInformationAlert("Obstacle name already exists in the database");
                         playInformationAlert("The format of the obstacle name entered is not correct");
                     }
             loadObstacleTable();
