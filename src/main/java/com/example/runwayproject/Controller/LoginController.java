@@ -36,8 +36,8 @@ public class LoginController extends MainController{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setUsernameFormat(usernameField);
         setUsernameFormat(passwordField);
-        atcButton.setVisible(true);
-        amButton.setVisible(true);
+        atcButton.setVisible(false);
+        amButton.setVisible(false);
 
     }
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@design.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.runwayproject.Controller.LoginController">
    <children>
       <SplitPane fx:id="splitPaneLogin" dividerPositions="0.7119483315392895" layoutX="55.0" layoutY="28.0" prefHeight="820.0" prefWidth="1551.0" stylesheets="@design.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -66,17 +66,17 @@
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button fx:id="amButton" layoutX="56.0" layoutY="817.0" mnemonicParsing="false" onAction="#switchToAM" prefHeight="36.0" prefWidth="157.0" text="Sign In Manager">
+                        <Button fx:id="amButton" layoutX="56.0" layoutY="817.0" mnemonicParsing="false" onAction="#switchToAM" prefHeight="36.0" prefWidth="157.0" text="Sign In Manager" visible="false">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button fx:id="atcButton" layoutX="222.0" layoutY="706.0" mnemonicParsing="false" onAction="#switchToATC" prefHeight="36.0" prefWidth="160.0" text="Sign In ATC">
+                        <Button fx:id="atcButton" layoutX="222.0" layoutY="706.0" mnemonicParsing="false" onAction="#switchToATC" prefHeight="36.0" prefWidth="160.0" text="Sign In ATC" visible="false">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button fx:id="atcButton1" layoutX="142.0" layoutY="759.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="36.0" prefWidth="160.0" text="Sign In Admin">
+                        <Button fx:id="atcButton1" layoutX="142.0" layoutY="759.0" mnemonicParsing="false" onAction="#switchToAdmin" prefHeight="36.0" prefWidth="160.0" text="Sign In Admin" visible="false">
                            <font>
                               <Font size="19.0" />
                            </font>
