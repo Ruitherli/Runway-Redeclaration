@@ -45,9 +45,6 @@ import static com.example.runwayproject.Model.Calculator.maxObsHeight;
 public class AdminController extends MainController {
 
     @FXML
-    private MenuItem opensite;
-
-    @FXML
     private TableView<RunwayDesignator> runwayDesignatorTable;
 
     @FXML
