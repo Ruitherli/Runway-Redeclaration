@@ -37,6 +37,7 @@ import javafx.util.Duration;
 import javax.imageio.ImageIO;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -51,6 +52,7 @@ import java.util.ArrayList;
 
 
 import static com.example.runwayproject.Model.Calculator.*;
+import static javax.print.DocFlavor.URL.GIF;
 
 public class ATCController extends MainController {
 
@@ -1742,25 +1744,32 @@ public class ATCController extends MainController {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
             Date date = new Date();
 
-            // Create a directory chooser dialog
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Save Visualization");
+            // Create a file chooser dialog
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Visualization");
 
-            // Show the dialog and get the selected directory
-            File selectedDirectory = directoryChooser.showDialog(null);
+            // Add extension filters for supported file types
+            FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+            FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG Files", ".jpeg", ".jpg");
+            FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif");
+            fileChooser.getExtensionFilters().addAll(pngFilter, jpegFilter, gifFilter);
 
-            if (selectedDirectory != null) {
+            // Show the dialog and get the selected file
+            File selectedFile = fileChooser.showSaveDialog(null);
+
+            if (selectedFile != null) {
                 // Create the file name using the current date and time
-                String fileName = "Visualization_" + dateFormat.format(date) + ".png";
+                String fileName = "Visualization_" + dateFormat.format(date) + "." + getFileExtension(selectedFile);
 
                 // Create the file object in the selected directory with the chosen name
-                File file = new File(selectedDirectory.getAbsolutePath() + "/" + fileName);
+                File file = new File(selectedFile.getParentFile(), fileName);
 
                 // Take a snapshot of the visualization
                 WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
 
                 // Write the snapshot to the selected file
-                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+                BufferedImage bImage = SwingFXUtils.fromFXImage(snapshot, null);
+                ImageIO.write(bImage, getFileExtension(selectedFile), file);
 
                 System.out.println("File saved successfully: " + file.getAbsolutePath());
             }
@@ -1780,6 +1789,20 @@ public class ATCController extends MainController {
         rotationDegreeLabel.setVisible(true);
         zoomScaleLabel.setVisible(true);
     }
+
+
+
+    // Helper method to get the file extension
+    private String getFileExtension(File file) {
+        String extension = "";
+        String fileName = file.getName();
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            extension = fileName.substring(dotIndex + 1).toLowerCase();
+        }
+        return extension;
+    }
+
 
     private void changeColour(Rectangle rectangle, Text text) {
         // Store the original color if it hasn't been stored yet
