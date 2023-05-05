@@ -56,7 +56,6 @@
  -fx-margin: 8px 0;
  -fx-box-sizing: border-box;
  -fx-padding: 5 5 5 5;
-
 }
 #passwordField{
  -fx-padding:5px;
@@ -342,3 +341,38 @@
  -fx-font-size: 15px;
  -fx-font-family: Helvetica;
 }
+
+#usernameTextField{
+ -fx-padding:5px;
+ -fx-background-color: #dcdcdc;
+ -fx-background-radius: 10px;
+ -fx-prompt-text-fill: #C0C0C0;
+ -fx-prompt-text-size: 20px;
+ -fx-padding: 12px 20px;
+ -fx-margin: 8px 0;
+ -fx-box-sizing: border-box;
+ -fx-padding: 5 5 5 5;
+}
+#passwordField1{
+-fx-padding:5px;
+-fx-background-color: #dcdcdc;
+-fx-background-radius: 10px;
+-fx-prompt-text-fill: #C0C0C0;
+-fx-prompt-text-size: 20px;
+-fx-padding: 12px 20px;
+-fx-margin: 8px 0;
+-fx-box-sizing: border-box;
+-fx-padding: 5 5 5 5;
+}
+#passwordField2{
+-fx-padding:5px;
+-fx-background-color: #dcdcdc;
+-fx-background-radius: 10px;
+-fx-prompt-text-fill: #C0C0C0;
+-fx-prompt-text-size: 20px;
+-fx-padding: 12px 20px;
+-fx-margin: 8px 0;
+-fx-box-sizing: border-box;
+-fx-padding: 5 5 5 5;
+}
+
