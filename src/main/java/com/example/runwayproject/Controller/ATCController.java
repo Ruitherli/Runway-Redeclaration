@@ -1725,61 +1725,6 @@ public class ATCController extends MainController {
         rotationSlider.setValue(0);
     }
 
-
-//    @FXML
-//    private void export1() {
-//
-//        sideSwitchSideButton.setVisible(false);
-//        rotationSlider.setVisible(false);
-//        zoomSlider.setVisible(false);
-//        topSwitchSideButton.setVisible(false);
-//        recentreButton.setVisible(false);
-//        rotateLabel.setVisible(false);
-//        zoomLabel.setVisible(false);
-//        rotationDegreeLabel.setVisible(false);
-//        zoomScaleLabel.setVisible(false);
-//
-//        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Save Visualization");
-//        fileChooser.setInitialFileName("visualization.png");
-//        fileChooser.getExtensionFilters().addAll(
-//                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
-//                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
-//                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
-//                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
-//        );
-//        File file = fileChooser.showSaveDialog(null);
-//        if (file != null) {
-//            try {
-//                String extension = getFileExtension(file.getName());
-//                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        sideSwitchSideButton.setVisible(true);
-//        rotationSlider.setVisible(true);
-//        zoomSlider.setVisible(true);
-//        topSwitchSideButton.setVisible(true);
-//        recentreButton.setVisible(true);
-//        rotateLabel.setVisible(true);
-//        zoomLabel.setVisible(true);
-//        rotationDegreeLabel.setVisible(true);
-//        zoomScaleLabel.setVisible(true);
-//
-//    }
-//
-//    private String getFileExtension(String fileName) {
-//        int dotIndex = fileName.lastIndexOf('.');
-//        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
-//            return fileName.substring(dotIndex + 1).toLowerCase();
-//        } else {
-//            return "png"; // Default to PNG if file extension is not found
-//        }
-//    }
-
     @FXML
     private void export1() {
         // Hide the UI elements that are not part of the visualization
@@ -1793,37 +1738,35 @@ public class ATCController extends MainController {
         rotationDegreeLabel.setVisible(false);
         zoomScaleLabel.setVisible(false);
 
-        // Take a snapshot of the visualization
-        WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy,HH-mm-ss");
+            Date date = new Date();
 
-        // Create a file chooser dialog
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Visualization");
+            // Create a directory chooser dialog
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Save Visualization");
 
-        // Set the default file name to the current date and time
-        String defaultFileName = "Visualization_" + getCurrentDateTime() + ".png";
-        fileChooser.setInitialFileName(defaultFileName);
+            // Show the dialog and get the selected directory
+            File selectedDirectory = directoryChooser.showDialog(null);
 
-        // Set the file extension filters
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
-                new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
-        );
+            if (selectedDirectory != null) {
+                // Create the file name using the current date and time
+                String fileName = "Visualization_" + dateFormat.format(date) + ".png";
 
-        // Show the dialog and get the selected file
-        File file = fileChooser.showSaveDialog(null);
-        if (file != null) {
-            try {
-                // Get the file extension
-                String extension = getFileExtension(file.getName());
+                // Create the file object in the selected directory with the chosen name
+                File file = new File(selectedDirectory.getAbsolutePath() + "/" + fileName);
+
+                // Take a snapshot of the visualization
+                WritableImage snapshot = TabPane.snapshot(new SnapshotParameters(), null);
 
                 // Write the snapshot to the selected file
-                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), extension, file);
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
 
                 System.out.println("File saved successfully: " + file.getAbsolutePath());
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         // Show the UI elements again
@@ -1837,6 +1780,7 @@ public class ATCController extends MainController {
         rotationDegreeLabel.setVisible(true);
         zoomScaleLabel.setVisible(true);
     }
+
 
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf(".");
