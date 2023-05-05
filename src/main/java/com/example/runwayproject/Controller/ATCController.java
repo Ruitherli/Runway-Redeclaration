@@ -1807,8 +1807,6 @@ public class ATCController extends MainController {
         // Set the file extension filters
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG files (*.jpg, *.jpeg)", "*.jpg", "*.jpeg"),
-                new FileChooser.ExtensionFilter("Bitmap files (*.bmp)", "*.bmp"),
                 new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif")
         );
 
