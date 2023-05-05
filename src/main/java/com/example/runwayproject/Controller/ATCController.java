@@ -1796,29 +1796,7 @@ public class ATCController extends MainController {
         return dateFormat.format(new Date());
     }
 
-    /*private void changeColour(Rectangle rectangle) {
-        if (!rectangle.getProperties().containsKey("originalColor")) { // check if the original color has already been stored
-            rectangle.getProperties().put("originalColor", rectangle.getFill()); // store the original color
-        }
-        Color originalColor = (Color) rectangle.getProperties().get("originalColor");
-        if (toggleOn) {  //if toggle button is on ....
-            if (temporaryRect.indexOf(rectangle) % 2 == 0) {   // alternating between these 2 colours
-                rectangle.setFill(Color.DARKSLATEBLUE);
-            } else {
-                rectangle.setFill(Color.DARKKHAKI);
-            }
-        } else {  // if toggle button is off, switch back to original colour
-            rectangle.setFill(originalColor);
-        }
-    }
 
-
-    public void toggleColour(){
-        toggleOn = colourBlindToggle.isSelected(); // toggle the boolean variable when the toggle button is clicked
-        for (Rectangle rectangle : temporaryRect) {
-            changeColour(rectangle);
-        }
-    }*/
 
     private void changeColour(Rectangle rectangle, Text text) {
         // Store the original color if it hasn't been stored yet
@@ -1874,23 +1852,7 @@ public class ATCController extends MainController {
                 Color.DARKMAGENTA, // Dark magenta
                 Color.LIGHTBLUE // Bright blue
         };
-//        Color[] availableColors = {Color.web("#0000FF"), // Pure blue
-//                Color.web("#0066CC"), // Deep sky blue
-//                Color.web("#1E90FF"), // Dodger blue
-//                Color.web("#6495ED"), // Cornflower blue
-//                Color.web("#008000"), // Green
-//                Color.web("#006400"), // Dark green
-//                Color.web("#228B22"), // Forest green
-//                Color.web("#ADFF2F"), // Green-yellow
-//                Color.web("#800080"), // Purple
-//                Color.web("#BA55D3"), // Medium orchid
-//                Color.web("#9370DB"), // Medium purple
-//                Color.web("#8A2BE2"), // Blue-violet
-//                Color.web("#FFFF00"), // Pure yellow
-//                Color.web("#FFD700"), // Gold
-//                Color.web("#FFA500"), // Orange
-//                Color.web("#FFFFE0")  // Light yellow
-//        };
+
         lastColorIndex++; // Increment the last color index
         if (lastColorIndex >= availableColors.length) {
             lastColorIndex = 0; // If we reach the end of the array, start over
