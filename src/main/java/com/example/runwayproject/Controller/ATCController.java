@@ -1781,23 +1781,6 @@ public class ATCController extends MainController {
         zoomScaleLabel.setVisible(true);
     }
 
-
-    private String getFileExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf(".");
-        if (dotIndex >= 0) {
-            return fileName.substring(dotIndex + 1);
-        } else {
-            return "";
-        }
-    }
-
-    private String getCurrentDateTime() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        return dateFormat.format(new Date());
-    }
-
-
-
     private void changeColour(Rectangle rectangle, Text text) {
         // Store the original color if it hasn't been stored yet
         if (!rectangle.getProperties().containsKey("originalColor")) {
