@@ -1750,7 +1750,7 @@ public class ATCController extends MainController {
 
             // Add extension filters for supported file types
             FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
-            FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG Files", ".jpeg", ".jpg");
+            FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPEG Files (*.jpeg)", "*.jpeg");
             FileChooser.ExtensionFilter gifFilter = new FileChooser.ExtensionFilter("GIF files (*.gif)", "*.gif");
             fileChooser.getExtensionFilters().addAll(pngFilter, jpegFilter, gifFilter);
 
@@ -1789,8 +1789,6 @@ public class ATCController extends MainController {
         rotationDegreeLabel.setVisible(true);
         zoomScaleLabel.setVisible(true);
     }
-
-
 
     // Helper method to get the file extension
     private String getFileExtension(File file) {
