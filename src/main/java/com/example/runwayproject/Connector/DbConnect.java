@@ -113,9 +113,9 @@ public class DbConnect {
                     "  `password` text NOT NULL,\n" +
                     "  `role` enum('ADMIN','AM','ATC') NOT NULL\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
-            String table8CreateQuery = "CREATE TABLE `obstacle_history` (\n" +
+            String table8CreateQuery = "CREATE TABLE `obstacle_update` (\n" +
                     "  `id` int(11) NOT NULL,\n" +
-                    "  `obstacle_id` int(30) NOT NULL,\n" +
+                    "  `location_id` int(30) NOT NULL,\n" +
                     "  `added_deleted` enum('added','deleted') NOT NULL,\n" +
                     "  `time_stamp` datetime NOT NULL\n" +
                     ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
@@ -178,23 +178,23 @@ public class DbConnect {
             String addConstraintQuery14 = "ALTER TABLE `runway`\n" +
                     "  ADD CONSTRAINT `runway_ibfk_1` FOREIGN KEY (`designator_id_1`) REFERENCES `runway_designator` (`designator_id`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
                     "  ADD CONSTRAINT `runway_ibfk_2` FOREIGN KEY (`designator_id_2`) REFERENCES `runway_designator` (`designator_id`) ON DELETE CASCADE ON UPDATE CASCADE";
-            String addConstraintQuery15 = "ALTER TABLE `obstacle_history`\n" +
+            String addConstraintQuery15 = "ALTER TABLE `obstacle_update`\n" +
                     "  ADD PRIMARY KEY (`id`);";
-            String addConstraintQuery16 = "ALTER TABLE `obstacle_history`\n" +
+            String addConstraintQuery16 = "ALTER TABLE `obstacle_update`\n" +
                     "  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;";
             String triggerQuery1 = "CREATE TRIGGER `obstacle_added` AFTER INSERT ON `obstacle_location` FOR EACH ROW\n" +
                     "BEGIN\n" +
-                    "    INSERT INTO `obstacle_history` (`obstacle_id`, `added_deleted`, `time_stamp`)\n" +
-                    "    VALUES (NEW.obstacle_id, 'added', NOW());\n" +
+                    "    INSERT INTO `obstacle_update` (`location_id`, `added_deleted`, `time_stamp`)\n" +
+                    "    VALUES (NEW.location_id, 'added', NOW());\n" +
                     "END;";
 
             String triggerQuery2 = "CREATE TRIGGER `obstacle_deleted` AFTER DELETE ON `obstacle_location` FOR EACH ROW\n" +
                     "  BEGIN\n" +
                     "    -- Delete all rows from the table\n" +
-                    "    DELETE FROM obstacle_history;\n" +
+                    "    DELETE FROM obstacle_update;\n" +
                     "    -- Insert the latest row\n" +
-                    "    INSERT INTO obstacle_history (obstacle_id, added_deleted, time_stamp)\n" +
-                    "    VALUES (old.obstacle_id, 'deleted', NOW());\n" +
+                    "    INSERT INTO obstacle_update (location_id, added_deleted, time_stamp)\n" +
+                    "    VALUES (old.location_id, 'deleted', NOW());\n" +
                     "  END;";
             Statement addConstraintStmt = conn.createStatement();
             addConstraintStmt.executeUpdate(addConstraintQuery1);
